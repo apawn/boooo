@@ -1,7 +1,9 @@
 # 离线朗读
 
-本目录包含 Kokoro v1.1 Mandarin/English 的量化模型、发音词典及音色归档，由 Git LFS 管理。首次克隆请运行 `git lfs pull`，然后在 `__pages` 下运行 `npm ci` 和 `npm start`。启动脚本会校验并解压首次使用的模型。安装完成后，朗读可离线使用。
+英语使用 Kokoro v1.0 的美式 Heart 女声（0.76 倍），保留完整精度的模型。普通话使用 Matcha Baker 单人女声（0.91 倍），由 Vocos 合成波形。中英文均在本地 CPU 上合成。
 
-普通话使用 zf_004 女声（0.91 倍），英语使用美式 Sol 女声（0.76 倍）。英语通过随应用安装的 eSpeak NG 发音模块生成音素，由 Kokoro 合成声音。模型由本地 Node 服务通过 sherpa-onnx 在 CPU 上运行。选区文字仅传给本地阅读服务。归档保留上游分发的许可证及资源，模型许可为 Apache 2.0。
+首次克隆请运行 `git lfs pull`，在 `__pages` 下运行 `npm ci` 和 `npm start`。英文模型归档随仓库由 Git LFS 分发。首次启动还会从 sherpa-onnx 的发布页下载普通话声学模型和声码器，校验 SHA-256 后存入 `speech/models/`。安装完成后可离线运行。上游注明 Baker 训练数据仅限非商业用途。
 
-[模型说明](https://huggingface.co/hexgrad/Kokoro-82M-v1.1-zh) · [上游量化归档](https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/kokoro-int8-multi-lang-v1_1.tar.bz2)
+服务启动时提前载入模型。选区开头先合成一个短片段，再继续向下朗读。已生成的片段最多在服务内存中缓存 16 MiB，重启后清空。
+
+[英文模型与音色](https://huggingface.co/hexgrad/Kokoro-82M) · [普通话模型与试听](https://k2-fsa.github.io/sherpa/onnx/tts/all/Chinese/matcha-icefall-zh-baker.html) · [Baker 模型说明](https://huggingface.co/csukuangfj/matcha-icefall-zh-baker)

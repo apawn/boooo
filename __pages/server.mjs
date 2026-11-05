@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { serveSpeech } from './speech/engine.mjs';
+import { serveSpeech, warmSpeech } from './speech/engine.mjs';
 import { tocLabels, chapterLabel } from './labels.mjs';
 import { readdir, readFile, realpath, stat } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
@@ -131,4 +131,4 @@ http.createServer(async(req,res)=>{
     }
     res.writeHead(404).end('Not found');
   }catch(e){if(e.code!=='ENOENT')console.error(e);res.writeHead(e.code==='ENOENT'?404:500).end();}
-}).listen(port,'127.0.0.1',()=>console.log('Reader: http://127.0.0.1:'+port));
+}).listen(port,'127.0.0.1',()=>{console.log('Reader: http://127.0.0.1:'+port);warmSpeech();});

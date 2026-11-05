@@ -39,6 +39,7 @@
 
   // Read the selection's first character through the end of this chapter.
   function* passage(range) {
+    let first=true;
     const blocks=article.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,figcaption');
     for(const block of blocks) {
       if(block.closest('nav') || block.querySelector('p,li,figcaption') || range.comparePoint(block,block.childNodes.length)<0) continue;
@@ -53,18 +54,23 @@
         let rest=segment.trim();
         while(rest) {
           const lang=/\p{Script=Han}/u.test(rest)?'zh':'en';
-          const limit=lang==='zh'?95:235;
+          const limit=lang==='zh'?(first?34:95):(first?95:235);
           let end=rest.length;
           if(end>limit) {
             const prefix=rest.slice(0,limit);
             const clause=[...prefix.matchAll(/[，；：,;:—](?!\d)/g)].at(-1);
+            const phrase=first && lang==='en' && [...prefix.matchAll(/\s+(?:that|which|while|because|although|where|when|but|and|from)\s/gi)].filter(m=>m.index>=30).at(-1);
             const word=prefix.lastIndexOf(' ');
             if(clause) end=clause.index+1;
+            else if(phrase) end=phrase.index;
             else end=word>limit/3 ? word+1 : limit;
           }
           const text=rest.slice(0,end).trim();
           rest=rest.slice(end).trim();
-          if(/[\p{L}\p{N}]/u.test(text)) yield {text,lang,block};
+          if(/[\p{L}\p{N}]/u.test(text)) {
+            first=false;
+            yield {text,lang,block};
+          }
         }
       }
     }
