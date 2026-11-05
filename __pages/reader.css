@@ -142,7 +142,12 @@ article blockquote {margin:.5em 0 1.45em;padding:0 0 0 1em;border-left:2px solid
 .speech-player {bottom:30px;right:30px;display:flex;align-items:center;gap:6px;padding:5px 7px 5px 12px;border-radius:7px;font:13px/1.5 sans-serif;}
 .speech-player button {background:transparent;border:0;color:inherit;padding:6px;border-radius:4px;}
 .speech-player button:hover,.speech-trigger:hover {background:#56604c;}
-.speech-current {background-color:#a4a87b1b;outline:2px solid #a4a87b1b;}
+/* One overlay follows the visible line without changing the text layout or selection. */
+.reading-line {position:fixed;left:0;top:0;height:3px;pointer-events:none;z-index:2;
+  background:repeat-x left center/8px 3px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='3'%3E%3Cpath d='M0 1.5Q2 -.5 4 1.5T8 1.5' stroke='%2395a084' stroke-opacity='.8' fill='none'/%3E%3C/svg%3E");}
+.speech-player .pause {background:#f3f0e3;color:#404735;padding:5px 10px;}
+.speech-player .pause:hover {background:#e8e4d4;}
+#toolbar-pause {border:1px solid var(--line);border-radius:4px;background:#efefdf;color:#414a3a;min-width:30px;height:29px;}
 @media(max-width:620px){.speech-player{right:15px;bottom:18px;max-width:calc(100vw - 30px);}}
 .reader-tools {display:flex;align-items:center;gap:6px;flex:none;}
 #voice-settings,#voice-dialog button,#voice-dialog select {border:1px solid var(--line);border-radius:5px;background:var(--paper);padding:5px 8px;color:var(--ink);font:inherit;}

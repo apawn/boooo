@@ -1,3 +1,4 @@
+import {createReadingLine} from './reading-line.js';
 (() => {
   const article = document.querySelector('article');
   const scroll = document.querySelector('#scroll');
@@ -14,7 +15,19 @@
   const stop = player.querySelector('.stop');
   document.body.append(trigger,player);
   trigger.hidden = player.hidden = true;
-  let selected, session, context, highlighted;
+  const readingLine=createReadingLine(scroll);
+  const toolbarPause=document.createElement('button');
+  toolbarPause.id='toolbar-pause';
+  toolbarPause.type='button';
+  toolbarPause.hidden=true;
+  document.querySelector('.reader-tools').prepend(toolbarPause);
+  toolbarPause.onclick=()=>pause.click();
+  function showPause(paused) {
+    pause.textContent=paused?'继续':'暂停';
+    toolbarPause.textContent=paused?'▶':'Ⅱ';
+    toolbarPause.title=toolbarPause.ariaLabel=paused?'继续朗读':'暂停朗读';
+  }
+  let selected, session, context;
 
   const dialog=document.querySelector('#voice-dialog');
   const voiceSelect=document.querySelector('#mandarin-voice');
@@ -75,12 +88,15 @@
       const fragment=document.createRange();
       fragment.selectNodeContents(block);
       if(block.contains(range.startContainer)) fragment.setStart(range.startContainer,range.startOffset);
-      const full=fragment.toString().trim();
+      const suffix=fragment.toString();
+      const full=suffix.trim();
+      const base=block.textContent.length-suffix.length+suffix.indexOf(full);
       if(!full) continue;
       const locale=/\p{Script=Han}/u.test(full)?'zh':'en';
       const sentences=new Intl.Segmenter(locale,{granularity:'sentence'}).segment(full);
-      for(const {segment} of sentences) {
+      for(const {segment,index} of sentences) {
         let rest=segment.trim();
+        let offset=base+index+segment.indexOf(rest);
         while(rest) {
           const lang=/\p{Script=Han}/u.test(rest)?'zh':'en';
           const limit=lang==='zh'?(first?34:95):(first?95:235);
@@ -95,10 +111,13 @@
             else end=word>limit/3 ? word+1 : limit;
           }
           const text=rest.slice(0,end).trim();
-          rest=rest.slice(end).trim();
+          const remainder=rest.slice(end);
+          rest=remainder.trim();
+          const partOffset=offset;
+          offset+=end+remainder.indexOf(rest);
           if(/[\p{L}\p{N}]/u.test(text)) {
             first=false;
-            yield {text,lang,block};
+            yield {text,lang,block,offset:partOffset};
           }
         }
       }
@@ -110,7 +129,7 @@
       if(session.source) { session.source.onended=null; session.source.stop(); session.source.disconnect(); }
     }
     session=undefined;
-    highlighted?.classList.remove('speech-current'); highlighted=undefined;
+    readingLine.clear();toolbarPause.hidden=true;
     player.hidden=true;
   }
   async function load(part,s) {
@@ -128,11 +147,6 @@
     if(session!==s) return;
     const source=context.createBufferSource();
     source.buffer=buffer;source.connect(context.destination);s.source=source;
-    if(highlighted!==part.block) {
-      highlighted?.classList.remove('speech-current');highlighted=part.block;highlighted.classList.add('speech-current');
-      const rect=highlighted.getBoundingClientRect(),viewport=scroll.getBoundingClientRect();
-      if(rect.top>=viewport.bottom || rect.bottom<=viewport.top) highlighted.scrollIntoView({block:'start'});
-    }
     status.textContent=s.paused?'已暂停':(part.lang==='zh'?'普通话朗读':'英文朗读');
     const next=s.parts.next();
     const preparedVoice=voice;
@@ -153,7 +167,9 @@
         await play(next.value,buffer,s);
       } catch { error(s); }
     };
-    source.start();
+    const start=context.currentTime;
+    source.start(start);
+    readingLine.follow(part,buffer,context,start);
   }
   trigger.addEventListener('click',async()=>{
     if(!selected) return;
@@ -164,7 +180,7 @@
     const s={parts,controller:new AbortController(),paused:false};
     session=s;
     getSelection().removeAllRanges();trigger.hidden=true;
-    player.hidden=false;pause.hidden=false;pause.textContent='暂停';status.textContent='正在准备朗读…';
+    player.hidden=false;pause.hidden=false;toolbarPause.hidden=false;showPause(false);status.textContent='正在准备朗读…';
     try {
       context ??= new AudioContext();
       await context.resume();
@@ -175,7 +191,7 @@
     const s=session;
     if(!s || !context) return;
     s.paused=!s.paused;
-    pause.textContent=s.paused?'继续':'暂停';
+    showPause(s.paused);
     status.textContent=s.paused?'已暂停':'正在朗读';
     try { if(s.paused) await context.suspend(); else await context.resume(); } catch {error(s);}
   };
