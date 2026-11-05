@@ -2,6 +2,7 @@ import { availableParallelism } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { defaultMandarin, mandarinVoices } from './voices.mjs';
 import { englishPhones } from './english.mjs';
+import { mandarinPhrases, mandarinRequest } from './mandarin.mjs';
 const asset = name => fileURLToPath(new URL('./models/'+name, import.meta.url));
 const kokoro = name => asset('kokoro-multi-lang-v1_0/'+name);
 
@@ -80,10 +81,19 @@ export async function serveSpeech(req,res) {
     if(res.destroyed) return;
     if(cache.has(key)) return send(cache.get(key));
     const tts=await getEngine(data.lang);
-    const generationConfig = data.lang === 'zh'
-      ? {sid:mandarinVoices.get(voice).sid, speed:.94}
-      : {sid:3, speed:.76, phonemeCodepoints:await englishPhones(data.text)};
-    const audio=await tts.generateAsync({text:data.text,generationConfig});
+    let audio;
+    if(data.lang==='zh') {
+      const chunks=[];
+      for(const phrase of mandarinPhrases(data.text)) {
+        chunks.push(await tts.generateAsync(mandarinRequest(phrase,mandarinVoices.get(voice).sid)));
+      }
+      const samples=new Float32Array(chunks.reduce((size,chunk)=>size+chunk.samples.length,0));
+      let offset=0;
+      for(const chunk of chunks) { samples.set(chunk.samples,offset);offset+=chunk.samples.length; }
+      audio={samples,sampleRate:chunks[0]?.sampleRate};
+    } else {
+      audio=await tts.generateAsync({text:data.text,generationConfig:{sid:3,speed:.76,phonemeCodepoints:await englishPhones(data.text)}});
+    }
     const buffer=wav(audio);
     remember(key,buffer);
     if(!res.destroyed) send(buffer);

@@ -5,9 +5,13 @@ export function createReadingLine(scroll) {
   line.setAttribute('aria-hidden','true');
   line.hidden=true;
   document.body.append(line);
-  let frame, current, lastIndex=-1, dirty=false;
+  let frame, current, lastIndex=-1, dirty=false, frozen=false;
 
-  function redraw() { dirty=true; }
+  function redraw() {
+    dirty=true;
+    // Keep a stopped marker anchored to its text when scrolling or changing font size.
+    if(frozen && current && lastIndex>=0) locate(lastIndex);
+  }
   scroll.addEventListener('scroll',redraw,{passive:true});
   new ResizeObserver(redraw).observe(scroll.querySelector('article'));
   window.addEventListener('resize',redraw);
@@ -44,6 +48,7 @@ export function createReadingLine(scroll) {
     lastIndex=index;
   }
   function draw() {
+    if(!current || frozen) return;
     const {clock,start,duration,marks,energy,base}=current;
     const fraction=Math.max(0,Math.min(1,(clock.currentTime-start)/duration));
     const pos=fraction*(energy.length-1);
@@ -60,7 +65,19 @@ export function createReadingLine(scroll) {
   }
   function clear() {
     cancelAnimationFrame(frame);
-    current=null;lastIndex=-1;line.hidden=true;
+    current=null;lastIndex=-1;line.hidden=true;frozen=false;
+  }
+  function freeze() {
+    if(!current || frozen) return;
+    cancelAnimationFrame(frame);
+    draw();
+    cancelAnimationFrame(frame);
+    frozen=true;
+  }
+  function resume() {
+    if(!current || !frozen) return;
+    frozen=false;
+    draw();
   }
   function follow(part,buffer,clock,start) {
     clear();
@@ -95,5 +112,5 @@ export function createReadingLine(scroll) {
     current={nodes,block:part.block,base:part.offset,marks,energy,clock,start,duration:buffer.duration};
     draw();
   }
-  return {follow,clear};
+  return {follow,clear,freeze,resume};
 }

@@ -22,10 +22,30 @@ import {createReadingLine} from './reading-line.js';
   toolbarPause.hidden=true;
   document.querySelector('.reader-tools').prepend(toolbarPause);
   toolbarPause.onclick=()=>pause.click();
+  let activeParagraph;
+  function markParagraph(block) {
+    const wrapper=block?.closest('.speech-paragraph');
+    if(wrapper===activeParagraph) return;
+    if(activeParagraph) {
+      activeParagraph.classList.remove('is-reading');
+      activeParagraph.querySelector('.paragraph-pause').hidden=true;
+    }
+    activeParagraph=wrapper;
+    if(wrapper) {
+      wrapper.classList.add('is-reading');
+      wrapper.querySelector('.paragraph-pause').hidden=false;
+      showPause(session?.paused ?? false);
+    }
+  }
   function showPause(paused) {
     pause.textContent=paused?'继续':'暂停';
     toolbarPause.textContent=paused?'▶':'Ⅱ';
     toolbarPause.title=toolbarPause.ariaLabel=paused?'继续朗读':'暂停朗读';
+    const button=activeParagraph?.querySelector('.paragraph-pause');
+    if(button) {
+      button.title=button.ariaLabel=paused?'继续本段朗读':'暂停本段朗读';
+      button.innerHTML='<svg aria-hidden="true" viewBox="0 0 24 24">'+(paused?'<path d="m9 5 11 7-11 7Z"/>':'<path d="M7 5h4v14H7zM15 5h4v14h-4z"/>')+'</svg>';
+    }
   }
   let selected, session, context;
 
@@ -79,6 +99,31 @@ import {createReadingLine} from './reading-line.js';
   window.addEventListener('resize',showSelection);
   trigger.addEventListener('pointerdown',e=>e.preventDefault());
 
+  // Keep controls outside paragraph text so selection and reading-line offsets stay intact.
+  article.classList.add('has-paragraph-speech');
+  for(const paragraph of article.querySelectorAll('p')) {
+    if(paragraph.closest('nav,header') || !/[\p{L}\p{N}]/u.test(paragraph.textContent)) continue;
+    const wrapper=document.createElement('div');
+    wrapper.className='speech-paragraph';
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='paragraph-play';
+    button.title=button.ariaLabel='从本段开始朗读';
+    button.innerHTML='<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z"/></svg>';
+    const paragraphPause=document.createElement('button');
+    paragraphPause.type='button';
+    paragraphPause.className='paragraph-pause';
+    paragraphPause.hidden=true;
+    paragraphPause.addEventListener('click',()=>pause.click());
+    paragraph.before(wrapper);
+    wrapper.append(button,paragraphPause,paragraph);
+    button.addEventListener('click',()=>{
+      const range=document.createRange();
+      range.selectNodeContents(paragraph);
+      startReading(range);
+    });
+  }
+
   // Read the selection's first character through the end of this chapter.
   function* passage(range) {
     let first=true;
@@ -99,7 +144,8 @@ import {createReadingLine} from './reading-line.js';
         let offset=base+index+segment.indexOf(rest);
         while(rest) {
           const lang=/\p{Script=Han}/u.test(rest)?'zh':'en';
-          const limit=lang==='zh'?(first?34:95):(first?95:235);
+          // Preserve Mandarin sentence context, including the first comma.
+          const limit=lang==='zh'?95:(first?95:235);
           let end=rest.length;
           if(end>limit) {
             const prefix=rest.slice(0,limit);
@@ -124,12 +170,13 @@ import {createReadingLine} from './reading-line.js';
     }
   }
   function finish() {
+    readingLine.freeze();
     if(session) {
       session.controller.abort();
       if(session.source) { session.source.onended=null; session.source.stop(); session.source.disconnect(); }
     }
     session=undefined;
-    readingLine.clear();toolbarPause.hidden=true;
+    markParagraph(null);toolbarPause.hidden=true;
     player.hidden=true;
   }
   async function load(part,s) {
@@ -140,7 +187,7 @@ import {createReadingLine} from './reading-line.js';
   function error(s) {
     if(s!==session) return;
     finish();
-    player.hidden=false;pause.hidden=true;status.textContent='朗读失败，请重新选中文字再试。';
+    player.hidden=false;pause.hidden=true;status.textContent='朗读失败，请点击播放按钮重试。';
   }
   // Prepare one sentence ahead while the current sentence plays.
   async function play(part,buffer,s) {
@@ -160,6 +207,7 @@ import {createReadingLine} from './reading-line.js';
     source.onended=async()=>{
       source.disconnect();s.source=null;
       if(session!==s) return;
+      readingLine.freeze();
       if(next.done) return finish();
       try {
         let buffer=await prepared;
@@ -168,17 +216,20 @@ import {createReadingLine} from './reading-line.js';
       } catch { error(s); }
     };
     const start=context.currentTime;
+    markParagraph(part.block);
     source.start(start);
     readingLine.follow(part,buffer,context,start);
+    if(s.paused) readingLine.freeze();
   }
-  trigger.addEventListener('click',async()=>{
-    if(!selected) return;
-    const parts=passage(selected.cloneRange());
+  async function startReading(range) {
+    const parts=passage(range);
     const first=parts.next();
     if(first.done) return;
     finish();
+    readingLine.clear();
     const s={parts,controller:new AbortController(),paused:false};
     session=s;
+    markParagraph(first.value.block);
     getSelection().removeAllRanges();trigger.hidden=true;
     player.hidden=false;pause.hidden=false;toolbarPause.hidden=false;showPause(false);status.textContent='正在准备朗读…';
     try {
@@ -186,6 +237,9 @@ import {createReadingLine} from './reading-line.js';
       await context.resume();
       await play(first.value,await load(first.value,s),s);
     } catch {error(s);}
+  }
+  trigger.addEventListener('click',()=>{
+    if(selected) startReading(selected.cloneRange());
   });
   pause.onclick=async()=>{
     const s=session;
@@ -193,8 +247,16 @@ import {createReadingLine} from './reading-line.js';
     s.paused=!s.paused;
     showPause(s.paused);
     status.textContent=s.paused?'已暂停':'正在朗读';
-    try { if(s.paused) await context.suspend(); else await context.resume(); } catch {error(s);}
+    try {
+      if(s.paused) {
+        await context.suspend();
+        if(session===s && s.paused) readingLine.freeze();
+      } else {
+        await context.resume();
+        if(session===s && !s.paused) readingLine.resume();
+      }
+    } catch {error(s);}
   };
   stop.onclick=finish;
-  window.addEventListener('pagehide',finish);
+  window.addEventListener('pagehide',()=>{finish();readingLine.clear();});
 })();
