@@ -6,16 +6,20 @@ import {createReadingLine} from './reading-line.js';
   trigger.type = 'button';
   trigger.className = 'speech-trigger';
   trigger.title = trigger.ariaLabel = '从这里开始朗读';
-  trigger.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM16 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>';
+  trigger.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z"/></svg>';
   const player = document.createElement('div');
-  player.className = 'speech-player';
-  player.innerHTML = '<span role="status" aria-live="polite"></span><button type="button" class="pause">暂停</button><button type="button" class="stop" aria-label="停止朗读">停止</button>';
+  player.className = 'speech-statusbar';
+  player.innerHTML = '<span role="status" aria-live="polite"></span><button type="button" class="reading-location" title="跳转到当前朗读位置并恢复跟随">回到朗读位置</button><button type="button" class="pause">暂停</button><button type="button" class="stop" aria-label="停止朗读">停止</button>';
   const status = player.querySelector('[role=status]');
   const pause = player.querySelector('.pause');
   const stop = player.querySelector('.stop');
-  document.body.append(trigger,player);
-  trigger.hidden = player.hidden = true;
+  const readingLocation=player.querySelector('.reading-location');
+  document.body.append(trigger);
+  scroll.before(player);
+  trigger.hidden = pause.hidden = stop.hidden = readingLocation.hidden = true;
+  status.textContent='悬停文字或点击段落左侧的 ▶ 开始朗读';
   const readingLine=createReadingLine(scroll);
+  readingLocation.onclick=()=>readingLine.jumpToCurrent();
   const toolbarPause=document.createElement('button');
   toolbarPause.id='toolbar-pause';
   toolbarPause.type='button';
@@ -48,6 +52,12 @@ import {createReadingLine} from './reading-line.js';
     }
   }
   let selected, session, context;
+  function updateStatus(s) {
+    player.dataset.state=s.loading?'loading':s.paused?'paused':'playing';
+    status.textContent=s.paused
+      ? (s.loading?'已暂停 · 正在准备播放…':'已暂停')
+      : s.loading?'正在准备播放…':s.lang==='zh'?'正在朗读 · 普通话':'正在朗读 · 英文';
+  }
 
   const dialog=document.querySelector('#voice-dialog');
   const voiceSelect=document.querySelector('#mandarin-voice');
@@ -78,26 +88,69 @@ import {createReadingLine} from './reading-line.js';
     }
   });
   dialog.onclose=()=>preview.pause();
+  let hoverRect, hideTimer;
+  function hideTrigger() {
+    clearTimeout(hideTimer);
+    trigger.hidden=true;selected=null;hoverRect=null;
+  }
+  function positionTrigger(range,rect) {
+    selected=range.cloneRange();hoverRect=rect;
+    trigger.hidden=false;
+    const {width,height}=trigger.getBoundingClientRect();
+    const bounds=scroll.getBoundingClientRect();
+    trigger.style.left=Math.max(bounds.left,Math.min(bounds.right-width,rect.left+(rect.width-width)/2))+'px';
+    trigger.style.top=Math.max(bounds.top,rect.top-height-3)+'px';
+  }
   function showSelection() {
     const sel = getSelection();
+    if (!sel.rangeCount || sel.isCollapsed || !sel.toString().trim()) return;
     selected = null;
     trigger.hidden = true;
-    if (!sel.rangeCount || sel.isCollapsed || !sel.toString().trim()) return;
     const range = sel.getRangeAt(0);
     if (!article.contains(range.commonAncestorContainer) || range.startContainer.parentElement?.closest('.paging')) return;
     const bounds = scroll.getBoundingClientRect();
     const rect = [...range.getClientRects()].find(r=>r.width && r.height && r.bottom>bounds.top && r.top<bounds.bottom);
     if (!rect) return;
-    selected = range.cloneRange();
-    trigger.hidden=false;
-    const {width,height} = trigger.getBoundingClientRect();
-    trigger.style.left = Math.max(4, Math.min(innerWidth-width-4, rect.left+(rect.width-width)/2))+'px';
-    trigger.style.top = Math.max(4, rect.top>height+7 ? rect.top-height-6 : rect.bottom+5)+'px';
+    positionTrigger(range,rect);
   }
   document.addEventListener('selectionchange',showSelection);
-  scroll.addEventListener('scroll',showSelection,{passive:true});
-  window.addEventListener('resize',showSelection);
+  scroll.addEventListener('scroll',hideTrigger,{passive:true});
+  window.addEventListener('resize',hideTrigger);
   trigger.addEventListener('pointerdown',e=>e.preventDefault());
+  const graphemes=new Intl.Segmenter(undefined,{granularity:'grapheme'});
+  document.addEventListener('pointermove',event=>{
+    if(event.pointerType==='touch' || event.buttons) return;
+    clearTimeout(hideTimer);
+    if(!trigger.hidden && hoverRect) {
+      const buttonRect=trigger.getBoundingClientRect();
+      // Keep the target stable while the pointer travels up to its button.
+      if(event.clientX>=buttonRect.left-3 && event.clientX<=buttonRect.right+3 &&
+         event.clientY>=buttonRect.top && event.clientY<=hoverRect.top) return;
+      if(trigger.contains(event.target)) return;
+    }
+    if(!getSelection().isCollapsed) return;
+    const block=event.target.closest('p,h1,h2,h3,h4,h5,h6,li,figcaption');
+    if(block && article.contains(block) && !event.target.closest('nav,button,a,pre,code')) {
+      const caret=document.caretPositionFromPoint?.(event.clientX,event.clientY);
+      const range=caret?null:document.caretRangeFromPoint?.(event.clientX,event.clientY);
+      const node=caret?.offsetNode ?? range?.startContainer;
+      const offset=caret?.offset ?? range?.startOffset;
+      if(node?.nodeType===Node.TEXT_NODE && block.contains(node)) {
+        for(const part of graphemes.segment(node.data)) {
+          if(part.index>offset) break;
+          if(part.index+part.segment.length<offset || !/[\p{L}\p{N}]/u.test(part.segment)) continue;
+          const glyph=document.createRange();
+          glyph.setStart(node,part.index);glyph.setEnd(node,part.index+part.segment.length);
+          const rect=glyph.getBoundingClientRect();
+          if(event.clientX>=rect.left && event.clientX<=rect.right && event.clientY>=rect.top && event.clientY<=rect.bottom) {
+            positionTrigger(glyph,rect);return;
+          }
+        }
+      }
+    }
+    hideTimer=setTimeout(hideTrigger,160);
+  },{passive:true});
+  document.addEventListener('pointerleave',hideTrigger);
 
   // Keep controls outside paragraph text so selection and reading-line offsets stay intact.
   article.classList.add('has-paragraph-speech');
@@ -169,7 +222,7 @@ import {createReadingLine} from './reading-line.js';
       }
     }
   }
-  function finish() {
+  function finish(message='已停止') {
     readingLine.freeze();
     if(session) {
       session.controller.abort();
@@ -177,7 +230,8 @@ import {createReadingLine} from './reading-line.js';
     }
     session=undefined;
     markParagraph(null);toolbarPause.hidden=true;
-    player.hidden=true;
+    pause.hidden=stop.hidden=readingLocation.hidden=true;
+    player.dataset.state='idle';status.textContent=message;
   }
   async function load(part,s) {
     const result=await fetch('/speech',{method:'POST',signal:s.controller.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({text:part.text,lang:part.lang,voice:part.lang==='zh'?voice:undefined})});
@@ -186,15 +240,15 @@ import {createReadingLine} from './reading-line.js';
   }
   function error(s) {
     if(s!==session) return;
-    finish();
-    player.hidden=false;pause.hidden=true;status.textContent='朗读失败，请点击播放按钮重试。';
+    finish('朗读失败，请点击播放按钮重试。');
   }
   // Prepare one sentence ahead while the current sentence plays.
   async function play(part,buffer,s) {
     if(session!==s) return;
     const source=context.createBufferSource();
     source.buffer=buffer;source.connect(context.destination);s.source=source;
-    status.textContent=s.paused?'已暂停':(part.lang==='zh'?'普通话朗读':'英文朗读');
+    s.loading=false;s.lang=part.lang;updateStatus(s);
+    readingLocation.disabled=false;
     const next=s.parts.next();
     const preparedVoice=voice;
     const prepared=next.done?null:(async()=>{
@@ -208,7 +262,8 @@ import {createReadingLine} from './reading-line.js';
       source.disconnect();s.source=null;
       if(session!==s) return;
       readingLine.freeze();
-      if(next.done) return finish();
+      if(next.done) return finish('本章朗读完成');
+      s.loading=true;updateStatus(s);
       try {
         let buffer=await prepared;
         if(session===s && next.value.lang==='zh' && preparedVoice!==voice) buffer=await load(next.value,s);
@@ -227,11 +282,12 @@ import {createReadingLine} from './reading-line.js';
     if(first.done) return;
     finish();
     readingLine.clear();
-    const s={parts,controller:new AbortController(),paused:false};
+    const s={parts,controller:new AbortController(),paused:false,loading:true,lang:first.value.lang};
     session=s;
     markParagraph(first.value.block);
-    getSelection().removeAllRanges();trigger.hidden=true;
-    player.hidden=false;pause.hidden=false;toolbarPause.hidden=false;showPause(false);status.textContent='正在准备朗读…';
+    getSelection().removeAllRanges();hideTrigger();
+    pause.hidden=stop.hidden=readingLocation.hidden=false;readingLocation.disabled=true;
+    toolbarPause.hidden=false;showPause(false);updateStatus(s);
     try {
       context ??= new AudioContext();
       await context.resume();
@@ -246,7 +302,7 @@ import {createReadingLine} from './reading-line.js';
     if(!s || !context) return;
     s.paused=!s.paused;
     showPause(s.paused);
-    status.textContent=s.paused?'已暂停':'正在朗读';
+    updateStatus(s);
     try {
       if(s.paused) {
         await context.suspend();
@@ -257,6 +313,6 @@ import {createReadingLine} from './reading-line.js';
       }
     } catch {error(s);}
   };
-  stop.onclick=finish;
+  stop.onclick=()=>finish();
   window.addEventListener('pagehide',()=>{finish();readingLine.clear();});
 })();

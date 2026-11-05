@@ -6,18 +6,34 @@ export function createReadingLine(scroll) {
   line.hidden=true;
   document.body.append(line);
   let frame, current, lastIndex=-1, dirty=false, frozen=false;
+  let autoFollow=true, automaticScrollTop=null;
+  function manualScroll() {
+    autoFollow=false;automaticScrollTop=null;
+  }
 
   function redraw() {
     dirty=true;
     // Keep a stopped marker anchored to its text when scrolling or changing font size.
     if(frozen && current && lastIndex>=0) locate(lastIndex);
   }
-  scroll.addEventListener('scroll',redraw,{passive:true});
+  scroll.addEventListener('wheel',manualScroll,{passive:true});
+  scroll.addEventListener('touchmove',manualScroll,{passive:true});
+  document.addEventListener('keydown',event=>{
+    if(event.target.closest('input,textarea,select,[contenteditable="true"]')) return;
+    if(event.target!==document.body && !scroll.contains(event.target)) return;
+    if(['PageDown','PageUp','Home','End','ArrowDown','ArrowUp',' '].includes(event.key)) manualScroll();
+  });
+  scroll.addEventListener('scroll',()=>{
+    // Distinguish our own scroll from scrollbar dragging, keyboard paging, etc.
+    if(automaticScrollTop!==null && Math.abs(scroll.scrollTop-automaticScrollTop)<1) automaticScrollTop=null;
+    else manualScroll();
+    redraw();
+  },{passive:true});
   new ResizeObserver(redraw).observe(scroll.querySelector('article'));
   window.addEventListener('resize',redraw);
   document.fonts?.addEventListener('loadingdone',redraw);
 
-  function locate(index) {
+  function locate(index,jump=false) {
     const {nodes,block}=current;
     const entry=nodes.find(n=>index<n.end);
     if(!entry) return;
@@ -27,9 +43,11 @@ export function createReadingLine(scroll) {
     const glyph=char.getClientRects()[0];
     if(!glyph || !glyph.width) return;
     const bounds=scroll.getBoundingClientRect();
-    if(index!==lastIndex && (glyph.bottom<=bounds.top || glyph.top>=bounds.bottom)) {
+    if(jump || (autoFollow && !frozen && index!==lastIndex && (glyph.bottom<=bounds.top || glyph.top>=bounds.bottom))) {
       scroll.scrollTop+=glyph.top-bounds.top-Math.min(48,bounds.height/5);
+      automaticScrollTop=scroll.scrollTop;
       dirty=true;
+      if(jump) locate(index);
       return;
     }
     const prefix=document.createRange();
@@ -63,9 +81,10 @@ export function createReadingLine(scroll) {
     if(index!==lastIndex || dirty) {dirty=false;locate(index);}
     frame=requestAnimationFrame(draw);
   }
-  function clear() {
+  function clear(resetFollow=true) {
     cancelAnimationFrame(frame);
     current=null;lastIndex=-1;line.hidden=true;frozen=false;
+    if(resetFollow) {autoFollow=true;automaticScrollTop=null;}
   }
   function freeze() {
     if(!current || frozen) return;
@@ -79,8 +98,17 @@ export function createReadingLine(scroll) {
     frozen=false;
     draw();
   }
+  function jumpToCurrent() {
+    if(!current) return;
+    // Refresh the position from the audio clock without changing playback.
+    autoFollow=false;
+    if(!frozen) {cancelAnimationFrame(frame);draw();}
+    autoFollow=true;
+    locate(lastIndex>=0?lastIndex:current.base,true);
+  }
   function follow(part,buffer,clock,start) {
-    clear();
+    // A new audio chunk must not take scrolling control back from the reader.
+    clear(false);
     const nodes=[];
     const walker=document.createTreeWalker(part.block,NodeFilter.SHOW_TEXT);
     let offset=0;
@@ -112,5 +140,5 @@ export function createReadingLine(scroll) {
     current={nodes,block:part.block,base:part.offset,marks,energy,clock,start,duration:buffer.duration};
     draw();
   }
-  return {follow,clear,freeze,resume};
+  return {follow,clear,freeze,resume,jumpToCurrent};
 }
