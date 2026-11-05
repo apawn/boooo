@@ -62,7 +62,7 @@ aside { border-right:1px solid var(--line); }
 .type-controls span {font:11px sans-serif;vertical-align:2px;}
 .type-controls button:disabled { opacity:.35;cursor:default; }
 .scroll { flex:1; }
-article { margin:0 auto;max-width:calc(700px + 2 * var(--pad));--pad:clamp(24px,5vw,88px);padding:clamp(30px,5vh,64px) var(--pad) 45px; font:var(--size)/1.72 Georgia,"Songti SC","Noto Serif CJK SC",serif; overflow-wrap:break-word; }
+article { --pad:clamp(24px,calc(25% - 85px),100px);padding:clamp(30px,5vh,64px) var(--pad) 45px; font:var(--size)/1.72 Georgia,"Songti SC","Noto Serif CJK SC",serif; overflow-wrap:break-word; }
 article h1,article h2,article h3 { font-family: "Songti SC",Georgia,serif; line-height:1.35;text-wrap:pretty; }
 article h1 {font-size:2em; font-weight:600; margin:0 0 .65em; letter-spacing:.015em;}
 article h2 {font-size:1.32em; margin:1.6em 0 .65em;}
@@ -144,7 +144,7 @@ article blockquote {margin:.5em 0 1.45em;padding:0 0 0 1em;border-left:2px solid
 .speech-player button:hover,.speech-trigger:hover {background:#56604c;}
 /* One overlay follows the visible line without changing the text layout or selection. */
 .reading-line {position:fixed;left:0;top:0;height:3px;pointer-events:none;z-index:2;
-  background:repeat-x left center/8px 3px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='3'%3E%3Cpath d='M0 1.5Q2 -.5 4 1.5T8 1.5' stroke='%2395a084' stroke-opacity='.8' fill='none'/%3E%3C/svg%3E");}
+  background:repeat-x left center/8px 3px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='3'%3E%3Cpath d='M0 1.5Q2 -.5 4 1.5T8 1.5' stroke='%23859276' stroke-opacity='.8' fill='none'/%3E%3C/svg%3E");}
 .speech-player .pause {background:#f3f0e3;color:#404735;padding:5px 10px;}
 .speech-player .pause:hover {background:#e8e4d4;}
 #toolbar-pause {border:1px solid var(--line);border-radius:4px;background:#efefdf;color:#414a3a;min-width:30px;height:29px;}

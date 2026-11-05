@@ -36,7 +36,7 @@ export function createReadingLine(scroll) {
     for(const r of prefix.getClientRects()) {
       if(r.top<=center && r.bottom>=center && r.height<=glyph.height*1.6) left=Math.min(left,r.left);
     }
-    const top=glyph.bottom-1;
+    const top=glyph.bottom+1;
     left=Math.max(left,bounds.left);
     line.hidden=top<bounds.top || top+3>bounds.bottom || glyph.right<=left;
     line.style.transform='translate('+left+'px,'+top+'px)';
