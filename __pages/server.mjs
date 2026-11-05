@@ -17,6 +17,7 @@ const escape = md.utils.escapeHtml;
 const titles = {
   '国家为什么会失败（英汉短段对照版）': ['国家为什么会失败','英汉对照版','nations','terracotta'],
   '自由的窄廊（英汉对照版）': ['自由的窄廊','英汉对照版','corridor','olive'],
+  '临终前最后悔的五件事（英汉对照版）': ['临终前最后悔的五件事','英汉对照版','regrets','ochre'],
   '爱这个世界': ['爱这个世界','阿伦特与布鲁希尔书信集','letters','plum'],
   'Why Nations Fail (English)': ['Why Nations Fail','英文版','nations','slate'],
   '国家为什么会失败（中文版）': ['国家为什么会失败','中文版','nations','ochre'],
@@ -36,7 +37,7 @@ for (const entry of files.filter(d=>d.isDirectory() && !d.name.startsWith('.') &
   if (items.length) books.set(entry.name, {id:entry.name,dir,title,edition,motif,color,items,contents:chapters.find(c=>c.startsWith('00-'))});
 }
 const order=[...new Set([...Object.keys(titles),...books.keys()])].filter(k=>books.has(k));
-const englishTitles = {nations:'Why Nations Fail', corridor:'The Narrow Corridor', letters:'Within Four Walls'};
+const englishTitles = {nations:'Why Nations Fail', corridor:'The Narrow Corridor', regrets:'The Top Five Regrets of the Dying', letters:'Within Four Walls'};
 const themeLabels = new Map();
 for (const b of books.values()) {
   if (b.edition === '英汉对照版' && b.contents) {
@@ -60,6 +61,7 @@ function icon(name){return '<svg class="icon" aria-hidden="true" viewBox="0 0 24
 const patterns={
   nations:'<path d="M1 48 18 28l8 9 10-15 18 23M-4 48l21-8 15 7 22-9M6 51l14-6 18 6 16-7"/>',
   corridor:'<path d="M5 55V32a19 19 0 0 1 38 0v23M11 55V32a13 13 0 0 1 26 0v23M17 55V32a7 7 0 0 1 14 0v23"/>',
+  regrets:'<path d="M5 44q9-4 19 0t19 0M11 49q7-3 13 0t13 0M15 39a9 9 0 0 1 18 0M24 24v-4m-12 9-3-3m27 3 3-3"/>',
   letters:'<path d="M24 51V23m0 19q-11 0-12-10 9 0 12 10Zm0-6q10-1 12-11-11 2-12 11Zm0-5q-6-5-4-13 6 5 4 13Z"/>'
 };
 function cover(b){return '<span aria-hidden="true" class="cover '+b.color+'"><svg viewBox="0 0 48 60"><path d="M11 10h24m-20 3h16"/>'+patterns[b.motif]+'</svg></span>';}
