@@ -144,3 +144,14 @@ article blockquote {margin:.5em 0 1.45em;padding:0 0 0 1em;border-left:2px solid
 .speech-player button:hover,.speech-trigger:hover {background:#56604c;}
 .speech-current {background-color:#a4a87b1b;outline:2px solid #a4a87b1b;}
 @media(max-width:620px){.speech-player{right:15px;bottom:18px;max-width:calc(100vw - 30px);}}
+.reader-tools {display:flex;align-items:center;gap:6px;flex:none;}
+#voice-settings,#voice-dialog button,#voice-dialog select {border:1px solid var(--line);border-radius:5px;background:var(--paper);padding:5px 8px;color:var(--ink);font:inherit;}
+#voice-settings {font:12px/1.5 sans-serif;}
+#voice-dialog {width:min(340px,90vw);box-sizing:border-box;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:22px;}
+#voice-dialog::backdrop {background:#322c2440;}
+#voice-dialog h2 {font:600 21px Georgia,serif;margin:0 0 16px;}
+#voice-dialog p,#voice-dialog label {font-size:14px;}
+#voice-dialog audio {width:100%;display:block;}
+#voice-dialog form {display:flex;gap:8px;justify-content:flex-end;margin-top:18px;}
+#voice-dialog button[value="apply"] {background:#454d3d;color:#fffaf0;}
+@media(max-width:620px) {.reader-tools{gap:3px;}#voice-settings{font-size:10px;padding:4px;}.crumb{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}}

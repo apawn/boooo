@@ -16,6 +16,35 @@
   trigger.hidden = player.hidden = true;
   let selected, session, context, highlighted;
 
+  const dialog=document.querySelector('#voice-dialog');
+  const voiceSelect=document.querySelector('#mandarin-voice');
+  const preview=document.querySelector('#voice-preview');
+  let voice=voiceSelect.value;
+  try {
+    const saved=localStorage.getItem('mandarinVoice');
+    if([...voiceSelect.options].some(o=>o.value===saved)) voice=saved;
+  } catch {}
+  function loadPreview() {
+    preview.src='/voice-preview/'+voiceSelect.value+'.wav';
+  }
+  document.querySelector('#voice-settings').onclick=()=>{
+    if(session && !session.paused) pause.click();
+    voiceSelect.value=voice;
+    dialog.returnValue='';
+    loadPreview();
+    dialog.showModal();
+  };
+  voiceSelect.onchange=()=>{
+    loadPreview();
+    preview.play().catch(()=>{}); // Native controls also allow an explicit replay.
+  };
+  dialog.querySelector('form').addEventListener('submit',event=>{
+    if(event.submitter?.value==='apply') {
+      voice=voiceSelect.value;
+      try {localStorage.setItem('mandarinVoice',voice);} catch {}
+    }
+  });
+  dialog.onclose=()=>preview.pause();
   function showSelection() {
     const sel = getSelection();
     selected = null;
@@ -85,7 +114,7 @@
     player.hidden=true;
   }
   async function load(part,s) {
-    const result=await fetch('/speech',{method:'POST',signal:s.controller.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({text:part.text,lang:part.lang})});
+    const result=await fetch('/speech',{method:'POST',signal:s.controller.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({text:part.text,lang:part.lang,voice:part.lang==='zh'?voice:undefined})});
     if(!result.ok) throw new Error('Synthesis failed');
     return context.decodeAudioData(await result.arrayBuffer());
   }
@@ -106,6 +135,7 @@
     }
     status.textContent=s.paused?'已暂停':(part.lang==='zh'?'普通话朗读':'英文朗读');
     const next=s.parts.next();
+    const preparedVoice=voice;
     const prepared=next.done?null:(async()=>{
       // A quick stop or a new selection should not queue a long unused synthesis.
       await new Promise(resolve=>setTimeout(resolve,650));
@@ -117,7 +147,11 @@
       source.disconnect();s.source=null;
       if(session!==s) return;
       if(next.done) return finish();
-      try { await play(next.value,await prepared,s); } catch { error(s); }
+      try {
+        let buffer=await prepared;
+        if(session===s && next.value.lang==='zh' && preparedVoice!==voice) buffer=await load(next.value,s);
+        await play(next.value,buffer,s);
+      } catch { error(s); }
     };
     source.start();
   }

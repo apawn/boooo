@@ -1,4 +1,5 @@
 import http from 'node:http';
+import { defaultMandarin, mandarinVoices } from './speech/voices.mjs';
 import { serveSpeech, warmSpeech } from './speech/engine.mjs';
 import { tocLabels, chapterLabel } from './labels.mjs';
 import { readdir, readFile, realpath, stat } from 'node:fs/promises';
@@ -94,6 +95,12 @@ function borderDecor() {
     ['top','bottom','left','right'].map(side=>'<div aria-hidden="true" class="vine '+side+'">'+sprig.repeat(3)+'</div>').join('');
 }
 const typeControls='<div class="type-controls" aria-label="正文字号"><button type="button" id="smaller" aria-label="减小字号" title="减小字号">A<span>−</span></button><button type="button" id="larger" aria-label="增大字号" title="增大字号">A<span>+</span></button></div>';
+const voiceOptions = [...mandarinVoices].map(([key,voice]) =>
+  '<option value="'+key+'"'+(key===defaultMandarin?' selected':'')+'>'+voice.name+'</option>').join('');
+const voiceDialog = '<dialog id="voice-dialog" aria-labelledby="voice-title"><h2 id="voice-title">中文音色</h2>'+
+  '<label>普通话女声 <select id="mandarin-voice">'+voiceOptions+'</select></label>'+
+  '<p>诺加雷斯市被一道围墙分成两半。</p><audio id="voice-preview" controls preload="none" aria-label="中文音色试听"></audio>'+
+  '<form method="dialog"><button value="cancel">取消</button><button value="apply">使用此声音</button></form></dialog>';
 async function render(b,c) {
   const i=b.items.indexOf(c), shelf=order.map(id=>{
     const book=books.get(id);
@@ -105,7 +112,7 @@ async function render(b,c) {
   }).join('');
   const paging=[[-1,'上一章','previous'],[1,'下一章','next']].map(([d,label,arrow])=>b.items[i+d]?'<a href="'+escape(url(b,b.items[i+d]))+'">'+(d<0?icon(arrow):'')+label+(d>0?icon(arrow):'')+'</a>':'<span></span>').join('');
   const body=chapterBody(await readFile(path.join(b.dir,c.file),'utf8'),b,c);
-  return '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(c.name+' · '+b.title)+'</title><link rel="stylesheet" href="/reader.css"><script src="/reader.js"></script><script src="/read-aloud.js" defer></script></head><body><div class="frame">'+borderDecor()+'<aside id="shelf"><header class="side-head"><span class="brand">'+icon('book')+'<span>藏书架'+subtitle('Bookshelf')+'</span></span><button class="toggle" aria-controls="book-list" aria-expanded="true" title="收起书架">'+icon('panel')+'</button></header><nav id="book-list" aria-label="所有书籍">'+shelf+'</nav></aside><aside id="chapters"><header class="side-head"><span><strong>章节</strong>'+subtitle('Chapters')+'</span><span class="total">'+b.items.length+'</span></header><nav id="chapter-list" aria-label="章节目录">'+chapters+'</nav></aside><main id="reader"><header class="reader-bar"><span class="crumb">'+icon('book')+escape(b.title)+'<span class="edition">'+escape(b.edition)+'</span></span>'+typeControls+'</header><div class="scroll" id="scroll" tabindex="-1"><article class="'+(b.edition==='英汉对照版'?'parallel':'')+'">'+body+'<nav class="paging" aria-label="翻章">'+paging+'</nav></article></div></main></div></body></html>';
+  return '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(c.name+' · '+b.title)+'</title><link rel="stylesheet" href="/reader.css"><script src="/reader.js"></script><script src="/read-aloud.js" defer></script></head><body><div class="frame">'+borderDecor()+'<aside id="shelf"><header class="side-head"><span class="brand">'+icon('book')+'<span>藏书架'+subtitle('Bookshelf')+'</span></span><button class="toggle" aria-controls="book-list" aria-expanded="true" title="收起书架">'+icon('panel')+'</button></header><nav id="book-list" aria-label="所有书籍">'+shelf+'</nav></aside><aside id="chapters"><header class="side-head"><span><strong>章节</strong>'+subtitle('Chapters')+'</span><span class="total">'+b.items.length+'</span></header><nav id="chapter-list" aria-label="章节目录">'+chapters+'</nav></aside><main id="reader"><header class="reader-bar"><span class="crumb">'+icon('book')+escape(b.title)+'<span class="edition">'+escape(b.edition)+'</span></span>'+'<div class="reader-tools"><button id="voice-settings" type="button" aria-haspopup="dialog">中文音色</button>'+typeControls+'</div></header><div class="scroll" id="scroll" tabindex="-1"><article class="'+(b.edition==='英汉对照版'?'parallel':'')+'">'+body+'<nav class="paging" aria-label="翻章">'+paging+'</nav></article></div></main></div>'+voiceDialog+'</body></html>';
 }
 const staticFiles={'/read-aloud.js':'text/javascript; charset=utf-8','/reader.js':'text/javascript; charset=utf-8','/reader.css':'text/css; charset=utf-8'};
 const mediaTypes={'.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.gif':'image/gif','.webp':'image/webp'};
@@ -115,6 +122,11 @@ http.createServer(async(req,res)=>{
     if(req.method!=='GET' && req.method!=='HEAD'){res.writeHead(405,{Allow:'GET, HEAD'}).end();return;}
     const u=new URL(req.url,'http://localhost');
     res.setHeader('X-Content-Type-Options','nosniff');
+    const preview=/^\/voice-preview\/([a-z]+)\.wav$/.exec(u.pathname);
+    if(preview && mandarinVoices.has(preview[1])){
+      const audio=await readFile(path.join(here,'speech/previews',preview[1]+'.wav'));
+      res.writeHead(200,{'Content-Type':'audio/wav','Content-Length':audio.length}).end(audio);return;
+    }
     if(u.pathname in staticFiles){res.writeHead(200,{'Content-Type':staticFiles[u.pathname]});res.end(await readFile(path.join(here,u.pathname.slice(1))));return;}
     if(u.pathname.startsWith('/media/')){
       const parts=u.pathname.slice(7).split('/').map(decodeURIComponent);

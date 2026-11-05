@@ -1,9 +1,10 @@
 import { availableParallelism } from 'node:os';
 import { fileURLToPath } from 'node:url';
+import { defaultMandarin, mandarinVoices } from './voices.mjs';
 import { englishPhones } from './english.mjs';
 const asset = name => fileURLToPath(new URL('./models/'+name, import.meta.url));
-const english = name => asset('kokoro-multi-lang-v1_0/'+name);
-const chinese = name => asset('matcha-icefall-zh-baker/'+name);
+const kokoro = name => asset('kokoro-multi-lang-v1_0/'+name);
+
 const engines = new Map();
 const cache = new Map();
 let cacheBytes = 0;
@@ -14,14 +15,12 @@ let pending = 0;
 async function createEngine(lang) {
   const { default: sherpa } = await import('sherpa-onnx-node');
   const model = {numThreads:Math.min(6,availableParallelism()),provider:'cpu'};
-  if (lang === 'en') {
-    model.kokoro = {model:english('model.onnx'), voices:english('voices.bin'),
-      tokens:english('tokens.txt'), lexicon:english('lexicon-us-en.txt')};
-    return sherpa.OfflineTts.createAsync({model});
-  }
-  model.matcha = {acousticModel:chinese('model-steps-3.onnx'), vocoder:asset('vocos-22khz-univ.onnx'),
-    tokens:chinese('tokens.txt'), lexicon:chinese('lexicon.txt'), dictDir:chinese('dict')};
-  return sherpa.OfflineTts.createAsync({model,ruleFsts:['phone.fst','date.fst','number.fst'].map(chinese).join(',')});
+  model.kokoro = {model:kokoro('model.onnx'), voices:kokoro('voices.bin'), tokens:kokoro('tokens.txt'),
+    lexicon:kokoro('lexicon-us-en.txt')};
+  if (lang === 'en') return sherpa.OfflineTts.createAsync({model});
+  model.kokoro.lexicon += ','+kokoro('lexicon-zh.txt');
+  model.kokoro.dictDir = kokoro('dict');
+  return sherpa.OfflineTts.createAsync({model,ruleFsts:['phone','date','number'].map(s=>kokoro(s+'-zh.fst')).join(',')});
 }
 
 function getEngine(lang) {
@@ -70,7 +69,9 @@ export async function serveSpeech(req,res) {
   let data;
   try { data=JSON.parse(Buffer.concat(parts).toString()); } catch { return fail(400); }
   if(typeof data?.text!=='string'||!data.text.trim()||data.text.length>450||!['zh','en'].includes(data.lang)) return fail(400);
-  const key=data.lang+' '+data.text;
+  const voice=data.lang==='zh' ? (data.voice ?? defaultMandarin) : 'heart';
+  if(data.lang==='zh' && !mandarinVoices.has(voice)) return fail(400);
+  const key=JSON.stringify([data.lang,voice,data.text]);
   const send=buffer=>res.writeHead(200,{'Content-Type':'audio/wav','Cache-Control':'no-store'}).end(buffer);
   if(cache.has(key)) return send(cache.get(key));
   if(pending>=6) return fail(429);
@@ -80,7 +81,7 @@ export async function serveSpeech(req,res) {
     if(cache.has(key)) return send(cache.get(key));
     const tts=await getEngine(data.lang);
     const generationConfig = data.lang === 'zh'
-      ? {sid:0, speed:.91}
+      ? {sid:mandarinVoices.get(voice).sid, speed:.94}
       : {sid:3, speed:.76, phonemeCodepoints:await englishPhones(data.text)};
     const audio=await tts.generateAsync({text:data.text,generationConfig});
     const buffer=wav(audio);
