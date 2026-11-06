@@ -65,3 +65,25 @@ test('HTTP sync cannot be triggered by GET or cross-origin/foreign hosts',async(
   assert.equal((await request('POST',{host:'evil.example',origin:'http://evil.example','content-type':'application/json'})).status,403);
   assert.equal(sync.running,false);
 });
+test('status counts actual files including untracked directories and compares fresh remote commits',async t=>{
+  const {local,other}=await fixture(t);
+  const sync=createGitSync(local);
+  let state=await sync.inspectRepository();
+  assert.equal(state.remoteChecked,true);assert.equal(state.ahead,0);assert.equal(state.behind,0);assert.equal(state.changed,0);
+  await writeFile(path.join(local,'book.txt'),'changed\n');
+  await writeFile(path.join(local,'untracked.json'),'[]');
+  await git(local,'mv','book.txt','renamed.txt');
+  state=await sync.inspectRepository();
+  assert.equal(state.changed,2);assert.equal(state.untracked,1);assert.equal(state.staged,1);assert.equal(state.unstaged,1);
+  assert.ok(state.files.some(f=>f.path==='renamed.txt'));
+  await writeFile(path.join(other,'remote-new.txt'),'remote\n');await git(other,'add','.');await git(other,'commit','-m','remote change');await git(other,'push');
+  state=await sync.inspectRepository();assert.equal(state.behind,1);assert.equal(state.ahead,0);
+  await git(local,'add','.');await git(local,'commit','-m','local change');
+  state=await sync.inspectRepository();assert.equal(state.ahead,1);assert.equal(state.behind,1);
+  assert.equal(await readFile(path.join(local,'renamed.txt'),'utf8'),'changed\n');
+});
+test('unreachable remote is unknown rather than falsely up to date',async t=>{
+  const {local}=await fixture(t);await git(local,'remote','set-url','origin','/does-not-exist-bookshelf-test');
+  const state=await createGitSync(local).inspectRepository();
+  assert.equal(state.remoteChecked,false);assert.equal(state.behind,null);assert.match(state.remoteError,/无法确认/);
+});

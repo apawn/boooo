@@ -377,3 +377,7 @@ body.root-document {height:auto;min-height:100vh;background:#f6f4ed;padding:24px
 [data-folded=yes] .sync-footer:has(.is-syncing) .sync-info {display:block;position:absolute;left:calc(100% + 6px);bottom:0;width:210px;padding:10px;background:#fffdf6;border:1px solid var(--line);border-radius:6px;z-index:12;box-shadow:0 3px 12px #302f2820;}
 
 [data-folded=yes] .sync-footer:has(.is-syncing) #sync-status {display:block;}
+#sync-button,#sync-status-button {width:34px;height:34px;justify-content:center;padding:7px;}
+#sync-details section+section:not(:empty) {border-top:1px solid var(--line);margin-top:12px;padding-top:12px;}
+#sync-details strong {display:block;margin:5px 0;}
+#sync-details summary {cursor:pointer;margin-top:8px;}
