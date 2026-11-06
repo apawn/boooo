@@ -52,3 +52,19 @@ test('writes require same-origin JSON and preserve UTF-8 across request chunks',
   assert.equal(await send('http://127.0.0.1:4317'),200);
   assert.equal((await store.list('Book A')).words[0].source.text,'country 国家');
 });
+test('highlights persist independently, repaint and erase only overlapping selected text',async t=>{
+  const {store,books}=await fixture(t);
+  const entry={chapter:'01.md',color:'yellow',segments:[{block:0,text:'abcdefghij',start:0,end:10}]};
+  await store.mutateHighlights('Book A','paint',entry);
+  await store.mutateHighlights('Book A','paint',{...entry,color:'blue',segments:[{...entry.segments[0],start:3,end:6}]});
+  const fresh=createWordbookStore(books);
+  let data=await fresh.listHighlights('Book A');
+  assert.deepEqual(data.highlights[0].segments.map(s=>[s.start,s.end]),[[0,3],[6,10]]);
+  assert.equal(data.highlights[1].color,'blue');assert.equal((await fresh.listHighlights('Book B')).highlights.length,0);
+  await fresh.mutateHighlights('Book A','remove',{...entry,segments:[{...entry.segments[0],start:4,end:8}]});
+  data=await fresh.listHighlights('Book A');
+  assert.deepEqual(data.highlights[0].segments.map(s=>[s.start,s.end]),[[0,3],[8,10]]);
+  assert.deepEqual(data.highlights[1].segments.map(s=>[s.start,s.end]),[[3,4]]);
+  await assert.rejects(fresh.mutateHighlights('Book A','paint',{...entry,color:'invalid'}));
+  assert.deepEqual(await fresh.listHighlights('Book A'),data);
+});

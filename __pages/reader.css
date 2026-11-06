@@ -317,7 +317,7 @@ blockquote .speech-paragraph {padding-left:calc(34px + 1em);margin-left:calc(-34
 .wordbook-empty {font-size:13px;line-height:1.8;color:var(--muted);padding:12px 6px;}
 .wordbook-status {margin:0;padding:8px 18px;font-size:11px;color:var(--muted);}
 .wordbook-status:empty {display:none;}
-.speech-statusbar .wordbook-toggle,.wordbook-toggle {margin-left:auto;white-space:nowrap;border:1px solid var(--line);background:#faf8ee;color:#667153;border-radius:4px;padding:3px 10px;font:12px/1.5 var(--font-system);}
+.wordbook-toggle {margin-left:0;flex:none;min-height:28px;white-space:nowrap;border:1px solid var(--line);background:#faf8ee;color:#667153;border-radius:4px;padding:3px 10px;font:12px/1.5 var(--font-system);}
 .wordbook-toggle[aria-expanded="true"] {background:#e4e8d8;border-color:#c9cfb5;}
 article ::highlight(saved-word) {background:#e5cf87;color:#35392b;text-decoration:underline;text-decoration-color:#a58c44;}
 article .wordbook-target {border-radius:3px;outline:1px solid #a6ac8044;outline-offset:6px;}
@@ -381,3 +381,35 @@ body.root-document {height:auto;min-height:100vh;background:#f6f4ed;padding:24px
 #sync-details section+section:not(:empty) {border-top:1px solid var(--line);margin-top:12px;padding-top:12px;}
 #sync-details strong {display:block;margin:5px 0;}
 #sync-details summary {cursor:pointer;margin-top:8px;}
+
+#selection-toolbar {position:fixed;z-index:60;display:flex;align-items:center;gap:5px;padding:5px;background:#fffdf7;border:1px solid #d8d4c5;border-radius:8px;box-shadow:0 3px 7px #302f281c,0 8px 24px #302f281a;font:13px/1.4 var(--font-system);}
+#selection-toolbar[hidden],#selection-toolbar [hidden] {display:none;}
+#selection-toolbar button {border:0;background:transparent;border-radius:4px;padding:5px 9px;font:inherit;white-space:nowrap;}
+#selection-toolbar button:hover,#selection-toolbar button:focus-visible {background:#efeee4;}
+.selection-color-split {display:flex;align-items:center;gap:5px;border:0;border-radius:5px;}
+#selection-toolbar .selection-paint,
+#selection-toolbar .selection-palette-toggle,
+#selection-toolbar .selection-dictionary {display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;min-height:36px;padding:8px;border:0;border-radius:4px;}
+.selection-color-dot {display:block;width:20px;height:20px;border-radius:50%;background:currentColor;box-shadow:inset 0 0 0 1px #302f2812,0 1px 3px #302f2815;}
+.selection-palette-icon {display:block;width:20px;height:20px;stroke-linecap:round;stroke-linejoin:round;}
+.selection-palette-icon circle {stroke:none;}
+.selection-palette {position:absolute;top:calc(100% + 5px);left:0;display:flex;gap:6px;flex-wrap:wrap;width:208px;padding:10px;background:#fffdf7;border:1px solid var(--line);border-radius:7px;box-shadow:0 5px 18px #302f2820;}
+#selection-toolbar .selection-palette [data-color] {width:31px;height:29px;border:2px solid transparent;padding:0;}
+#selection-toolbar .selection-palette [aria-pressed=true] {border-color:#6c745c;}
+#selection-toolbar .selection-remove {flex-basis:100%;font-size:12px;}
+.selection-feedback {max-width:240px;font-size:11px;color:#687153;}
+.dict-selection-words {padding:14px 18px;}
+.dict-selection-words button {border:1px solid #d5ded9;border-radius:4px;background:#f5f8f5;margin:3px;padding:3px 8px;font:inherit;color:#3e6a61;}
+::highlight(book-yellow) {background-color:#f2d77c80;}
+::highlight(book-green) {background-color:#b8d5a580;}
+::highlight(book-blue) {background-color:#add3e780;}
+::highlight(book-pink) {background-color:#edb9c480;}
+::highlight(book-purple) {background-color:#cdbce680;}
+.highlight-row {border-left:4px solid #f2d77c;}
+.highlight-row[data-color=green] {border-left-color:#b8d5a5;}
+.highlight-row[data-color=blue] {border-left-color:#add3e7;}
+.highlight-row[data-color=pink] {border-left-color:#edb9c4;}
+.highlight-row[data-color=purple] {border-left-color:#cdbce6;}
+.highlight-entry .wordbook-quote {font-size:13px;line-height:1.65;color:var(--ink);}
+
+.selection-dictionary-icon {display:block;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}

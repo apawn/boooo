@@ -1,3 +1,4 @@
+import {createSelectionToolbar} from './selection-toolbar.js';
 import {normalizeWord,selectedWord} from './dictionary/word.js';
 import {searchDictionary,renderDictionary,dictionaryIcons,createWordbook,createRootsSection} from './dictionary/saladict/bundle.js';
 
@@ -39,7 +40,7 @@ function updateToolbar() {
   $('.dict-back').disabled=historyIndex<=0;
   $('.dict-forward').disabled=historyIndex>=history.length-1;
   $('.dict-heart').setAttribute('aria-pressed',String(wordbook.has(currentWord)));
-  $('.dict-heart').disabled=!wordbook.isReady();
+  $('.dict-heart').disabled=!currentWord || !wordbook.isReady();
   $('.dict-pin').setAttribute('aria-pressed',String(pinned));
 }
 function showWordList(words,empty) {
@@ -255,16 +256,15 @@ async function openWord(word, rect, context, record=true, source=null) {
   }
 }
 
-function selectionWord() {
-  const selection = getSelection();
-  if (!selection.rangeCount || selection.isCollapsed) return null;
-  const range = selection.getRangeAt(0);
+function selectionWord(selected) {
+  const range = selected?.range;
+  if (!range || range.collapsed) return null;
   if (!article.contains(range.commonAncestorContainer)) return null;
   const parent = range.startContainer.nodeType === Node.ELEMENT_NODE ? range.startContainer : range.startContainer.parentElement;
   if (parent.closest('nav,button,a,pre,code')) return null;
   const block = parent.closest('p,h1,h2,h3,h4,h5,h6,li,td,figcaption');
   if (!block || !block.contains(range.endContainer)) return null;
-  const raw = selection.toString();
+  const raw = selected.text;
   const word = normalizeWord(raw);
   if (!word) return null;
   // Initial letters may live in separate spans. Measure against the entire block.
@@ -286,29 +286,39 @@ function selectionWord() {
   if (!rect.width || rect.bottom <= bounds.top || rect.top >= bounds.bottom) return null;
   return {word, rect, context, source:wordbook.capture(block,begin), key:word + ':' + begin + ':' + text};
 }
-function checkSelection() {
-  clearTimeout(timer);
-  if(panel.contains(document.activeElement)) return;
-  if (dragging) return;
-  timer = setTimeout(() => {
-    const selected = selectionWord();
-    if (!selected) {
-      // Selecting/copying text inside the dictionary must not dismiss it.
-      if (panel.contains(getSelection()?.anchorNode)) return;
-      lastKey = ''; if(!pinned) close(); return;
-    }
-    if (selected.key === lastKey) return;
-    lastKey = selected.key;
-    openWord(selected.word, selected.rect, selected.context,true,selected.source);
-  }, 160);
-}
-document.addEventListener('selectionchange', checkSelection);
-document.addEventListener('pointerdown', event => {
-  if (panel.contains(event.target)) return;
-  dragging = true; clearTimeout(timer); if(!pinned) close(); lastKey = '';
-});
-document.addEventListener('pointerup', event => { dragging = false; if(!panel.contains(event.target)) checkSelection(); });
-document.addEventListener('pointercancel', () => { dragging = false; });
+createSelectionToolbar({article,scroller,panel,onHighlights:data=>wordbook.setHighlights(data),closeDictionary:()=>{if(!pinned)close();},onDictionary:selected=>{
+  const single=selectionWord(selected);
+  if(single) {
+    if(!panel.hidden && currentWord===single.word)return;
+    openWord(single.word,single.rect,single.context,true,single.source);return;
+  }
+  close();for(const dispose of disposeViews)dispose();disposeViews=[];
+  anchor=selected.rect;currentWord='';currentSource=null;$('#dict-word').value='';updateToolbar();
+  $('.dict-toolbar-menu').hidden=true;$('.dict-local').open=false;result.replaceChildren();
+  const choices=el('section','','dict-selection-words');
+  choices.append(el('p','点击选段中的英文单词查询，或在上方输入单词。','dict-muted'));
+  const words=[...new Set((selected.text.match(/[A-Za-z]+(?:[’'’-][A-Za-z]+)*/g)||[]).map(normalizeWord).filter(Boolean))].slice(0,100);
+  for(const word of words) {
+    const button=el('button',word);button.type='button';
+    button.onclick=()=>{
+      let source=null;
+      for(const segment of selected.segments) {
+        const fragment=segment.text.slice(segment.start,segment.end);
+        for(const match of fragment.matchAll(/[A-Za-z]+(?:[’'’-][A-Za-z]+)*/g)) {
+          if(normalizeWord(match[0])!==word)continue;
+          const block=[...article.querySelectorAll('p,h1,h2,h3,h4,h5,h6,li,td,figcaption')].filter(b=>!b.closest('nav,pre,code')&&!b.querySelector('p,h1,h2,h3,h4,h5,h6,li,td,figcaption'))[segment.block];
+          source=wordbook.capture(block,segment.start+match.index);break;
+        }
+        if(source)break;
+      }
+      openWord(word,anchor,selected.text.slice(0,1200),true,source);
+    };
+    choices.append(button);
+  }
+  $('.dict-sources').replaceChildren(choices);
+  $('.dict-context').replaceChildren(el('h3','所选文字'),el('p',selected.text.slice(0,3000)));
+  panel.hidden=false;document.documentElement.classList.add('dictionary-open');position();
+}});
 
 panel.addEventListener('click', async event => {
   const button=event.target.closest('[data-dictionary-audio]');

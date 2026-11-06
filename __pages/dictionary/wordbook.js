@@ -7,6 +7,7 @@ export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) 
   const read=key=>{try{return localStorage.getItem(key);}catch{return null;}};
   const write=(key,value)=>{try{localStorage.setItem(key,value);}catch{}};
   let entries=[],ready=false,busy=false,revision=0;
+  let mode=read('reader-sidebar-mode')==='highlights'?'highlights':'words',highlights={marks:[],ready:false};
   const blocks=()=>[...article.querySelectorAll(blocksSelector)].filter(block=>!block.closest('nav,pre,code') && !block.querySelector(blocksSelector));
   const pageURL=()=>{
     const current=document.querySelector('.chapter-item[aria-current]');
@@ -16,7 +17,8 @@ export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) 
   const bookId=new URL(pageURL(),location.origin).searchParams.get('book');
   const node=(tag,text,className)=>{const el=document.createElement(tag);el.textContent=text;if(className)el.className=className;return el;};
   const toggle=node('button','单词本','wordbook-toggle');toggle.type='button';toggle.id='wordbook-toggle';toggle.setAttribute('aria-controls','wordbook');toggle.setAttribute('aria-expanded','false');
-  (document.querySelector('.speech-statusbar') || document.querySelector('.reader-tools')).append(toggle);
+  const highlightsToggle=node('button','Highlights','wordbook-toggle');highlightsToggle.type='button';highlightsToggle.id='highlights-toggle';highlightsToggle.setAttribute('aria-controls','wordbook');highlightsToggle.setAttribute('aria-expanded','false');
+  document.querySelector('.reader-tools').append(toggle,highlightsToggle);
   const layout=node('div','','reader-content');scroller.before(layout);layout.append(scroller);
   const sidebar=node('aside','','wordbook');sidebar.id='wordbook';sidebar.setAttribute('aria-label','单词本');sidebar.inert=true;
   const inner=node('div','','wordbook-inner');
@@ -28,12 +30,18 @@ export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) 
   const list=node('div','','wordbook-list');
   const status=node('p','','wordbook-status');status.setAttribute('role','status');
   inner.append(header,list,status);sidebar.append(inner);layout.append(sidebar);
-  function setOpen(open) {
+  function setOpen(open,next=mode) {
+    mode=next;write('reader-sidebar-mode',mode);
+    const title=mode==='words'?'单词本':'重点标记';
+    heading.replaceChildren(node('strong',title),node('small',mode==='words'?'Vocabulary':'Highlights'));
+    sidebar.setAttribute('aria-label',title);dismiss.setAttribute('aria-label','收起'+title);
     layout.classList.toggle('wordbook-open',open);sidebar.inert=!open;
-    toggle.setAttribute('aria-expanded',String(open));write('dictionary-wordbook-open',String(open));
-    if(!open && sidebar.contains(document.activeElement)) toggle.focus();
+    toggle.setAttribute('aria-expanded',String(open&&mode==='words'));highlightsToggle.setAttribute('aria-expanded',String(open&&mode==='highlights'));write('dictionary-wordbook-open',String(open));
+    if(!open && sidebar.contains(document.activeElement)) (mode==='words'?toggle:highlightsToggle).focus();
+    render();
   }
-  toggle.onclick=()=>setOpen(!layout.classList.contains('wordbook-open'));
+  toggle.onclick=()=>setOpen(mode!=='words'||!layout.classList.contains('wordbook-open'),'words');
+  highlightsToggle.onclick=()=>{setOpen(mode!=='highlights'||!layout.classList.contains('wordbook-open'),'highlights');if(layout.classList.contains('wordbook-open'))highlights.refresh?.();};
   dismiss.onclick=()=>setOpen(false);
   function capture(block,offset) {
     if(!block) return null;
@@ -49,7 +57,7 @@ export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) 
     }:{});
     const data=await response.json();if(!response.ok)throw new Error(data.error || '单词本保存失败');return data;
   }
-  function showError(error) {status.textContent=error.message;setOpen(true);}
+  function showError(error) {status.textContent=error.message;setOpen(true,'words');}
   async function refresh() {
     const run=++revision;
     const data=await api(bookId);
@@ -104,7 +112,24 @@ export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) 
     for(const button of list.querySelectorAll('.wordbook-entry')) if(button.dataset.word===entry.word) button.setAttribute('aria-current','true');
     status.textContent='已定位：'+entry.word;
   }
+  function renderHighlights() {
+    list.replaceChildren();count.textContent=highlights.ready?String(highlights.marks.length):'…';
+    status.textContent=highlights.error || '';
+    if(!highlights.ready || !highlights.marks.length) {list.append(node('p',highlights.ready?'选中文字，点击颜色按钮，即可把重点存到这里。':'正在读取本书重点标记…','wordbook-empty'));return;}
+    for(const mark of highlights.marks) {
+      const row=node('div','','wordbook-row highlight-row');row.dataset.color=mark.color;
+      const button=node('button','','wordbook-entry highlight-entry');button.type='button';
+      const label=mark.chapter.replace(/^[0-9]+-/, '').replace(/\.md$/,'').replaceAll('-',' ');
+      const text=mark.segments.map(s=>s.text.slice(s.start,s.end)).join(' … ');
+      button.append(node('small',label),node('span',text.length>320?text.slice(0,320)+'…':text,'wordbook-quote'));button.title=text;
+      button.onclick=()=>{onNavigate?.();highlights.jump?.(mark);};
+      const remove=node('button','×','wordbook-remove');remove.type='button';remove.setAttribute('aria-label','删除重点标记 '+text.slice(0,30));remove.disabled=Boolean(highlights.busy);remove.onclick=()=>highlights.remove?.(mark);
+      row.append(button,remove);list.append(row);
+    }
+  }
   function render() {
+    if(mode==='highlights'){renderHighlights();return;}
+
     count.textContent=ready?String(entries.length):'…';list.replaceChildren();
     if(!ready) {list.append(node('p','正在读取本书单词本…','wordbook-empty'));return;}
     if(!entries.length) {list.append(node('p','查词时点击 ♡，就能把单词和正文位置存到这里。','wordbook-empty'));return;}
@@ -136,7 +161,7 @@ export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) 
       await refresh();ready=true;render();onChange?.();
       const requested=new URLSearchParams(location.hash.slice(1)).get('wordbook');
       const destination=entries.find(entry=>entry.word===requested);
-      if(destination) {setOpen(true);requestAnimationFrame(()=>requestAnimationFrame(()=>jump(destination)));}
+      if(destination) {setOpen(true,'words');requestAnimationFrame(()=>requestAnimationFrame(()=>jump(destination)));}
     }catch(error){
       showError(error);list.replaceChildren();
       const retry=node('button','重新读取');retry.type='button';
@@ -145,7 +170,8 @@ export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) 
   })();
   return {
     capture,findSource,has:word=>entries.some(entry=>entry.word===word),isReady:()=>ready && !busy,
-    open(){setOpen(true);if(ready && !busy)refresh().catch(showError);},
+    setHighlights(data){highlights=data;if(mode==='highlights')render();},
+    open(){setOpen(true,'words');if(ready && !busy)refresh().catch(showError);},
     toggle(word,source) {
       return entries.some(entry=>entry.word===word)?change('remove',[{word}]):change('add',[{word,source:source || findSource(word)}]);
     }

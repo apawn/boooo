@@ -32,7 +32,12 @@ async function refreshStatus() {
   finally{checking=false;statusButton.classList.remove('is-syncing');statusButton.removeAttribute('aria-busy');}
 }
 statusButton.addEventListener('click',()=>{showDetails(true);void refreshStatus();});
-document.addEventListener('click',event=>{if(!event.target.closest('.sync-footer'))showDetails(false);});
+function dismissOutside(event) {
+  if(!details.hidden && !details.contains(event.target) && !statusButton.contains(event.target))showDetails(false);
+}
+// Footer whitespace is outside the popup too; capture before other reader controls.
+document.addEventListener('pointerdown',dismissOutside,true);
+document.addEventListener('click',dismissOutside,true);
 document.addEventListener('keydown',event=>{if(event.key==='Escape' && !details.hidden){showDetails(false);statusButton.focus();}});
 function render(state) {
   button.disabled=state.running || starting;

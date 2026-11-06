@@ -24,6 +24,7 @@ export function createWordbookStore(books,{isLocked=()=>false}={}) {
     for(const book of books.values()) {
       await create(await safeFile(book,'book.json'),{version:1,id:book.id,title:book.title,edition:book.edition,chapters:book.items.map(chapter=>({file:chapter.file,title:chapter.name}))});
       await create(await safeFile(book,'words.json'),{version:1,book:book.id,words:[]});
+      await create(await safeFile(book,'highlights.json'),{version:1,book:book.id,highlights:[]});
     }
   }
   function cleanEntry(book,entry) {
@@ -67,11 +68,60 @@ export function createWordbookStore(books,{isLocked=()=>false}={}) {
     });
     queues.set(id,run);run.finally(()=>{if(queues.get(id)===run)queues.delete(id);}).catch(()=>{});return run;
   }
+  function cleanHighlight(book,item) {
+    if(!book.items.some(chapter=>chapter.file===item?.chapter))throw fail('标记章节不正确');
+    if(!['yellow','green','blue','pink','purple'].includes(item.color))throw fail('标记颜色不正确');
+    if(!Array.isArray(item.segments) || !item.segments.length || item.segments.length>1000)throw fail('标记范围不正确');
+    const segments=item.segments.map(s=>{
+      if(!Number.isInteger(s.block) || s.block<0 || typeof s.text!=='string' || s.text.length>120000 || !Number.isInteger(s.start) || !Number.isInteger(s.end) || s.start<0 || s.end<=s.start || s.end>s.text.length)throw fail('标记位置不正确');
+      return {block:s.block,text:s.text,start:s.start,end:s.end};
+    });
+    return {chapter:item.chapter,color:item.color,segments};
+  }
+  async function listHighlights(id) {
+    const book=bookFor(id),file=await safeFile(book,'highlights.json');
+    await create(file,{version:1,book:id,highlights:[]});
+    const data=JSON.parse(await readFile(file,'utf8'));
+    if(data.version!==1 || data.book!==id || !Array.isArray(data.highlights))throw fail('highlights.json 格式不正确；原文件未修改',409);
+    for(const item of data.highlights)cleanHighlight(book,item);
+    return data;
+  }
+  function mutateHighlights(id,action,item) {
+    if(isLocked())throw fail('正在同步，请完成后再保存标记',409);
+    const book=bookFor(id);
+    const run=(queues.get(id)||Promise.resolve()).catch(()=>{}).then(async()=>{
+      if(!['paint','remove'].includes(action))throw fail('未知标记操作');
+      const clean=cleanHighlight(book,item),data=await listHighlights(id);
+      // Replace overlapping portions, retaining the untouched parts of earlier marks.
+      data.highlights=data.highlights.flatMap(mark=>{
+        if(mark.chapter!==clean.chapter)return [mark];
+        const segments=mark.segments.flatMap(old=>{
+          let parts=[old];
+          for(const selected of clean.segments) {
+            if(selected.block!==old.block || selected.text!==old.text)continue;
+            parts=parts.flatMap(part=>{
+              if(selected.end<=part.start || selected.start>=part.end)return [part];
+              return [...(selected.start>part.start?[{...part,end:selected.start}]:[]),...(selected.end<part.end?[{...part,start:selected.end}]:[])];
+            });
+          }
+          return parts;
+        });
+        return segments.length?[{...mark,segments}]:[];
+      });
+      if(action==='paint')data.highlights.push({...clean,id:randomUUID(),createdAt:new Date().toISOString()});
+      if(data.highlights.length>10000)throw fail('标记数量过多');
+      const file=await safeFile(book,'highlights.json'),temp=file+'.'+randomUUID()+'.tmp';
+      try {await writeFile(temp,JSON.stringify(data,null,2)+'\n',{flag:'wx'});await rename(temp,file);}finally{await unlink(temp).catch(()=>{});}
+      return data;
+    });
+    queues.set(id,run);run.finally(()=>{if(queues.get(id)===run)queues.delete(id);}).catch(()=>{});return run;
+  }
   async function serve(req,res,url) {
     const send=(status,data)=>res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}).end(JSON.stringify(data));
     try {
       const id=url.searchParams.get('book');bookFor(id);
-      if(req.method==='GET')return send(200,await list(id));
+      const highlights=url.pathname==='/highlights';
+      if(req.method==='GET')return send(200,await (highlights?listHighlights(id):list(id)));
       if(req.method!=='POST')return send(405,{error:'不支持此操作'});
       const origin=req.headers.origin;
       if(!origin || origin!=='http://'+req.headers.host || req.headers['sec-fetch-site']==='cross-site') return send(403,{error:'仅允许书架页面保存收藏'});
@@ -79,8 +129,8 @@ export function createWordbookStore(books,{isLocked=()=>false}={}) {
       const chunks=[];let size=0;
       for await(const chunk of req) {size+=chunk.length;if(size>4*1024*1024)return send(413,{error:'收藏数据过大'});chunks.push(Buffer.from(chunk));}
       let data;try{data=JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{throw fail('JSON 格式不正确');}
-      return send(200,await mutate(id,data.action,data.entries));
+      return send(200,await (highlights?mutateHighlights(id,data.action,data.entry):mutate(id,data.action,data.entries)));
     }catch(error){return send(error.status || 500,{error:error.status?error.message:'无法读取或保存单词本，请检查 JSON 文件与目录权限；原文件未覆盖。'});}
   }
-  return {initialize,list,mutate,serve,drain:()=>Promise.allSettled([...queues.values()])};
+  return {initialize,list,mutate,listHighlights,mutateHighlights,serve,drain:()=>Promise.allSettled([...queues.values()])};
 }
