@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "id": "Why Nations Fail (English)",
+  "title": "Why Nations Fail",
+  "edition": "英文版",
+  "chapters": [
+    {
+      "file": "01-Front-Matter.md",
+      "title": "Front Matter"
+    },
+    {
+      "file": "02-Preface.md",
+      "title": "Preface"
+    },
+    {
+      "file": "03-Chapter-01-So-Close-and-Yet-So-Different.md",
+      "title": "So Close and Yet So Different"
+    },
+    {
+      "file": "04-Chapter-02-Theories-that-Don-t-Work.md",
+      "title": "Theories that Don t Work"
+    },
+    {
+      "file": "05-Chapter-03-The-Making-of-Prosperity-and-Poverty.md",
+      "title": "The Making of Prosperity and Poverty"
+    },
+    {
+      "file": "06-Chapter-04-Small-Differences-and-Critical-Junctures-The-Weight-of-History.md",
+      "title": "Small Differences and Critical Junctures The Weight of History"
+    },
+    {
+      "file": "07-Chapter-05-I-ve-seen-the-Future-and-It-Works-Growth-Under-Extractive-Institutions.md",
+      "title": "I ve seen the Future and It Works Growth Under Extractive Institutions"
+    },
+    {
+      "file": "08-Chapter-06-Drifting-Apart.md",
+      "title": "Drifting Apart"
+    },
+    {
+      "file": "09-Chapter-07-The-Turning-Point.md",
+      "title": "The Turning Point"
+    },
+    {
+      "file": "10-Chapter-08-Not-on-Our-Turf-Barriers-to-Development.md",
+      "title": "Not on Our Turf Barriers to Development"
+    },
+    {
+      "file": "10a-Photo-Inserts.md",
+      "title": "Photo Inserts"
+    },
+    {
+      "file": "11-Chapter-09-Reversing-Development.md",
+      "title": "Reversing Development"
+    },
+    {
+      "file": "12-Chapter-10-The-Diffusion-of-Prosperity.md",
+      "title": "The Diffusion of Prosperity"
+    },
+    {
+      "file": "13-Chapter-11-The-Virtuous-Circle.md",
+      "title": "The Virtuous Circle"
+    },
+    {
+      "file": "14-Chapter-12-The-Vicious-Circle.md",
+      "title": "The Vicious Circle"
+    },
+    {
+      "file": "15-Chapter-13-Why-Nations-Fail-Today.md",
+      "title": "Why Nations Fail Today"
+    },
+    {
+      "file": "16-Chapter-14-Breaking-the-Mold.md",
+      "title": "Breaking the Mold"
+    },
+    {
+      "file": "17-Chapter-15-Understanding-Prosperity-and-Poverty.md",
+      "title": "Understanding Prosperity and Poverty"
+    },
+    {
+      "file": "18-Acknowledgments.md",
+      "title": "Acknowledgments"
+    },
+    {
+      "file": "19-Bibliographical-Essay-and-Sources.md",
+      "title": "Bibliographical Essay and Sources"
+    },
+    {
+      "file": "20-References.md",
+      "title": "References"
+    }
+  ]
+}

@@ -1,7 +1,9 @@
 import http from 'node:http';
+import {createGitSync} from './git-sync.mjs';
 import {serveDictionary} from './dictionary/service.mjs';
 import {serveSource} from './dictionary/sources.mjs';
 import {serveRoots} from './dictionary/roots.mjs';
+import {createWordbookStore} from './dictionary/wordbook-store.mjs';
 import { defaultMandarin, mandarinVoices } from './speech/voices.mjs';
 import { serveSpeech, warmSpeech, closeSpeech } from './speech/engine.mjs';
 import { tocLabels, chapterLabel } from './labels.mjs';
@@ -40,6 +42,9 @@ for (const entry of files.filter(d=>d.isDirectory() && !d.name.startsWith('.') &
   if (items.length) books.set(entry.name, {id:entry.name,dir,title,edition,motif,color,items,contents:chapters.find(c=>c.startsWith('00-'))});
 }
 const order=[...new Set([...Object.keys(titles),...books.keys()])].filter(k=>books.has(k));
+const wordbookStore=createWordbookStore(books,{isLocked:()=>gitSync.running});
+await wordbookStore.initialize();
+const gitSync=createGitSync(root,{beforeSync:()=>wordbookStore.drain()});
 const englishTitles = {nations:'Why Nations Fail', corridor:'The Narrow Corridor', regrets:'The Top Five Regrets of the Dying', letters:'Within Four Walls'};
 const themeLabels = new Map();
 for (const b of books.values()) {
@@ -119,13 +124,16 @@ async function render(b,c) {
   const body=chapterBody(await readFile(path.join(b.dir,c.file),'utf8'),b,c);
   const [chapterName]=chapterLabel(c,themeLabels.get(b.motif));
   const currentChapter=(c.number?'第'+Number(c.number)+'章 ':'')+chapterName;
-  return '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(c.name+' · '+b.title)+'</title><link rel="stylesheet" href="/dictionary/saladict/bundle.css"><link rel="stylesheet" href="/reader.css"><script src="/reader.js"></script><script src="/read-aloud.js" type="module"></script><script src="/dictionary.js" type="module"></script></head><body><div class="frame">'+borderDecor()+'<aside id="shelf"><header class="side-head"><span class="brand">'+icon('book')+'<span>藏书架'+subtitle('Bookshelf')+'</span></span><button class="toggle" aria-controls="book-list" aria-expanded="true" title="收起书架">'+icon('panel')+'</button></header><nav id="book-list" aria-label="所有书籍">'+shelf+'</nav></aside><aside id="chapters"><header class="side-head"><span><strong>章节</strong>'+subtitle('Chapters')+'</span><span class="total">'+b.items.length+'</span></header><nav id="chapter-list" aria-label="章节目录">'+chapters+'</nav></aside><main id="reader"><header class="reader-bar"><span class="crumb">'+icon('book')+'<span class="crumb-book">'+escape(b.title)+'</span><span class="current-chapter" aria-label="当前章节">· '+escape(currentChapter)+'</span><span class="edition">'+escape(b.edition)+'</span></span>'+'<div class="reader-tools"><button id="voice-settings" type="button" aria-haspopup="dialog">中文音色</button>'+typeControls+'</div></header><div class="scroll" id="scroll" tabindex="-1"><article class="'+(b.edition==='英汉对照版'?'parallel':'')+'">'+body+'<nav class="paging" aria-label="翻章">'+paging+'</nav></article></div></main></div>'+voiceDialog+'</body></html>';
+  return '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(c.name+' · '+b.title)+'</title><link rel="stylesheet" href="/dictionary/saladict/bundle.css"><link rel="stylesheet" href="/reader.css"><script src="/reader.js"></script><script src="/git-sync.js" type="module"></script><script src="/read-aloud.js" type="module"></script><script src="/dictionary.js" type="module"></script></head><body><div class="frame">'+borderDecor()+'<aside id="shelf"><header class="side-head"><span class="brand">'+icon('book')+'<span>藏书架'+subtitle('Bookshelf')+'</span></span><button class="toggle" aria-controls="book-list" aria-expanded="true" title="收起书架">'+icon('panel')+'</button></header><nav id="book-list" aria-label="所有书籍">'+shelf+'</nav><footer class="sync-footer"><button id="sync-button" type="button" title="提交所有本地修改、rebase 并推送"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6 6a8 8 0 0 1 14 6M18 18a8 8 0 0 1-14-6"/></svg><span>同步</span></button><div class="sync-info"><p id="sync-status" role="status" aria-live="polite">尚未同步</p><details><summary>同步详情</summary><div id="sync-details"></div></details></div></footer></aside><aside id="chapters"><header class="side-head"><span><strong>章节</strong>'+subtitle('Chapters')+'</span><span class="total">'+b.items.length+'</span></header><nav id="chapter-list" aria-label="章节目录">'+chapters+'</nav></aside><main id="reader"><header class="reader-bar"><span class="crumb">'+icon('book')+'<span class="crumb-book">'+escape(b.title)+'</span><span class="current-chapter" aria-label="当前章节">· '+escape(currentChapter)+'</span><span class="edition">'+escape(b.edition)+'</span></span>'+'<div class="reader-tools"><button id="voice-settings" type="button" aria-haspopup="dialog">中文音色</button>'+typeControls+'</div></header><div class="scroll" id="scroll" tabindex="-1"><article class="'+(b.edition==='英汉对照版'?'parallel':'')+'">'+body+'<nav class="paging" aria-label="翻章">'+paging+'</nav></article></div></main></div>'+voiceDialog+'</body></html>';
 }
-const staticFiles={'/dictionary/saladict/bundle.js':'text/javascript; charset=utf-8','/dictionary/saladict/bundle.css':'text/css; charset=utf-8','/dictionary.js':'text/javascript; charset=utf-8','/dictionary/word.js':'text/javascript; charset=utf-8','/assets/moonlit-waterfall.png':'image/png','/reading-text.js':'text/javascript; charset=utf-8','/reading-line.js':'text/javascript; charset=utf-8','/read-aloud.js':'text/javascript; charset=utf-8','/reader.js':'text/javascript; charset=utf-8','/reader.css':'text/css; charset=utf-8'};
+const staticFiles={'/git-sync.js':'text/javascript; charset=utf-8','/dictionary/saladict/bundle.js':'text/javascript; charset=utf-8','/dictionary/saladict/bundle.css':'text/css; charset=utf-8','/dictionary.js':'text/javascript; charset=utf-8','/dictionary/word.js':'text/javascript; charset=utf-8','/assets/moonlit-waterfall.png':'image/png','/reading-text.js':'text/javascript; charset=utf-8','/reading-line.js':'text/javascript; charset=utf-8','/read-aloud.js':'text/javascript; charset=utf-8','/reader.js':'text/javascript; charset=utf-8','/reader.css':'text/css; charset=utf-8'};
 const mediaTypes={'.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.gif':'image/gif','.webp':'image/webp'};
 const server=http.createServer(async(req,res)=>{
   try {
+    if(req.url==='/git-sync'){await gitSync.serve(req,res);return;}
+    if(req.url?.split('?')[0]==='/wordbook' && gitSync.running){res.writeHead(409,{'Content-Type':'application/json; charset=utf-8'}).end(JSON.stringify({error:'正在同步，请完成后再操作单词本'}));return;}
     if(req.url==='/speech') { await serveSpeech(req,res); return; }
+    if(req.url?.split('?')[0]==='/wordbook') {await wordbookStore.serve(req,res,new URL(req.url,'http://localhost'));return;}
     if(req.method!=='GET' && req.method!=='HEAD'){res.writeHead(405,{Allow:'GET, HEAD'}).end();return;}
     const u=new URL(req.url,'http://localhost');
     res.setHeader('X-Content-Type-Options','nosniff');

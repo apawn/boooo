@@ -1,18 +1,19 @@
 import {normalizeFavorites,locateWord} from './wordbook-model.js';
 
 const storageKey='dictionary-wordbook-v1';
+const migrationKey='dictionary-wordbook-files-migrated-v1';
 const blocksSelector='p,h1,h2,h3,h4,h5,h6,li,td,figcaption';
 export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) {
   const read=key=>{try{return localStorage.getItem(key);}catch{return null;}};
   const write=(key,value)=>{try{localStorage.setItem(key,value);}catch{}};
-  let entries=[];
-  try {entries=normalizeFavorites(JSON.parse(read(storageKey) || read('dictionary-favorites') || '[]'));}catch{}
+  let entries=[],ready=false,busy=false,revision=0;
   const blocks=()=>[...article.querySelectorAll(blocksSelector)].filter(block=>!block.closest('nav,pre,code') && !block.querySelector(blocksSelector));
   const pageURL=()=>{
     const current=document.querySelector('.chapter-item[aria-current]');
     const url=new URL(current?.href || location.href);
     return url.pathname+url.search;
   };
+  const bookId=new URL(pageURL(),location.origin).searchParams.get('book');
   const node=(tag,text,className)=>{const el=document.createElement(tag);el.textContent=text;if(className)el.className=className;return el;};
   const toggle=node('button','单词本','wordbook-toggle');toggle.type='button';toggle.id='wordbook-toggle';toggle.setAttribute('aria-controls','wordbook');toggle.setAttribute('aria-expanded','false');
   (document.querySelector('.speech-statusbar') || document.querySelector('.reader-tools')).append(toggle);
@@ -42,11 +43,41 @@ export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) 
     const all=blocks(),found=locateWord(all.map(block=>block.textContent),word);
     return found?capture(all[found.block],found.offset):null;
   }
-  function save() {
-    write(storageKey,JSON.stringify(entries));
-    // Preserve compatibility with the previous string-only favorites list.
-    write('dictionary-favorites',JSON.stringify(entries.map(entry=>entry.word)));
-    render();onChange?.();
+  async function api(book,action,items) {
+    const response=await fetch('/wordbook?'+new URLSearchParams({book}),action?{
+      method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,entries:items}),keepalive:JSON.stringify(items).length<50000
+    }:{});
+    const data=await response.json();if(!response.ok)throw new Error(data.error || '单词本保存失败');return data;
+  }
+  function showError(error) {status.textContent=error.message;setOpen(true);}
+  async function refresh() {
+    const run=++revision;
+    const data=await api(bookId);
+    if(run===revision) {entries=normalizeFavorites(data.words);render();onChange?.();}
+  }
+  async function change(action,items) {
+    if(!ready || busy)return;
+    busy=true;revision++;render();onChange?.();status.textContent='正在保存…';
+    try {
+      const data=await api(bookId,action,items);entries=normalizeFavorites(data.words);
+      status.textContent='已保存到本书 meta_data/words.json';
+      write('dictionary-wordbook-files-changed',String(Date.now()));
+    }catch(error){showError(error);}
+    finally {busy=false;render();onChange?.();}
+  }
+  async function migrate() {
+    if(read(migrationKey)==='done')return;
+    let legacy=[];
+    // Keep the old browser data as a backup. Do not re-import after completion.
+    try {legacy=normalizeFavorites(JSON.parse(read(storageKey) || read('dictionary-favorites') || '[]'));}catch{}
+    const groups=new Map();
+    for(const entry of legacy) {
+      const destination=entry.source?new URL(entry.source.url,location.origin).searchParams.get('book'):bookId;
+      const key=destination || bookId;
+      const group=groups.get(key) || [];group.push(entry);groups.set(key,group);
+    }
+    for(const [book,items] of groups)await api(book,'import',items);
+    write(migrationKey,'done');
   }
   function jump(entry) {
     onNavigate?.();status.textContent='';
@@ -74,7 +105,8 @@ export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) 
     status.textContent='已定位：'+entry.word;
   }
   function render() {
-    count.textContent=String(entries.length);list.replaceChildren();
+    count.textContent=ready?String(entries.length):'…';list.replaceChildren();
+    if(!ready) {list.append(node('p','正在读取本书单词本…','wordbook-empty'));return;}
     if(!entries.length) {list.append(node('p','查词时点击 ♡，就能把单词和正文位置存到这里。','wordbook-empty'));return;}
     for(const entry of entries) {
       const row=node('div','','wordbook-row');
@@ -88,22 +120,34 @@ export function createWordbook({article,scroller,onLookup,onChange,onNavigate}) 
       }
       button.onclick=()=>jump(entry);
       const lookup=node('button','查词','wordbook-lookup');lookup.type='button';lookup.setAttribute('aria-label','查询 '+entry.word);lookup.onclick=()=>onLookup(entry.word,button.getBoundingClientRect(),source);
-      const remove=node('button','×','wordbook-remove');remove.type='button';remove.setAttribute('aria-label','取消收藏 '+entry.word);remove.onclick=()=>{entries=entries.filter(item=>item.word!==entry.word);save();};
+      const remove=node('button','×','wordbook-remove');remove.type='button';remove.setAttribute('aria-label','取消收藏 '+entry.word);remove.disabled=busy;remove.onclick=()=>change('remove',[{word:entry.word}]);
       row.append(button,lookup,remove);list.append(row);
     }
   }
   window.addEventListener('storage',event=>{
-    if(event.key===storageKey) {try{entries=normalizeFavorites(JSON.parse(event.newValue || '[]'));render();onChange?.();}catch{}}
+    if(event.key==='dictionary-wordbook-files-changed' && ready && !busy) refresh().catch(showError);
   });
+  window.addEventListener('bookshelf-synced',()=>refresh().catch(showError));
+  window.addEventListener('focus',()=>{if(ready && !busy)refresh().catch(showError);});
   render();setOpen(read('dictionary-wordbook-open')==='true');
-  const requested=new URLSearchParams(location.hash.slice(1)).get('wordbook');
-  const destination=entries.find(entry=>entry.word===requested);
-  if(destination) {setOpen(true);requestAnimationFrame(()=>requestAnimationFrame(()=>jump(destination)));}
+  (async()=>{
+    try {await migrate();}catch(error){showError(error);}
+    try {
+      await refresh();ready=true;render();onChange?.();
+      const requested=new URLSearchParams(location.hash.slice(1)).get('wordbook');
+      const destination=entries.find(entry=>entry.word===requested);
+      if(destination) {setOpen(true);requestAnimationFrame(()=>requestAnimationFrame(()=>jump(destination)));}
+    }catch(error){
+      showError(error);list.replaceChildren();
+      const retry=node('button','重新读取');retry.type='button';
+      retry.onclick=()=>location.reload();list.append(retry);
+    }
+  })();
   return {
-    capture,findSource,has:word=>entries.some(entry=>entry.word===word),
-    open(){setOpen(true);},
+    capture,findSource,has:word=>entries.some(entry=>entry.word===word),isReady:()=>ready && !busy,
+    open(){setOpen(true);if(ready && !busy)refresh().catch(showError);},
     toggle(word,source) {
-      entries=entries.some(entry=>entry.word===word)?entries.filter(entry=>entry.word!==word):[{word,source:source || findSource(word)},...entries];save();
+      return entries.some(entry=>entry.word===word)?change('remove',[{word}]):change('add',[{word,source:source || findSource(word)}]);
     }
   };
 }

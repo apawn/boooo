@@ -39,6 +39,7 @@ function updateToolbar() {
   $('.dict-back').disabled=historyIndex<=0;
   $('.dict-forward').disabled=historyIndex>=history.length-1;
   $('.dict-heart').setAttribute('aria-pressed',String(wordbook.has(currentWord)));
+  $('.dict-heart').disabled=!wordbook.isReady();
   $('.dict-pin').setAttribute('aria-pressed',String(pinned));
 }
 function showWordList(words,empty) {
