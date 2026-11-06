@@ -55,7 +55,8 @@ aside { border-right:1px solid var(--line); }
 .num { color:#8a8371; font:12px/1.6 var(--font-system); width:18px; flex:none; text-align:center; }
 .chapter-item[aria-current] .num {color:inherit;}
 .reader-bar { padding:10px clamp(16px,3vw,46px); flex-wrap:wrap; }
-.crumb {display:flex;align-items:center;gap:10px;font-size:14px;font-weight:550;min-width:0;white-space:nowrap;overflow:hidden;}
+.crumb {display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;font-size:14px;font-weight:550;min-width:0;max-width:100%;white-space:normal;}
+.current-chapter {font-size:12px;font-weight:400;color:#626653;overflow-wrap:anywhere;}
 .crumb .icon {color:#7e8268;}
 .edition { font-size:11px;color:var(--muted);font-weight:400; border-left:1px solid var(--line);padding-left:10px;white-space:nowrap; }
 .type-controls {display:flex;flex:none;border:1px solid var(--line);border-radius:5px;overflow:hidden; }
@@ -143,6 +144,7 @@ article blockquote {margin:.5em 0 1.45em;padding:0 0 0 1em;border-left:2px solid
 
 .speech-trigger {position:fixed;z-index:10;display:grid;place-items:center;width:27px;height:27px;padding:5px;border:1px solid transparent;border-radius:50%;background:transparent;color:#939b87;box-shadow:none;touch-action:manipulation;transition:color .22s ease;}
 .speech-trigger[hidden] {display:none;}
+.dictionary-open .speech-trigger {display:none;}
 .speech-trigger::before {content:"";position:absolute;inset:-1px;border:0;border-radius:50%;background:#e8ebdf;box-shadow:0 3px 5px -1px rgb(0 0 0 / .16),0 6px 10px 0 rgb(0 0 0 / .11),0 1px 18px 0 rgb(0 0 0 / .09);opacity:0;transform:scale(.5);pointer-events:none;transition:opacity .22s ease,transform .22s cubic-bezier(.2,.7,.3,1);}
 .speech-trigger svg {position:relative;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 .speech-trigger:hover,.speech-trigger:focus-visible {color:#454d3d;}
@@ -190,4 +192,134 @@ blockquote .speech-paragraph {padding-left:calc(34px + 1em);margin-left:calc(-34
 #voice-dialog audio {width:100%;display:block;}
 #voice-dialog form {display:flex;gap:8px;justify-content:flex-end;margin-top:18px;}
 #voice-dialog button[value="apply"] {background:#454d3d;color:#fffaf0;}
-@media(max-width:620px) {.reader-tools{gap:3px;}#voice-settings{font-size:10px;padding:4px;}.crumb{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}}
+@media(max-width:620px) {.reader-tools{gap:3px;}#voice-settings{font-size:10px;padding:4px;}.crumb{display:flex;white-space:normal;}}
+
+/* Dictionary typography is independent from the book's decorative theme. */
+#dictionary-panel {position:fixed;z-index:50;display:flex;flex-direction:column;width:min(520px,calc(100vw - 32px));max-height:calc(100dvh - 32px);box-sizing:border-box;border:1px solid #e3e5e5;border-radius:9px;background:#fff;color:#292e35;box-shadow:0 8px 24px #17282426,0 24px 64px #17282424;font:14px/1.6 Arial,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden;animation:dict-appear .16s ease-out;--color-font-grey:#777d83;--color-font:#292e35;}
+#dictionary-panel[hidden] {display:none;}
+#dictionary-panel .dict-header {display:flex;align-items:center;justify-content:space-between;gap:0;flex:none;padding:0 3px;height:34px;background:#2c9b8c;color:white;}
+#dictionary-panel .dict-header h2 {margin:0;color:inherit;font:600 21px/1.4 Arial,sans-serif;overflow-wrap:anywhere;}
+#dictionary-panel button {font:inherit;cursor:pointer;color:#465451;border:1px solid #dce2e0;border-radius:5px;background:#fff;padding:4px 10px;}
+#dictionary-panel button:hover {background:#edf7f4;}
+#dictionary-panel button:disabled {opacity:.55;cursor:wait;}
+#dictionary-panel button:focus-visible,#dictionary-panel a:focus-visible,#dictionary-panel summary:focus-visible {outline:2px solid #2c9b8c;outline-offset:3px;}
+#dictionary-panel .dict-close {border:0;background:transparent;color:#fff;font:300 31px/1 Arial,sans-serif;width:34px;height:34px;padding:0;flex:none;}
+#dictionary-panel .dict-close:hover {background:#ffffff20;}
+#dictionary-panel .dict-scroll {overflow-y:auto;overscroll-behavior:contain;padding:0 0 18px;min-height:0;scrollbar-width:thin;scrollbar-color:#d4d8d7 transparent;}
+#dictionary-panel .dict-audio-status {font-size:12px;color:#66716d;}
+#dictionary-panel .dict-audio-status:not(:empty) {padding:5px 20px;background:#f3f9f7;}
+#dictionary-panel .dict-source {margin:0;font-size:inherit;border-bottom:1px dashed #d4dbe0;}
+#dictionary-panel .dict-source > summary {display:flex;align-items:center;gap:0;padding:0 5px 0 0;background:#fff;font:14px/24px Georgia,"Times New Roman",serif;color:#292e35;list-style:none;cursor:pointer;}
+#dictionary-panel .dict-source > summary::-webkit-details-marker {display:none;}
+#dictionary-panel .dict-source > summary::after {content:'';width:9px;height:9px;border-right:1px solid #596169;border-bottom:1px solid #596169;transform:rotate(-45deg);margin:0 4px 0 auto;transition:transform .15s;}
+#dictionary-panel .dict-source[open] > summary::after {transform:rotate(45deg) translateY(-3px);}
+#dictionary-panel .dict-source-name {flex:none;padding:0 4px;}
+#dictionary-panel .dict-source-badge {display:block;width:24px;height:24px;object-fit:contain;flex:none;}
+#dictionary-panel .dict-source > summary a {font:inherit;color:inherit;text-decoration:none;}
+#dictionary-panel .dict-source > summary a:hover {color:#2c9b8c;text-decoration:underline;}
+#dictionary-panel .dict-provider-content {position:relative;box-sizing:border-box;padding:12px 11px 14px;max-height:360px;overflow:hidden;font-size:14px;line-height:1.6;}
+#dictionary-panel .is-expanded > .dict-provider-content {max-height:none;}
+#dictionary-panel .has-more:not(.is-expanded) > .dict-provider-content {mask-image:linear-gradient(#000 calc(100% - 30px),transparent);}
+#dictionary-panel .dict-more {display:block;position:relative;width:100%;height:20px;margin-top:-20px;padding:0;border:0;border-radius:0;color:#72797c;background:linear-gradient(#ffffff00,#fff);}
+#dictionary-panel .dict-more::after {content:'';display:block;width:11px;height:11px;border-right:1px solid;border-bottom:1px solid;transform:rotate(45deg);margin:0 auto 5px;}
+#dictionary-panel .is-expanded > .dict-more {margin-top:0;}
+#dictionary-panel .is-expanded > .dict-more::after {transform:rotate(225deg);margin-top:7px;}
+#dictionary-panel .dict-more[hidden] {display:none;}
+#dictionary-panel h1,#dictionary-panel .dict-cambridge .headword {font:700 21px/1.3 Arial,sans-serif;margin:0 0 8px;}
+#dictionary-panel h2,#dictionary-panel h3 {font:600 16px/1.4 Arial,"PingFang SC",sans-serif;color:#292e35;margin:12px 0 7px;}
+#dictionary-panel h4 {font-size:15px;margin:10px 0 5px;}
+#dictionary-panel p {margin:7px 0 11px;overflow-wrap:anywhere;}
+#dictionary-panel ul,#dictionary-panel ol {padding-left:23px;}
+#dictionary-panel li {line-height:1.6;}
+#dictionary-panel a {color:inherit;text-underline-offset:3px;}
+#dictionary-panel .dict-cambridge a.query {text-decoration:none;}
+#dictionary-panel .dict-cambridge a.query:hover {color:#f27a21;text-decoration:underline;}
+#dictionary-panel .dict-cambridge .dpron-i {display:inline-block;margin:4px 12px 9px 0;}
+#dictionary-panel .dict-cambridge .pos-header {color:#292e35;}
+#dictionary-panel .dict-cambridge .def-body .trans {color:#7e8389;font-weight:400;margin-top:5px;}
+#dictionary-panel .dict-cambridge .def-body > .trans:first-child {color:#4c5259;font-weight:500;}
+#dictionary-panel .dict-cambridge .dexamp {margin-top:8px;padding:0;border:0;}
+#dictionary-panel .dict-cambridge .dsense_h {font-size:16px;}
+#dictionary-panel .dict-cambridge .dwl {border-color:#e49a50;}
+#dictionary-panel .dict-provider-content .dict-recording {display:inline-grid;place-items:center;vertical-align:middle;width:25px;height:28px;min-width:25px;padding:3px;margin:0 4px;border:0;background:transparent;color:#ff781f;}
+#dictionary-panel .dict-recording::before {content:'';width:18px;height:18px;background:currentColor;mask:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 8h5l7-5v18l-7-5H3zM18 7a7 7 0 0 1 0 10' fill='black' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");}
+#dictionary-panel .dict-recording:hover {background:#fff1e6;color:#df6210;}
+#dictionary-panel .dict-pronunciation {display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 0 14px;}
+#dictionary-panel .dictBing-Phsym {list-style:none;padding:0;}
+#dictionary-panel .dictBing-Cdef {list-style:none;padding-left:12px;}
+#dictionary-panel .dictBing-CdefItem_Pos {font-weight:700;}
+#dictionary-panel .dictBing-SentenceItem > p:nth-child(2) {color:#7e8389;}
+#dictionary-panel .dictBing-Inf {color:#8a8c8e;list-style:none;padding:0;}
+#dictionary-panel .dict-vocabulary .dictVocabulary-Long {padding-left:12px;border-left:1px solid #959b9d;}
+#dictionary-panel .dict-entry-box {border:1px solid #ddad77;border-radius:6px;margin:18px 0;padding:12px 16px;min-width:0;}
+#dictionary-panel .dict-entry-box legend {padding:0 7px;font-weight:600;}
+#dictionary-panel .dictYoudao-Stars {color:#ffc21b;letter-spacing:2px;font-size:21px;}
+#dictionary-panel .dictYoudao-Basic ul {list-style:none;padding:0;}
+#dictionary-panel .dict-local,#dictionary-panel .dict-context {margin:20px 22px 0;}
+#dictionary-panel .dict-local {font-size:15px;}
+#dictionary-panel .dict-local summary {cursor:pointer;color:#81898a;}
+#dictionary-panel .dict-local .dict-result {padding-top:12px;}
+#dictionary-panel .dict-entry + .dict-entry {border-top:1px solid #eceeed;padding-top:12px;margin-top:12px;}
+#dictionary-panel .dict-definition,#dictionary-panel .dict-context p {color:#737a7d;}
+#dictionary-panel .dict-context {border-top:1px solid #eceeed;padding-top:12px;}
+#dictionary-panel .dict-context h3 {font-size:13px;color:#8b9191;font-weight:400;}
+#dictionary-panel .dict-context p {border-left:2px solid #d7e3de;padding-left:12px;font-size:15px;}
+#dictionary-panel .dict-forms {display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
+#dictionary-panel .dict-forms span {background:#f3f5f4;color:#78827c;padding:2px 7px;border-radius:4px;font-size:12px;}
+#dictionary-panel .dict-muted {font-size:14px;color:#899091;}
+#dictionary-panel > footer {display:flex;justify-content:space-between;gap:12px;padding:7px 18px;border-top:1px solid #eceeed;color:#939c9a;font:10px/1.5 Arial,"PingFang SC",sans-serif;background:#fff;}
+@keyframes dict-appear {from {opacity:0;transform:translateY(4px);}to {opacity:1;transform:translateY(0);}}
+@media(max-width:480px) {#dictionary-panel .dict-provider-content {padding:15px 17px;font-size:15px;}#dictionary-panel .dict-source > summary {font-size:16px;padding:9px 12px;}#dictionary-panel > footer {font-size:9px;}}
+@media(prefers-reduced-motion:reduce) {#dictionary-panel {animation:none;}#dictionary-panel .dict-source > summary::after {transition:none;}}
+
+/* Saladict-style compact toolbar and source headings. */
+#dictionary-panel .dict-header .dict-tool {display:grid;place-items:center;width:32px;height:34px;flex:none;border:0;border-radius:0;padding:8px;background:transparent;color:#fff;}
+#dictionary-panel .dict-header .dict-tool:hover {background:#0000000d;}
+#dictionary-panel .dict-header .dict-back,#dictionary-panel .dict-header .dict-forward {width:25px;padding:5px;}
+#dictionary-panel .dict-tool svg {width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;}
+#dictionary-panel .dict-tool:disabled {opacity:.4;cursor:default;}
+#dictionary-panel .dict-heart[aria-pressed="true"] svg {fill:#f47879;}
+#dictionary-panel .dict-pin[aria-pressed="true"] svg {transform:rotate(45deg);}
+#dictionary-panel .dict-search {display:flex;align-items:center;flex:0 1 145px;min-width:70px;margin:0;}
+#dictionary-panel #dict-word {box-sizing:border-box;min-width:0;width:100%;border:0;border-radius:0;background:#ffffff1a;color:white;font:600 15px/1.3 Arial,sans-serif;padding:1px 5px;}
+#dictionary-panel #dict-word:focus {outline:1px solid #ffffff80;}
+#dictionary-panel .dict-toolbar-space {flex:1;min-width:8px;}
+#dictionary-panel .dict-toolbar-menu {flex:none;max-height:200px;overflow:auto;padding:8px 10px;border-bottom:1px solid #d4dbe0;background:#f6faf9;}
+#dictionary-panel .dict-toolbar-menu[hidden],#dictionary-panel .dict-source-actions[hidden] {display:none;}
+#dictionary-panel .dict-toolbar-menu button {margin:3px;font-size:13px;}
+#dictionary-panel .dict-source-options {border:0;padding:0 3px;margin:0;width:22px;height:24px;background:transparent;font:bold 20px/1 Arial;color:#676b70;}
+#dictionary-panel .dict-source-actions {padding:4px 12px;background:#f5f7f6;font-size:12px;}
+#dictionary-panel .dict-source:first-child {border-top:1px dashed #d4dbe0;margin-top:12px;}
+#dictionary-panel .dict-source > summary {position:sticky;top:0;z-index:2;}
+#dictionary-panel .dict-provider-content:empty {padding-top:8px;padding-bottom:8px;}
+@media(max-width:480px) {#dictionary-panel .dict-provider-content {font-size:14px;padding:12px 10px;}#dictionary-panel .dict-source > summary {font-size:14px;padding:0 5px 0 0;}#dictionary-panel .dict-header .dict-tool {width:27px;padding:6px;}#dictionary-panel .dict-header .dict-back,#dictionary-panel .dict-header .dict-forward {width:22px;}}
+
+/* The wordbook takes space from the reading column, never covers the text. */
+.reader-content {display:flex;flex:1;min-height:0;min-width:0;overflow:hidden;}
+.reader-content > .scroll {width:0;min-width:0;flex:1;}
+#wordbook {width:0;flex:0 0 0;min-width:0;overflow:hidden;border:0;background:#f6f3e9;transition:flex-basis .22s ease;}
+.wordbook-open #wordbook {flex-basis:300px;border-left:1px solid var(--line);}
+.wordbook-inner {display:flex;flex-direction:column;width:300px;height:100%;min-height:0;}
+.wordbook-header {display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);flex:none;}
+.wordbook-header strong {font-size:17px;font-weight:600;}
+.wordbook-header small {display:block;font-size:11px;letter-spacing:.04em;color:var(--muted);margin-top:2px;}
+.wordbook-count {font-size:12px;color:var(--muted);margin-left:auto;}
+.wordbook-close {border:0;background:none;font-size:22px;color:#777767;padding:0 4px;}
+.wordbook-list {flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 12px;scrollbar-width:thin;scrollbar-color:#cec7b5 transparent;}
+.wordbook-row {position:relative;border-bottom:1px solid #ded9ca;padding:2px 0 8px;}
+.wordbook-entry {display:block;text-align:left;width:100%;padding:10px 24px 8px 8px;border:0;border-radius:4px;background:none;}
+.wordbook-entry:hover,.wordbook-entry[aria-current] {background:#e9eadc;}
+.wordbook-entry strong {display:block;font:600 17px/1.4 Arial,sans-serif;color:#414b37;overflow-wrap:anywhere;}
+.wordbook-entry small {display:block;font-size:10px;line-height:1.5;color:#858171;margin:4px 0 6px;}
+.wordbook-quote {display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font:12px/1.6 Arial,sans-serif;color:#77776a;}
+.wordbook-lookup {border:0;background:none;font-size:11px;color:#788266;padding:3px 8px;}
+.wordbook-remove {position:absolute;right:4px;top:12px;border:0;background:none;color:#999484;font-size:16px;}
+.wordbook-empty {font-size:13px;line-height:1.8;color:var(--muted);padding:12px 6px;}
+.wordbook-status {margin:0;padding:8px 18px;font-size:11px;color:var(--muted);}
+.wordbook-status:empty {display:none;}
+.speech-statusbar .wordbook-toggle,.wordbook-toggle {margin-left:auto;white-space:nowrap;border:1px solid var(--line);background:#faf8ee;color:#667153;border-radius:4px;padding:3px 10px;font:12px/1.5 var(--font-system);}
+.wordbook-toggle[aria-expanded="true"] {background:#e4e8d8;border-color:#c9cfb5;}
+article ::highlight(saved-word) {background:#e5cf87;color:#35392b;text-decoration:underline;text-decoration-color:#a58c44;}
+article .wordbook-target {border-radius:3px;outline:1px solid #a6ac8044;outline-offset:6px;}
+@media(max-width:900px) {.wordbook-open #wordbook {flex-basis:min(300px,45%);} .wordbook-inner {width:100%;min-width:0;} .wordbook-header {padding:12px 10px;gap:6px;} .wordbook-list {padding:6px;} .wordbook-open article {--pad:20px;}}
+@media(prefers-reduced-motion:reduce) {#wordbook {transition:none;}}

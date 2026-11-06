@@ -1,4 +1,6 @@
 import http from 'node:http';
+import {serveDictionary} from './dictionary/service.mjs';
+import {serveSource} from './dictionary/sources.mjs';
 import { defaultMandarin, mandarinVoices } from './speech/voices.mjs';
 import { serveSpeech, warmSpeech, closeSpeech } from './speech/engine.mjs';
 import { tocLabels, chapterLabel } from './labels.mjs';
@@ -114,9 +116,11 @@ async function render(b,c) {
   }).join('');
   const paging=[[-1,'上一章','previous'],[1,'下一章','next']].map(([d,label,arrow])=>b.items[i+d]?'<a href="'+escape(url(b,b.items[i+d]))+'">'+(d<0?icon(arrow):'')+label+(d>0?icon(arrow):'')+'</a>':'<span></span>').join('');
   const body=chapterBody(await readFile(path.join(b.dir,c.file),'utf8'),b,c);
-  return '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(c.name+' · '+b.title)+'</title><link rel="stylesheet" href="/reader.css"><script src="/reader.js"></script><script src="/read-aloud.js" type="module"></script></head><body><div class="frame">'+borderDecor()+'<aside id="shelf"><header class="side-head"><span class="brand">'+icon('book')+'<span>藏书架'+subtitle('Bookshelf')+'</span></span><button class="toggle" aria-controls="book-list" aria-expanded="true" title="收起书架">'+icon('panel')+'</button></header><nav id="book-list" aria-label="所有书籍">'+shelf+'</nav></aside><aside id="chapters"><header class="side-head"><span><strong>章节</strong>'+subtitle('Chapters')+'</span><span class="total">'+b.items.length+'</span></header><nav id="chapter-list" aria-label="章节目录">'+chapters+'</nav></aside><main id="reader"><header class="reader-bar"><span class="crumb">'+icon('book')+escape(b.title)+'<span class="edition">'+escape(b.edition)+'</span></span>'+'<div class="reader-tools"><button id="voice-settings" type="button" aria-haspopup="dialog">中文音色</button>'+typeControls+'</div></header><div class="scroll" id="scroll" tabindex="-1"><article class="'+(b.edition==='英汉对照版'?'parallel':'')+'">'+body+'<nav class="paging" aria-label="翻章">'+paging+'</nav></article></div></main></div>'+voiceDialog+'</body></html>';
+  const [chapterName]=chapterLabel(c,themeLabels.get(b.motif));
+  const currentChapter=(c.number?'第'+Number(c.number)+'章 ':'')+chapterName;
+  return '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(c.name+' · '+b.title)+'</title><link rel="stylesheet" href="/dictionary/saladict/bundle.css"><link rel="stylesheet" href="/reader.css"><script src="/reader.js"></script><script src="/read-aloud.js" type="module"></script><script src="/dictionary.js" type="module"></script></head><body><div class="frame">'+borderDecor()+'<aside id="shelf"><header class="side-head"><span class="brand">'+icon('book')+'<span>藏书架'+subtitle('Bookshelf')+'</span></span><button class="toggle" aria-controls="book-list" aria-expanded="true" title="收起书架">'+icon('panel')+'</button></header><nav id="book-list" aria-label="所有书籍">'+shelf+'</nav></aside><aside id="chapters"><header class="side-head"><span><strong>章节</strong>'+subtitle('Chapters')+'</span><span class="total">'+b.items.length+'</span></header><nav id="chapter-list" aria-label="章节目录">'+chapters+'</nav></aside><main id="reader"><header class="reader-bar"><span class="crumb">'+icon('book')+'<span class="crumb-book">'+escape(b.title)+'</span><span class="current-chapter" aria-label="当前章节">· '+escape(currentChapter)+'</span><span class="edition">'+escape(b.edition)+'</span></span>'+'<div class="reader-tools"><button id="voice-settings" type="button" aria-haspopup="dialog">中文音色</button>'+typeControls+'</div></header><div class="scroll" id="scroll" tabindex="-1"><article class="'+(b.edition==='英汉对照版'?'parallel':'')+'">'+body+'<nav class="paging" aria-label="翻章">'+paging+'</nav></article></div></main></div>'+voiceDialog+'</body></html>';
 }
-const staticFiles={'/assets/moonlit-waterfall.png':'image/png','/reading-text.js':'text/javascript; charset=utf-8','/reading-line.js':'text/javascript; charset=utf-8','/read-aloud.js':'text/javascript; charset=utf-8','/reader.js':'text/javascript; charset=utf-8','/reader.css':'text/css; charset=utf-8'};
+const staticFiles={'/dictionary/saladict/bundle.js':'text/javascript; charset=utf-8','/dictionary/saladict/bundle.css':'text/css; charset=utf-8','/dictionary.js':'text/javascript; charset=utf-8','/dictionary/word.js':'text/javascript; charset=utf-8','/assets/moonlit-waterfall.png':'image/png','/reading-text.js':'text/javascript; charset=utf-8','/reading-line.js':'text/javascript; charset=utf-8','/read-aloud.js':'text/javascript; charset=utf-8','/reader.js':'text/javascript; charset=utf-8','/reader.css':'text/css; charset=utf-8'};
 const mediaTypes={'.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.gif':'image/gif','.webp':'image/webp'};
 const server=http.createServer(async(req,res)=>{
   try {
@@ -124,6 +128,8 @@ const server=http.createServer(async(req,res)=>{
     if(req.method!=='GET' && req.method!=='HEAD'){res.writeHead(405,{Allow:'GET, HEAD'}).end();return;}
     const u=new URL(req.url,'http://localhost');
     res.setHeader('X-Content-Type-Options','nosniff');
+    if(u.pathname==='/dictionary/source' || u.pathname==='/dictionary/media'){await serveSource(u,res);return;}
+    if(u.pathname==='/dictionary'){await serveDictionary(u,res);return;}
     const preview=/^\/voice-preview\/([a-z]+)\.wav$/.exec(u.pathname);
     if(preview && mandarinVoices.has(preview[1])){
       const audio=await readFile(path.join(here,'speech/previews',preview[1]+'.wav'));

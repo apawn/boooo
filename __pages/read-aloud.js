@@ -1,5 +1,6 @@
 import {createReadingLine} from './reading-line.js';
 import {englishWordStart} from './reading-text.js';
+import {normalizeWord} from './dictionary/word.js';
 (() => {
   const article = document.querySelector('article');
   const scroll = document.querySelector('#scroll');
@@ -53,6 +54,9 @@ import {englishWordStart} from './reading-text.js';
     }
   }
   let selected, session, context;
+  document.addEventListener('dictionary-pronounce',()=>{
+    if(session && !session.paused) pause.click();
+  });
   function updateStatus(s) {
     player.dataset.state=s.loading?'loading':s.paused?'paused':'playing';
     status.textContent=s.paused
@@ -110,6 +114,7 @@ import {englishWordStart} from './reading-text.js';
   }
   function showSelection() {
     const sel = getSelection();
+    if(normalizeWord(sel.toString())) { hideTrigger(); return; }
     if (!sel.rangeCount || sel.isCollapsed || !sel.toString().trim()) return;
     selected = null;
     trigger.hidden = true;

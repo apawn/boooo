@@ -1,0 +1,101 @@
+.dictYoudao-HeaderContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dictYoudao-Title {
+  font-size: 1.5em;
+  margin-right: 8px;
+}
+
+.dictYoudao-Pattern {
+  margin-top: 0.5em;
+}
+
+.dictYoudao-Stars {
+  margin-right: 8px;
+}
+
+.dictYoudao-Basic {
+  margin: 0.5em 0;
+}
+
+.dictYoudao-Collins {
+  position: relative;
+
+  ul,
+  ol {
+    padding-left: 1.5em;
+  }
+
+  h4 {
+    padding: 0 0.5em;
+
+    > * {
+      margin-right: 5px;
+    }
+
+    > .title {
+        color: #f9690e;
+      }
+  }
+
+  .additional {
+    font-weight: normal;
+    color: var(--color-font-grey);
+  }
+
+  .collinsOrder {
+    position: absolute;
+    left: 0;
+    width: 1.5em;
+    text-align: right;
+  }
+
+  .exampleLists {
+    position: relative;
+    padding-left: 2.5em;
+    color: var(--color-font-grey);
+    border-left: 1px solid #666;
+
+    .collinsOrder {
+      left: 0.5em;
+    }
+  }
+}
+
+.dictYoudao-Discrimination {
+  position: relative;
+
+  .do-detail {
+    display: none;
+  }
+
+  .title {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .wordGroup,
+  .via {
+    padding-left: 1.2em;
+  }
+
+  .via {
+    color: #888;
+  }
+}
+
+.dictYoudao-Discrimination_Title {
+  font-size: 1.2em;
+}
+
+.dictYoudao-Sentence {
+  margin: 0;
+  padding: 0 0 0 1.5em;
+}
+
+.dictYoudao-Translation > p:last-child {
+  display: none;
+}
