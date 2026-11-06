@@ -16,19 +16,3 @@ export function* mandarinPhrases(text) {
     if (/[\p{L}\p{N}]/u.test(phrase)) yield phrase;
   }
 }
-
-export function mandarinRequest(text, sid) {
-  return {
-    // sherpa-onnx 2.0.1 appends a second terminal punctuation token AFTER PAD
-    // on its lexicon path. A closing quote is ignored by that tokenizer and
-    // prevents the broken append. Separate it from the final word so mixed
-    // English/Chinese text still gets its normal lexicon lookup.
-    text: text+' ”',
-    generationConfig: {
-      sid, speed:.94, silenceScale:1,
-      // Phrases are already bounded above. Keep commas inside one inference
-      // instead of restarting the voice at every punctuation mark.
-      extra: {min_words_in_sentence:200, max_words_in_sentence:200},
-    },
-  };
-}

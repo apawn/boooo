@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "prestart": "node speech/setup.mjs"
+    "prestart": "node speech/setup.mjs && npm run setup:chinese",
+    "setup:chinese": "node speech/setup-chinese.mjs"
   },
   "dependencies": {
     "markdown-it": "^14.1.0",

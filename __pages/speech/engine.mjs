@@ -2,7 +2,8 @@ import { availableParallelism } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { defaultMandarin, mandarinVoices } from './voices.mjs';
 import { englishPhones } from './english.mjs';
-import { mandarinPhrases, mandarinRequest } from './mandarin.mjs';
+import { synthesizeMandarin, warmMandarin, closeMandarin } from './chinese.mjs';
+export const closeSpeech = closeMandarin;
 const asset = name => fileURLToPath(new URL('./models/'+name, import.meta.url));
 const kokoro = name => asset('kokoro-multi-lang-v1_0/'+name);
 
@@ -13,15 +14,12 @@ const cacheLimit = 16 * 1024 * 1024;
 let tail = Promise.resolve();
 let pending = 0;
 
-async function createEngine(lang) {
+async function createEngine() {
   const { default: sherpa } = await import('sherpa-onnx-node');
   const model = {numThreads:Math.min(6,availableParallelism()),provider:'cpu'};
   model.kokoro = {model:kokoro('model.onnx'), voices:kokoro('voices.bin'), tokens:kokoro('tokens.txt'),
     lexicon:kokoro('lexicon-us-en.txt')};
-  if (lang === 'en') return sherpa.OfflineTts.createAsync({model});
-  model.kokoro.lexicon += ','+kokoro('lexicon-zh.txt');
-  model.kokoro.dictDir = kokoro('dict');
-  return sherpa.OfflineTts.createAsync({model,ruleFsts:['phone','date','number'].map(s=>kokoro(s+'-zh.fst')).join(',')});
+  return sherpa.OfflineTts.createAsync({model});
 }
 
 function getEngine(lang) {
@@ -30,7 +28,7 @@ function getEngine(lang) {
 }
 
 export function warmSpeech() {
-  Promise.all([getEngine('en'),getEngine('zh'),englishPhones('Ready.')]).catch(err=>console.error('朗读预加载失败',err.message));
+  Promise.all([getEngine('en'),warmMandarin(),englishPhones('Ready.')]).catch(err=>console.error('朗读预加载失败',err.message));
 }
 
 function remember(key,buffer) {
@@ -80,21 +78,14 @@ export async function serveSpeech(req,res) {
   const run=tail.then(async()=>{
     if(res.destroyed) return;
     if(cache.has(key)) return send(cache.get(key));
-    const tts=await getEngine(data.lang);
-    let audio;
+    let buffer;
     if(data.lang==='zh') {
-      const chunks=[];
-      for(const phrase of mandarinPhrases(data.text)) {
-        chunks.push(await tts.generateAsync(mandarinRequest(phrase,mandarinVoices.get(voice).sid)));
-      }
-      const samples=new Float32Array(chunks.reduce((size,chunk)=>size+chunk.samples.length,0));
-      let offset=0;
-      for(const chunk of chunks) { samples.set(chunk.samples,offset);offset+=chunk.samples.length; }
-      audio={samples,sampleRate:chunks[0]?.sampleRate};
+      buffer=await synthesizeMandarin(data.text,voice);
     } else {
-      audio=await tts.generateAsync({text:data.text,generationConfig:{sid:3,speed:.76,phonemeCodepoints:await englishPhones(data.text)}});
+      const tts=await getEngine('en');
+      const audio=await tts.generateAsync({text:data.text,generationConfig:{sid:3,speed:.76,phonemeCodepoints:await englishPhones(data.text)}});
+      buffer=wav(audio);
     }
-    const buffer=wav(audio);
     remember(key,buffer);
     if(!res.destroyed) send(buffer);
   });

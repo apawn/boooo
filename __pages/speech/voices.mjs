@@ -1,6 +1,5 @@
-export const mandarinVoices = new Map([
-  ['xiaoxiao', {sid:47, name:'晓晓'}],
-  ['xiaoyi', {sid:48, name:'晓伊'}],
-  ['xiaobei', {sid:45, name:'小贝'}],
-]);
-export const defaultMandarin = 'xiaoxiao';
+import { readFileSync } from 'node:fs';
+const profiles=JSON.parse(readFileSync(new URL('./profiles.json',import.meta.url),'utf8'));
+export const mandarinVoices = new Map(Object.entries(profiles.voices).map(([key,voice])=>
+  [key,{...voice,previewText:profiles.previewText}]));
+export const defaultMandarin = profiles.default;

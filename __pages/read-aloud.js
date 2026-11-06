@@ -1,4 +1,5 @@
 import {createReadingLine} from './reading-line.js';
+import {englishWordStart} from './reading-text.js';
 (() => {
   const article = document.querySelector('article');
   const scroll = document.querySelector('#scroll');
@@ -6,7 +7,7 @@ import {createReadingLine} from './reading-line.js';
   trigger.type = 'button';
   trigger.className = 'speech-trigger';
   trigger.title = trigger.ariaLabel = '从这里开始朗读';
-  trigger.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z"/></svg>';
+  trigger.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4Z"/><path d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>';
   const player = document.createElement('div');
   player.className = 'speech-statusbar';
   player.innerHTML = '<span role="status" aria-live="polite"></span><button type="button" class="reading-location" title="跳转到当前朗读位置并恢复跟随">回到朗读位置</button><button type="button" class="pause">暂停</button><button type="button" class="stop" aria-label="停止朗读">停止</button>';
@@ -66,8 +67,13 @@ import {createReadingLine} from './reading-line.js';
   try {
     const saved=localStorage.getItem('mandarinVoice');
     if([...voiceSelect.options].some(o=>o.value===saved)) voice=saved;
+    else localStorage.setItem('mandarinVoice',voice);
   } catch {}
   function loadPreview() {
+    preview.pause();
+    const option=voiceSelect.selectedOptions[0];
+    document.querySelector('#voice-description').textContent=option.dataset.description;
+    document.querySelector('#voice-preview-text').textContent=option.dataset.previewText;
     preview.src='/voice-preview/'+voiceSelect.value+'.wav';
   }
   document.querySelector('#voice-settings').onclick=()=>{
@@ -83,6 +89,7 @@ import {createReadingLine} from './reading-line.js';
   };
   dialog.querySelector('form').addEventListener('submit',event=>{
     if(event.submitter?.value==='apply') {
+      if(voice!==voiceSelect.value && session) finish('音色已切换，请从需要的位置开始朗读');
       voice=voiceSelect.value;
       try {localStorage.setItem('mandarinVoice',voice);} catch {}
     }
@@ -99,7 +106,7 @@ import {createReadingLine} from './reading-line.js';
     const {width,height}=trigger.getBoundingClientRect();
     const bounds=scroll.getBoundingClientRect();
     trigger.style.left=Math.max(bounds.left,Math.min(bounds.right-width,rect.left+(rect.width-width)/2))+'px';
-    trigger.style.top=Math.max(bounds.top,rect.top-height-3)+'px';
+    trigger.style.top=Math.max(bounds.top,rect.top-height+5)+'px';
   }
   function showSelection() {
     const sel = getSelection();
@@ -177,7 +184,7 @@ import {createReadingLine} from './reading-line.js';
     });
   }
 
-  // Read the selection's first character through the end of this chapter.
+  // Read from the selected character, or the start of its English word.
   function* passage(range) {
     let first=true;
     const blocks=article.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,figcaption');
@@ -186,9 +193,11 @@ import {createReadingLine} from './reading-line.js';
       const fragment=document.createRange();
       fragment.selectNodeContents(block);
       if(block.contains(range.startContainer)) fragment.setStart(range.startContainer,range.startOffset);
-      const suffix=fragment.toString();
+      const paragraphText=block.textContent;
+      const start=englishWordStart(paragraphText,paragraphText.length-fragment.toString().length);
+      const suffix=paragraphText.slice(start);
       const full=suffix.trim();
-      const base=block.textContent.length-suffix.length+suffix.indexOf(full);
+      const base=start+suffix.indexOf(full);
       if(!full) continue;
       const locale=/\p{Script=Han}/u.test(full)?'zh':'en';
       const sentences=new Intl.Segmenter(locale,{granularity:'sentence'}).segment(full);
