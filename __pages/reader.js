@@ -10,8 +10,21 @@
   const storedSize = Number(local.get('size'));
   let size = storedSize >= 15 && storedSize <= 27 ? storedSize : 19;
   applyFold();
+  root.dataset.background = local.get('background') === 'off' ? 'off' : 'on';
   root.style.setProperty('--size', size + 'px');
   document.addEventListener('DOMContentLoaded', () => {
+    const backgroundToggle=document.querySelector('#background-toggle');
+    function updateBackgroundToggle() {
+      const enabled=root.dataset.background==='on';
+      backgroundToggle.setAttribute('aria-pressed',String(enabled));
+      backgroundToggle.title=enabled?'关闭背景图，恢复纯色':'显示山水背景图';
+    }
+    updateBackgroundToggle();
+    backgroundToggle.onclick=()=>{
+      root.dataset.background=root.dataset.background==='on'?'off':'on';
+      local.set('background',root.dataset.background);
+      updateBackgroundToggle();
+    };
     const article=document.querySelector('article');
     const voiceButton=document.querySelector('#voice-settings');
     const emphasisOptions=[

@@ -96,7 +96,7 @@ function borderDecor() {
   return [0,1,2,3].map(n=>'<i aria-hidden="true" class="corner c'+n+'">'+twig()+'</i>').join('') +
     ['top','bottom','left','right'].map(side=>'<div aria-hidden="true" class="vine '+side+'">'+sprig.repeat(3)+'</div>').join('');
 }
-const typeControls='<div class="type-controls" aria-label="正文字号"><button type="button" id="smaller" aria-label="减小字号" title="减小字号">A<span>−</span></button><button type="button" id="larger" aria-label="增大字号" title="增大字号">A<span>+</span></button></div>';
+const typeControls='<div class="type-controls" aria-label="阅读显示"><button type="button" id="smaller" aria-label="减小字号" title="减小字号">A<span>−</span></button><button type="button" id="larger" aria-label="增大字号" title="增大字号">A<span>+</span></button><button type="button" id="background-toggle" aria-label="背景图" aria-pressed="true" title="关闭背景图，恢复纯色"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="16" cy="9" r="1.5"/><path d="m3 17 5-6 6 7 3-4 4 4"/></svg></button></div>';
 const voiceOptions = [...mandarinVoices].map(([key,voice]) =>
   '<option value="'+key+'" data-description="'+escape(voice.description)+'" data-preview-text="'+escape(voice.previewText)+'"'+(key===defaultMandarin?' selected':'')+'>'+voice.name+'</option>').join('');
 const voiceDialog = '<dialog id="voice-dialog" aria-labelledby="voice-title"><h2 id="voice-title">中文音色</h2>'+

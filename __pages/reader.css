@@ -27,7 +27,7 @@ aside,main,.scroll { min-width:0; min-height:0; }
 aside,main { display:flex; flex-direction:column; }
 aside { border-right:1px solid var(--line); }
 #shelf { background:#efecdf; }
-#chapters { background-color:#f6f3e9;background-repeat:no-repeat;background-image:linear-gradient(rgb(246 243 233 / .64),rgb(246 243 233 / .64)),url('/assets/moonlit-waterfall.png');background-position:center,left center;background-size:cover; }
+#chapters { background-color:#f6f3e9;background-repeat:no-repeat;background-image:linear-gradient(rgb(246 243 233 / .8),rgb(246 243 233 / .8)),url('/assets/moonlit-waterfall.png');background-position:center,left center;background-size:cover; }
 #reader { background:var(--paper); }
 .side-head,.reader-bar { min-height:73px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); gap:8px; }
 .side-head { padding:0 18px; }
@@ -63,7 +63,11 @@ aside { border-right:1px solid var(--line); }
 .type-controls button+button {border-left:1px solid var(--line);}
 .type-controls span {font:11px var(--font-system);vertical-align:2px;}
 .type-controls button:disabled { opacity:.35;cursor:default; }
-.scroll { flex:1; background-color:var(--paper);background-image:linear-gradient(rgb(255 253 246 / .48),rgb(255 253 246 / .48)),url('/assets/moonlit-waterfall.png');background-position:center,center;background-size:100% 100%,cover;background-repeat:no-repeat; }
+.scroll { flex:1; background-color:var(--paper);background-image:linear-gradient(rgb(255 253 246 / .72),rgb(255 253 246 / .72)),url('/assets/moonlit-waterfall.png');background-position:center,center;background-size:100% 100%,cover;background-repeat:no-repeat; }
+[data-background="off"] #chapters {background:#f6f3e9;}
+[data-background="off"] .scroll {background:none;}
+#background-toggle .icon {vertical-align:-3px;}
+#background-toggle[aria-pressed="true"] {color:#53654b;background:#e8ebdf;}
 article { --pad:clamp(24px,calc(25% - 85px),100px);padding:clamp(30px,5vh,64px) var(--pad) 45px; font:var(--size)/1.72 var(--font-system); overflow-wrap:break-word; }
 article h1,article h2,article h3 { font-family: var(--font-system); line-height:1.35;text-wrap:pretty; }
 article h1 {font-size:2em; font-weight:600; margin:0 0 .65em; letter-spacing:.015em;}
