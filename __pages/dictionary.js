@@ -1,5 +1,5 @@
 import {normalizeWord,selectedWord} from './dictionary/word.js';
-import {searchDictionary,renderDictionary,dictionaryIcons,createWordbook} from './dictionary/saladict/bundle.js';
+import {searchDictionary,renderDictionary,dictionaryIcons,createWordbook,createRootsSection} from './dictionary/saladict/bundle.js';
 
 const icons={back:'M15 3 6 12l9 9',forward:'m9 3 9 9-9 9',search:'M20 20 15 15 M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0',menu:'M3 5h18M3 12h18M3 19h18',heart:'M12 21 3 12C-3 4 7-1 12 6 17-1 27 4 21 12Z',bookmark:'M5 2h14v20l-7-5-7 5Z M12 5l1.3 3 3.2.3-2.4 2.1.7 3.1-2.8-1.6-2.8 1.6.7-3.1-2.4-2.1 3.2-.3Z',pin:'m7 2 15 15-5 1-3 4-4-8-8-4 4-3Z M14 14l-9 9',close:'m3 3 18 18M21 3 3 21'};
 const svg=name=>'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+icons[name]+'"/></svg>';
@@ -154,6 +154,8 @@ async function openWord(word, rect, context, record=true, source=null) {
   document.documentElement.classList.add('dictionary-open');
   position();
   const controller = request = new AbortController();
+  const roots=createRootsSection(word,controller.signal);
+  disposeViews.push(roots.dispose);
   const local = (async()=>{
     try {
       let data=cache.get(word);
@@ -201,6 +203,7 @@ async function openWord(word, rect, context, record=true, source=null) {
         event.target.getBoundingClientRect().bottom>content.getBoundingClientRect().bottom-30) more.click();
     });
     section.append(more);sources.append(section);
+    if(provider==='cambridge') sources.append(roots.section);
     const load=async()=>{
       let actualWord=word;
       content.replaceChildren(el('p','正在查询…','dict-muted'));

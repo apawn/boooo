@@ -1,6 +1,7 @@
 import http from 'node:http';
 import {serveDictionary} from './dictionary/service.mjs';
 import {serveSource} from './dictionary/sources.mjs';
+import {serveRoots} from './dictionary/roots.mjs';
 import { defaultMandarin, mandarinVoices } from './speech/voices.mjs';
 import { serveSpeech, warmSpeech, closeSpeech } from './speech/engine.mjs';
 import { tocLabels, chapterLabel } from './labels.mjs';
@@ -128,6 +129,7 @@ const server=http.createServer(async(req,res)=>{
     if(req.method!=='GET' && req.method!=='HEAD'){res.writeHead(405,{Allow:'GET, HEAD'}).end();return;}
     const u=new URL(req.url,'http://localhost');
     res.setHeader('X-Content-Type-Options','nosniff');
+    if(['/dictionary/roots','/dictionary/root-doc','/dictionary/root-asset'].includes(u.pathname)){await serveRoots(u,res);return;}
     if(u.pathname==='/dictionary/source' || u.pathname==='/dictionary/media'){await serveSource(u,res);return;}
     if(u.pathname==='/dictionary'){await serveDictionary(u,res);return;}
     const preview=/^\/voice-preview\/([a-z]+)\.wav$/.exec(u.pathname);

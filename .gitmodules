@@ -1,0 +1,3 @@
+[submodule "__pages/dictionary/word_root"]
+	path = __pages/dictionary/word_root
+	url = https://github.com/apawn/word_root.git

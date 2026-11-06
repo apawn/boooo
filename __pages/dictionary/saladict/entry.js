@@ -11,6 +11,7 @@ import YoudaoView from './upstream/youdao/View.tsx';
 import {fetchDirtyDOM} from './bridge.js';
 export {default as dictionaryIcons} from './icons.json';
 export {createWordbook} from '../wordbook.js';
+export {createRootsSection} from '../roots-view.js';
 
 const config = {langCode:'zh-CN'};
 const profile = {dicts:{all:{

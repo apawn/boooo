@@ -39,6 +39,22 @@ npm start
 
 ## 离线兜底
 
+### 词根资料子模块
+
+`word_root/` 以 Git submodule 引入 `https://github.com/apawn/word_root.git`，已接入查词面板的“词根与词源”区块。首次克隆主仓库后，在仓库根目录执行：
+
+```sh
+git submodule update --init --recursive
+```
+
+`word_root/英语词根资料库/data/条目清单.json` 包含词根元数据、Markdown 路径及 `word_anchors` 单词锚点映射，可用于建立“单词 → 词族讲解”的本地反查索引。精讲正文在对应 Markdown 中；字段覆盖、来源和许可见子模块的 `英语词根资料库/覆盖与缺项.md` 与 `来源与许可.md`。主仓库固定子模块提交，不在安装或启动时自动更新远端版本。
+
+查词优先精确匹配单词，再尝试 ECDICT 提供的原形；不会仅凭拼写猜词根。古典词根优先展示，可切换多个词族并展开逐词精讲。没有匹配时留空；子模块未初始化时显示可重试的提示，不影响其他词典。点击“完整词族”在当前书架服务中打开完整 Markdown，保留词条锚点、插图与来源链接。
+
+服务端只加载轻量反查索引，正文按需读取并清洗 HTML，缓存最多 24 篇；浏览器按需加载所选词族的单词讲解。接口 `/dictionary/roots?word=...` 返回匹配，附 `id=...` 返回该词的精讲。`/dictionary/root-doc` 和 `/dictionary/root-asset` 仅允许访问子模块资料库内的 Markdown 与图片。该区块显示的中文讲解来自词根库，不改变剑桥纯英文显示。
+
+### ECDICT
+
 ECDICT 提供本地中文释义、英文释义和词形。数据库位于 `dictionary/data/ecdict.sqlite`，约 176 MB，不提交 Git；`npm run setup:dictionary` 从固定版本下载 CSV 并生成索引。已有数据库时跳过下载，缺失时不妨碍在线词典和阅读器运行。`npm start` 会先检查安装词库。
 
 - ECDICT：https://github.com/skywind3000/ECDICT
