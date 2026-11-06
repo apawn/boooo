@@ -1,5 +1,5 @@
 import {createReadingLine} from './reading-line.js';
-import {englishWordStart} from './reading-text.js';
+import {englishWordStart,sameLanguageBlocks} from './reading-text.js';
 import {normalizeWord} from './dictionary/word.js';
 (() => {
   const article = document.querySelector('article');
@@ -11,7 +11,7 @@ import {normalizeWord} from './dictionary/word.js';
   trigger.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4Z"/><path d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg>';
   const player = document.createElement('div');
   player.className = 'speech-statusbar';
-  player.innerHTML = '<span role="status" aria-live="polite"></span><button type="button" class="reading-location" title="跳转到当前朗读位置并恢复跟随">回到朗读位置</button><button type="button" class="pause">暂停</button><button type="button" class="stop" aria-label="停止朗读">停止</button>';
+  player.innerHTML = '<button type="button" class="reading-location" title="跳转到当前朗读位置并恢复跟随">回到朗读位置</button><button type="button" class="pause">暂停</button><button type="button" class="stop" aria-label="停止朗读">停止</button><span role="status" aria-live="polite"></span>';
   const status = player.querySelector('[role=status]');
   const pause = player.querySelector('.pause');
   const stop = player.querySelector('.stop');
@@ -192,9 +192,9 @@ import {normalizeWord} from './dictionary/word.js';
   // Read from the selected character, or the start of its English word.
   function* passage(range) {
     let first=true;
-    const blocks=article.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,figcaption');
-    for(const block of blocks) {
-      if(block.closest('nav') || block.querySelector('p,li,figcaption') || range.comparePoint(block,block.childNodes.length)<0) continue;
+    const blocks=[...article.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,figcaption')].filter(block=>
+      !block.closest('nav') && !block.querySelector('p,li,figcaption') && range.comparePoint(block,block.childNodes.length)>=0);
+    for(const {block,lang} of sameLanguageBlocks(blocks)) {
       const fragment=document.createRange();
       fragment.selectNodeContents(block);
       if(block.contains(range.startContainer)) fragment.setStart(range.startContainer,range.startOffset);
@@ -204,13 +204,11 @@ import {normalizeWord} from './dictionary/word.js';
       const full=suffix.trim();
       const base=start+suffix.indexOf(full);
       if(!full) continue;
-      const locale=/\p{Script=Han}/u.test(full)?'zh':'en';
-      const sentences=new Intl.Segmenter(locale,{granularity:'sentence'}).segment(full);
+      const sentences=new Intl.Segmenter(lang,{granularity:'sentence'}).segment(full);
       for(const {segment,index} of sentences) {
         let rest=segment.trim();
         let offset=base+index+segment.indexOf(rest);
         while(rest) {
-          const lang=/\p{Script=Han}/u.test(rest)?'zh':'en';
           // Preserve Mandarin sentence context, including the first comma.
           const limit=lang==='zh'?95:(first?95:235);
           let end=rest.length;

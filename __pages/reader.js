@@ -116,5 +116,28 @@
     }
     smaller.onclick=()=>setSize(size-2); larger.onclick=()=>setSize(size+2);setSize(size);
     document.querySelector('.chapter-item[aria-current]')?.scrollIntoView({block:'nearest'});
+    const scroller=document.querySelector('#scroll');
+    const chapterLink=document.querySelector('.chapter-item[aria-current]');
+    if(scroller && chapterLink) {
+      const chapterURL=new URL(chapterLink.href);
+      const positionKey='position.'+JSON.stringify([chapterURL.searchParams.get('book'),chapterURL.searchParams.get('chapter')]);
+      const saved=Number(local.get(positionKey));
+      // Explicit word/highlight links take precedence over the last viewport position.
+      let restoring=!location.hash && Number.isFinite(saved) && saved>0;
+      let saveTimer;
+      const save=()=>{clearTimeout(saveTimer);if(!restoring)local.set(positionKey,String(scroller.scrollTop));};
+      const restore=()=>{if(restoring)scroller.scrollTo({top:saved,behavior:'instant'});};
+      const release=()=>{restoring=false;};
+      scroller.addEventListener('scroll',()=>{clearTimeout(saveTimer);saveTimer=setTimeout(save,150);},{passive:true});
+      // Once the reader interacts, late image/font loads must not pull them back.
+      for(const event of ['pointerdown','wheel','touchstart','keydown'])document.addEventListener(event,release,{capture:true,passive:true});
+      requestAnimationFrame(()=>requestAnimationFrame(restore));
+      const loaded=document.readyState==='complete'?Promise.resolve():new Promise(resolve=>window.addEventListener('load',resolve,{once:true}));
+      Promise.all([loaded,document.fonts?.ready]).then(()=>requestAnimationFrame(()=>{
+        restore();release();
+      }));
+      window.addEventListener('pagehide',save);
+      document.addEventListener('visibilitychange',()=>{if(document.hidden)save();});
+    }
   });
 })();

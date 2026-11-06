@@ -1,6 +1,18 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {englishWordStart} from './reading-text.js';
+import {englishWordStart,sameLanguageBlocks} from './reading-text.js';
+
+test('continuous reading skips the other language in both directions',()=>{
+  const blocks=['English first.','第一段中文。','English second.','第二段中文。','English third.'].map(textContent=>({textContent}));
+  assert.deepEqual([...sameLanguageBlocks(blocks)].map(p=>p.block),[blocks[0],blocks[2],blocks[4]]);
+  assert.deepEqual([...sameLanguageBlocks(blocks.slice(1))].map(p=>p.block),[blocks[1],blocks[3]]);
+  assert.deepEqual([...sameLanguageBlocks(blocks.slice(3))].map(p=>p.lang),['zh']);
+});
+
+test('Chinese paragraphs with English names stay Chinese; empty blocks do not select a language',()=>{
+  const blocks=['','—','Hosni Mubarak（穆巴拉克）下台了。','English translation.','继续阅读。'].map(textContent=>({textContent}));
+  assert.deepEqual([...sameLanguageBlocks(blocks)].map(p=>[p.block.textContent,p.lang]),[[blocks[2].textContent,'zh'],[blocks[4].textContent,'zh']]);
+});
 
 test('starts at the complete word even when its initial is in a separate inline element',()=>{
   const text=['The ','r','evolutionary',' fervor'].join('');
