@@ -46,7 +46,32 @@ test('installed corpus supplies bilingual definitions and irregular base forms',
 test('invalid lookup returns a clear 400 without a dictionary query', async () => {
   let status, body;
   const response = {writeHead(code) { status=code; return this; }, end(value) { body=JSON.parse(value); }};
-  await serveDictionary(new URL('http://localhost/dictionary?word=two+words'), response);
+  await serveDictionary(new URL('http://localhost/dictionary?word=%3Cscript%3E'), response);
   assert.equal(status, 400);
   assert.match(body.error, /完整/);
+});
+
+test('phrase queries normalize whitespace and preserve complete selection boundaries',async()=>{
+  const {normalizeQuery,selectedQuery}=await import('./word.js');
+  assert.equal(normalizeQuery(' Worn\n  thin '),'worn thin');
+  assert.equal(normalizeQuery('Don’t give up'),"don't give up");
+  assert.equal(selectedQuery('have worn thin by now',5,14),'worn thin');
+  assert.equal(selectedQuery('have worn thin by now',6,14),null);
+  assert.equal(selectedQuery('have worn thin by now',5,13),null);
+  for(const text of ['https://example.com','../secret','<script>','a\u0000b','a '.repeat(13),'a'.repeat(161)])assert.equal(normalizeQuery(text),null);
+});
+
+test('source proxy forwards the complete phrase to the requested provider',async()=>{
+  const original=globalThis.fetch;const requested=[];
+  globalThis.fetch=async url=>{requested.push(String(url));return new Response('<html>phrase</html>',{headers:{'content-type':'text/html'}});};
+  try {
+    for(const provider of ['cambridge','bing','youdao','vocabulary']) {
+      let status;
+      await serveSource(new URL('http://localhost/dictionary/source?provider='+provider+'&word=worn+thin'),{writeHead(code){status=code;return this;},end(){}});
+      assert.equal(status,200);
+    }
+    assert.match(requested[0],/worn-thin$/);
+    assert.equal(new URL(requested[1]).searchParams.get('q'),'worn thin');
+    assert.ok(requested.slice(2).every(url=>decodeURIComponent(new URL(url).pathname).endsWith('worn thin')));
+  }finally{globalThis.fetch=original;}
 });

@@ -68,3 +68,21 @@ test('highlights persist independently, repaint and erase only overlapping selec
   await assert.rejects(fresh.mutateHighlights('Book A','paint',{...entry,color:'invalid'}));
   assert.deepEqual(await fresh.listHighlights('Book A'),data);
 });
+test('reading position survives restart, stays per-book, and rejects invalid updates',async t=>{
+  const {store,books,root}=await fixture(t);
+  const position={chapter:'01.md',block:2,text:'First sentence. Second sentence.',offset:16,sentence:'Second sentence.',lang:'en'};
+  await store.saveReading('Book A',position);
+  const fresh=createWordbookStore(books);await fresh.initialize();
+  const saved=(await fresh.listReading('Book A')).position;
+  assert.deepEqual({...saved,updatedAt:undefined},{...position,updatedAt:undefined});
+  assert.ok(saved.updatedAt);assert.equal((await fresh.listReading('Book B')).position,null);
+  assert.throws(()=>fresh.saveReading('Book A',{...position,chapter:'../other.md'}));
+  assert.throws(()=>fresh.saveReading('Book A',{...position,offset:999}));
+  const locked=createWordbookStore(books,{isLocked:()=>true});
+  assert.throws(()=>locked.saveReading('Book A',position),/正在同步/);
+  assert.deepEqual((await fresh.listReading('Book A')).position,saved);
+  const file=path.join(root,'Book A/meta_data/reading.json');
+  await writeFile(file,'broken JSON');
+  await assert.rejects(fresh.saveReading('Book A',position));
+  assert.equal(await readFile(file,'utf8'),'broken JSON');
+});

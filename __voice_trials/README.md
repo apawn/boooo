@@ -1,5 +1,33 @@
 # 中文女声试听
 
+2026-11-07 磁盘清理：本机仅保留书架正在使用的 `.engines/qwen-model`（Serena）和 `.engines/qwen-base-8bit`（选定英语女声）。CosyVoice、IndexTTS、Fish、Qwen VoiceDesign 的模型和专用环境已删除，试听音频及脚本保留。再次运行对应试听脚本会重新下载所需模型；正常启动书架只准备当前两套模型。
+
+英语朗读升级的候选模型、Higgs 下载体积与换电脑试听步骤见 [英语朗读模型试听计划](english-tts-research.md)。该计划尚未接入下面的中文试听脚本。
+
+## 英语 VoiceDesign 独立试听
+
+已有本目录的 Apple Silicon Python 环境时，可运行：
+
+```bash
+__voice_trials/.venv/bin/python __voice_trials/english_voice_design.py
+```
+
+脚本会下载独立的 Qwen3-TTS VoiceDesign 8-bit 模型（约 3.08 GB），生成同一段英语的“温柔讲述”和“清晰讲解”两种声音。文字与声音描述可在脚本中修改；使用模型原始语速，未做后期变速。音频、参数、耗时及试听 HTML 位于 `output/english-design-*/`。复用现有 4318 试听服务即可访问，或用 `python3 -m http.server 4318 --bind 127.0.0.1 --directory __voice_trials/output` 启动。该脚本不会修改书架的声音设置。
+
+## 英语 Fish S2-Pro 独立试听
+
+```bash
+__voice_trials/.venv/bin/python __voice_trials/english_fish.py
+__voice_trials/.venv/bin/python __voice_trials/english_fish.py --voice bright
+__voice_trials/.venv/bin/python __voice_trials/english_fish.py --voice composed
+```
+
+使用固定版本的 `mlx-community/fish-audio-s2-pro-8bit`，权重与音频编解码模型共约 6.7 GB。脚本先通过 Qwen VoiceDesign 生成一段独立的英音女声参考，再用 Fish 生成与 Qwen 试听相同的英语正文。两个版本分别为自然讲述、加入少量语气标签的讲述；保留原始语速。参考声音、正文音频、参数、耗时和试听页在 `output/english-fish-*/`。参考由 AI 合成，最终口音与音质需试听确认。此脚本不修改书架配置。Fish S2-Pro 权重采用 [Fish Audio Research License](https://huggingface.co/fishaudio/s2-pro)，与 Qwen 的许可不同。
+
+默认 `gentle` 为温柔标准英音，`--voice bright` 为明亮清晰英音，`--voice composed` 为沉静成熟英音。不同音色使用不同的 Qwen 合成参考声音；仅默认温柔音色额外生成语气标签版。完成后统一对比页为 `output/english-fish-comparison/index.html`，在 4318 服务中访问 `/english-fish-comparison/index.html`。
+
+## 中文试听使用方式
+
 在 Apple Silicon Mac 上独立运行三套模型，生成同一段中文的四种朗读。
 
 - Qwen3-TTS 1.7B，Serena 和 Vivian，8-bit MLX。

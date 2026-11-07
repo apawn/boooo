@@ -20,3 +20,10 @@ export function englishWordStart(text, offset) {
   }
   return offset;
 }
+
+// Word spans use paragraph offsets so inline emphasis cannot split a spoken word.
+export function readingWords(text, lang) {
+  return [...new Intl.Segmenter(lang,{granularity:'word'}).segment(text)]
+    .filter(part=>part.isWordLike)
+    .map(({index,segment})=>({start:index,end:index+segment.length}));
+}

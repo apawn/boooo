@@ -131,9 +131,9 @@ const mediaTypes={'.jpg':'image/jpeg','.jpeg':'image/jpeg','.png':'image/png','.
 const server=http.createServer(async(req,res)=>{
   try {
     if(req.url==='/git-sync' || req.url==='/git-status'){await gitSync.serve(req,res);return;}
-    if(['/wordbook','/highlights'].includes(req.url?.split('?')[0]) && gitSync.running){res.writeHead(409,{'Content-Type':'application/json; charset=utf-8'}).end(JSON.stringify({error:'正在同步，请完成后再操作单词本'}));return;}
+    if(['/wordbook','/highlights','/reading-position'].includes(req.url?.split('?')[0]) && gitSync.running){res.writeHead(409,{'Content-Type':'application/json; charset=utf-8'}).end(JSON.stringify({error:'正在同步，请完成后再保存书籍数据'}));return;}
     if(req.url==='/speech') { await serveSpeech(req,res); return; }
-    if(['/wordbook','/highlights'].includes(req.url?.split('?')[0])) {await wordbookStore.serve(req,res,new URL(req.url,'http://localhost'));return;}
+    if(['/wordbook','/highlights','/reading-position'].includes(req.url?.split('?')[0])) {await wordbookStore.serve(req,res,new URL(req.url,'http://localhost'));return;}
     if(req.method!=='GET' && req.method!=='HEAD'){res.writeHead(405,{Allow:'GET, HEAD'}).end();return;}
     const u=new URL(req.url,'http://localhost');
     res.setHeader('X-Content-Type-Options','nosniff');

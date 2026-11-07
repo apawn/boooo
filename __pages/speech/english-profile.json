@@ -1,0 +1,21 @@
+{
+  "id": "qwen-english-teacher-v1",
+  "name": "清晰讲解版 · 英音女声",
+  "model": "mlx-community/Qwen3-TTS-12Hz-1.7B-Base-8bit",
+  "revision": "e7dd0585652209fa0d7783659aad4e8a324de11c",
+  "modelDirectory": "qwen-base-8bit",
+  "reference": "references/english-teacher.wav",
+  "referenceText": "Why do some countries prosper, while others struggle? The answer is not simply a matter of geography. Imagine two families living on opposite sides of the same river. They share the same weather, the same landscape, and many of the same traditions.",
+  "referenceSha256": "7bc37742964598cbe74e2b613752a95052a93a11021f9433c588a7e91cf8c07b",
+  "preview": "previews/english-teacher.wav",
+  "source": {
+    "model": "mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-8bit",
+    "revision": "f90d617701d9f7f4ca499291e0b57f2b3c2fd2ee",
+    "seed": 42,
+    "sample": "english-design-f202d489400e/teacher.wav",
+    "referenceSeconds": 15.7,
+    "instruct": "An articulate young adult British woman with a contemporary Received Pronunciation accent and a clear, light, warm voice. Explain this passage to an attentive adult listener. Use natural British weak forms and linking, purposeful emphasis on contrasting ideas, and subtle changes in pace. Briefly pause before an important answer. Sound friendly, engaged and conversational, with crisp diction and lively but restrained intonation."
+  },
+  "speed": 1.0,
+  "seed": 42
+}

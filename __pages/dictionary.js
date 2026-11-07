@@ -1,5 +1,5 @@
 import {createSelectionToolbar} from './selection-toolbar.js';
-import {normalizeWord,selectedWord} from './dictionary/word.js';
+import {normalizeWord,normalizeQuery,selectedQuery} from './dictionary/word.js';
 import {searchDictionary,renderDictionary,dictionaryIcons,createWordbook,createRootsSection} from './dictionary/saladict/bundle.js';
 
 const icons={back:'M15 3 6 12l9 9',forward:'m9 3 9 9-9 9',search:'M20 20 15 15 M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0',menu:'M3 5h18M3 12h18M3 19h18',heart:'M12 21 3 12C-3 4 7-1 12 6 17-1 27 4 21 12Z',bookmark:'M5 2h14v20l-7-5-7 5Z M12 5l1.3 3 3.2.3-2.4 2.1.7 3.1-2.8-1.6-2.8 1.6.7-3.1-2.4-2.1 3.2-.3Z',pin:'m7 2 15 15-5 1-3 4-4-8-8-4 4-3Z M14 14l-9 9',close:'m3 3 18 18M21 3 3 21'};
@@ -12,8 +12,8 @@ const panel = document.createElement('section');
 panel.id = 'dictionary-panel';
 panel.hidden = true;
 panel.setAttribute('role', 'dialog');
-panel.setAttribute('aria-label', '英文单词词典');
-panel.innerHTML = '<header class="dict-header">'+tool('back','上一条查询')+tool('forward','下一条查询')+'<form class="dict-search"><input id="dict-word" aria-label="查询英文单词" autocomplete="off" spellcheck="false"><button class="dict-tool" type="submit" aria-label="查询" title="查询">'+svg('search')+'</button></form><span class="dict-toolbar-space"></span>'+tool('menu','查询历史')+tool('heart','收藏单词')+tool('bookmark','生词本')+tool('pin','固定词典')+tool('close','关闭词典')+'</header><div class="dict-toolbar-menu" hidden></div>' +
+panel.setAttribute('aria-label', '英文单词与短语词典');
+panel.innerHTML = '<header class="dict-header">'+tool('back','上一条查询')+tool('forward','下一条查询')+'<form class="dict-search"><input id="dict-word" aria-label="查询英文单词或短语" autocomplete="off" spellcheck="false"><button class="dict-tool" type="submit" aria-label="查询" title="查询">'+svg('search')+'</button></form><span class="dict-toolbar-space"></span>'+tool('menu','查询历史')+tool('heart','收藏单词')+tool('bookmark','生词本')+tool('pin','固定词典')+tool('close','关闭词典')+'</header><div class="dict-toolbar-menu" hidden></div>' +
   '<div class="dict-audio-status" role="status"></div><div class="dict-scroll"><div class="dict-sources"></div><details class="dict-local"><summary>本地词库 · 离线参考</summary><div class="dict-result"></div></details><div class="dict-context"></div></div>' +
   '<footer><span>词典原声 · 英美音分列</span><a href="https://github.com/crimx/ext-saladict" target="_blank" rel="noopener noreferrer">基于 Saladict 开源词典模块</a></footer>';
 document.body.append(panel);
@@ -40,7 +40,7 @@ function updateToolbar() {
   $('.dict-back').disabled=historyIndex<=0;
   $('.dict-forward').disabled=historyIndex>=history.length-1;
   $('.dict-heart').setAttribute('aria-pressed',String(wordbook.has(currentWord)));
-  $('.dict-heart').disabled=!currentWord || !wordbook.isReady();
+  $('.dict-heart').disabled=!normalizeWord(currentWord) || !wordbook.isReady();
   $('.dict-pin').setAttribute('aria-pressed',String(pinned));
 }
 function showWordList(words,empty) {
@@ -54,7 +54,7 @@ function showWordList(words,empty) {
   }
 }
 $('.dict-search').onsubmit=event=>{
-  event.preventDefault();const word=normalizeWord($('#dict-word').value);
+  event.preventDefault();const word=normalizeQuery($('#dict-word').value);
   if(word) openWord(word,anchor,'');
 };
 for(const [name,step] of [['back',-1],['forward',1]]) $('.dict-'+name).onclick=()=>{
@@ -139,7 +139,7 @@ async function openWord(word, rect, context, record=true, source=null) {
   disposeViews=[];
   anchor = rect;
   $('.dict-scroll').scrollTop = 0;
-  currentWord=word;currentSource=source || wordbook.findSource(word);
+  currentWord=word;currentSource=source || (normalizeWord(word)?wordbook.findSource(word):null);
   $('#dict-word').value = word;
   $('.dict-toolbar-menu').hidden=true;
   if(record && history[historyIndex]?.word!==word) {
@@ -156,8 +156,8 @@ async function openWord(word, rect, context, record=true, source=null) {
   document.documentElement.classList.add('dictionary-open');
   position();
   const controller = request = new AbortController();
-  const roots=createRootsSection(word,controller.signal);
-  disposeViews.push(roots.dispose);
+  const roots=normalizeWord(word)?createRootsSection(word,controller.signal):null;
+  if(roots)disposeViews.push(roots.dispose);
   const local = (async()=>{
     try {
       let data=cache.get(word);
@@ -205,7 +205,7 @@ async function openWord(word, rect, context, record=true, source=null) {
         event.target.getBoundingClientRect().bottom>content.getBoundingClientRect().bottom-30) more.click();
     });
     section.append(more);sources.append(section);
-    if(provider==='cambridge') sources.append(roots.section);
+    if(provider==='cambridge' && roots) sources.append(roots.section);
     const load=async()=>{
       let actualWord=word;
       content.replaceChildren(el('p','正在查询…','dict-muted'));
@@ -265,7 +265,7 @@ function selectionWord(selected) {
   const block = parent.closest('p,h1,h2,h3,h4,h5,h6,li,td,figcaption');
   if (!block || !block.contains(range.endContainer)) return null;
   const raw = selected.text;
-  const word = normalizeWord(raw);
+  const word = normalizeQuery(raw);
   if (!word) return null;
   // Initial letters may live in separate spans. Measure against the entire block.
   const before = range.cloneRange();
@@ -273,7 +273,7 @@ function selectionWord(selected) {
   const start = before.toString().length;
   const text = block.textContent;
   const begin = start + raw.length - raw.trimStart().length;
-  if (!selectedWord(text,start,start+raw.length)) return null;
+  if (!selectedQuery(text,start,start+raw.length)) return null;
   let context = '';
   for (const part of new Intl.Segmenter('en', {granularity:'sentence'}).segment(text)) {
     if (part.index <= begin && part.index + part.segment.length > begin) {

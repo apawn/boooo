@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.mjs",
-    "prestart": "npm run setup:dictionary && node speech/setup.mjs && npm run setup:chinese",
+    "prestart": "npm run setup:dictionary && npm run setup:chinese && npm run setup:english",
+    "setup:english": "node speech/setup-english.mjs",
     "setup:chinese": "node speech/setup-chinese.mjs",
     "setup:dictionary": "python3 dictionary/setup.py",
     "build:dictionary": "node dictionary/saladict/build.mjs"
@@ -12,11 +13,9 @@
   "dependencies": {
     "dompurify": "^3.4.17",
     "markdown-it": "^14.1.0",
-    "phonemizer": "1.2.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "sanitize-html": "^2.17.0",
-    "sherpa-onnx-node": "2.0.1"
+    "sanitize-html": "^2.17.0"
   },
   "devDependencies": {
     "esbuild": "^0.28.2",

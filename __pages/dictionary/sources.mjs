@@ -1,7 +1,7 @@
-import {normalizeWord} from './word.js';
+import {normalizeQuery} from './word.js';
 
 export const providers = {
-  cambridge: word => 'https://dictionary.cambridge.org/dictionary/english-chinese-simplified/' + encodeURIComponent(word),
+  cambridge: word => 'https://dictionary.cambridge.org/dictionary/english-chinese-simplified/' + encodeURIComponent(word.replaceAll(' ','-')),
   vocabulary: word => 'https://www.vocabulary.com/dictionary/' + encodeURIComponent(word),
   bing: word => 'https://cn.bing.com/dict/clientsearch?mkt=zh-CN&setLang=zh&form=BDVEHC&ClientVer=BDDTV3.5.1.4320&q=' + encodeURIComponent(word),
   youdao: word => 'https://dict.youdao.com/w/' + encodeURIComponent(word),
@@ -70,7 +70,7 @@ export async function serveSource(requestUrl,res) {
     target=requestUrl.searchParams.get('url');
     if(!allowedMedia(target)) {res.writeHead(400).end('Unsupported recording URL');return;}
   } else {
-    const provider=requestUrl.searchParams.get('provider'),word=normalizeWord(requestUrl.searchParams.get('word'));
+    const provider=requestUrl.searchParams.get('provider'),word=normalizeQuery(requestUrl.searchParams.get('word'));
     if(!Object.hasOwn(providers,provider) || !word) {res.writeHead(400).end('Unsupported dictionary or word');return;}
     target=providers[provider](word);
   }

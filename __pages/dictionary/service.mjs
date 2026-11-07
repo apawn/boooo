@@ -1,10 +1,10 @@
 import {DatabaseSync} from 'node:sqlite';
 import {fileURLToPath} from 'node:url';
-import {normalizeWord} from './word.js';
+import {normalizeQuery} from './word.js';
 
 let db;
 export function lookup(text) {
-  const word = normalizeWord(text);
+  const word = normalizeQuery(text);
   if (!word) return null;
   db ??= new DatabaseSync(fileURLToPath(new URL('./data/ecdict.sqlite', import.meta.url)), {readOnly: true});
   const find = term => {
@@ -22,9 +22,9 @@ export function lookup(text) {
 }
 
 export async function serveDictionary(url, res) {
-  const word = normalizeWord(url.searchParams.get('word'));
+  const word = normalizeQuery(url.searchParams.get('word'));
   const send = (status, data) => res.writeHead(status, {'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}).end(JSON.stringify(data));
-  if (!word) return send(400, {error:'请选择一个完整的英文单词'});
+  if (!word) return send(400, {error:'请选择完整的英文单词或短语'});
   try {
     return send(200, lookup(word));
   } catch {

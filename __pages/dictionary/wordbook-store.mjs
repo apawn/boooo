@@ -25,6 +25,7 @@ export function createWordbookStore(books,{isLocked=()=>false}={}) {
       await create(await safeFile(book,'book.json'),{version:1,id:book.id,title:book.title,edition:book.edition,chapters:book.items.map(chapter=>({file:chapter.file,title:chapter.name}))});
       await create(await safeFile(book,'words.json'),{version:1,book:book.id,words:[]});
       await create(await safeFile(book,'highlights.json'),{version:1,book:book.id,highlights:[]});
+      await create(await safeFile(book,'reading.json'),{version:1,book:book.id,position:null});
     }
   }
   function cleanEntry(book,entry) {
@@ -116,12 +117,37 @@ export function createWordbookStore(books,{isLocked=()=>false}={}) {
     });
     queues.set(id,run);run.finally(()=>{if(queues.get(id)===run)queues.delete(id);}).catch(()=>{});return run;
   }
+  function cleanReading(book,item) {
+    if(!book.items.some(chapter=>chapter.file===item?.chapter))throw fail('朗读章节不正确');
+    if(!Number.isInteger(item.block)||item.block<0||typeof item.text!=='string'||item.text.length>120000||!Number.isInteger(item.offset)||item.offset<0||item.offset>=item.text.length||typeof item.sentence!=='string'||!item.sentence.trim()||item.sentence.length>120000||!['en','zh'].includes(item.lang))throw fail('朗读位置不正确');
+    return {chapter:item.chapter,block:item.block,text:item.text,offset:item.offset,sentence:item.sentence,lang:item.lang};
+  }
+  async function listReading(id) {
+    const book=bookFor(id),file=await safeFile(book,'reading.json');
+    await create(file,{version:1,book:id,position:null});
+    const data=JSON.parse(await readFile(file,'utf8'));
+    if(data.version!==1||data.book!==id||!Object.hasOwn(data,'position'))throw fail('reading.json 格式不正确；原文件未修改',409);
+    if(data.position!==null)cleanReading(book,data.position);
+    return data;
+  }
+  function saveReading(id,item) {
+    if(isLocked())throw fail('正在同步，朗读位置稍后保存',409);
+    const book=bookFor(id),clean=cleanReading(book,item);
+    const run=(queues.get(id)||Promise.resolve()).catch(()=>{}).then(async()=>{
+      const data=await listReading(id);
+      data.position={...clean,updatedAt:new Date().toISOString()};
+      const file=await safeFile(book,'reading.json'),temp=file+'.'+randomUUID()+'.tmp';
+      try{await writeFile(temp,JSON.stringify(data,null,2)+'\n',{flag:'wx'});await rename(temp,file);}finally{await unlink(temp).catch(()=>{});}
+      return data;
+    });
+    queues.set(id,run);run.finally(()=>{if(queues.get(id)===run)queues.delete(id);}).catch(()=>{});return run;
+  }
   async function serve(req,res,url) {
     const send=(status,data)=>res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}).end(JSON.stringify(data));
     try {
       const id=url.searchParams.get('book');bookFor(id);
-      const highlights=url.pathname==='/highlights';
-      if(req.method==='GET')return send(200,await (highlights?listHighlights(id):list(id)));
+      const highlights=url.pathname==='/highlights',reading=url.pathname==='/reading-position';
+      if(req.method==='GET')return send(200,await (reading?listReading(id):highlights?listHighlights(id):list(id)));
       if(req.method!=='POST')return send(405,{error:'不支持此操作'});
       const origin=req.headers.origin;
       if(!origin || origin!=='http://'+req.headers.host || req.headers['sec-fetch-site']==='cross-site') return send(403,{error:'仅允许书架页面保存收藏'});
@@ -129,8 +155,8 @@ export function createWordbookStore(books,{isLocked=()=>false}={}) {
       const chunks=[];let size=0;
       for await(const chunk of req) {size+=chunk.length;if(size>4*1024*1024)return send(413,{error:'收藏数据过大'});chunks.push(Buffer.from(chunk));}
       let data;try{data=JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{throw fail('JSON 格式不正确');}
-      return send(200,await (highlights?mutateHighlights(id,data.action,data.entry):mutate(id,data.action,data.entries)));
+      return send(200,await (reading?saveReading(id,data.position):highlights?mutateHighlights(id,data.action,data.entry):mutate(id,data.action,data.entries)));
     }catch(error){return send(error.status || 500,{error:error.status?error.message:'无法读取或保存单词本，请检查 JSON 文件与目录权限；原文件未覆盖。'});}
   }
-  return {initialize,list,mutate,listHighlights,mutateHighlights,serve,drain:()=>Promise.allSettled([...queues.values()])};
+  return {initialize,list,mutate,listHighlights,mutateHighlights,listReading,saveReading,serve,drain:()=>Promise.allSettled([...queues.values()])};
 }

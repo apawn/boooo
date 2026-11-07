@@ -1,5 +1,6 @@
+import {readingWords} from './reading-text.js';
 // Follow the Web Audio clock. The synthesizer returns PCM without word timestamps.
-export function createReadingLine(scroll) {
+export function createReadingLine(scroll,{onWord=()=>{}}={}) {
   const line=document.createElement('span');
   line.className='reading-line';
   line.setAttribute('aria-hidden','true');
@@ -21,7 +22,7 @@ export function createReadingLine(scroll) {
   document.addEventListener('keydown',event=>{
     if(event.target.closest('input,textarea,select,[contenteditable="true"]')) return;
     if(event.target!==document.body && !scroll.contains(event.target)) return;
-    if(['PageDown','PageUp','Home','End','ArrowDown','ArrowUp',' '].includes(event.key)) manualScroll();
+    if(['PageDown','PageUp','Home','End','ArrowDown','ArrowUp'].includes(event.key)) manualScroll();
   });
   scroll.addEventListener('scroll',()=>{
     // Distinguish our own scroll from scrollbar dragging, keyboard paging, etc.
@@ -33,7 +34,23 @@ export function createReadingLine(scroll) {
   window.addEventListener('resize',redraw);
   document.fonts?.addEventListener('loadingdone',redraw);
 
+  let activeWord=null;
+  function markWord(index) {
+    const word=current.words.find(w=>index>=w.start && index<w.end)
+      ||current.words.findLast(w=>w.start<=index);
+    if(word===activeWord)return;
+    activeWord=word;
+    if(!word){CSS.highlights?.delete('reading-word');onWord(null);return;}
+    const first=current.nodes.find(n=>word.start<n.end);
+    const last=current.nodes.find(n=>word.end<=n.end);
+    if(!first || !last)return;
+    const range=document.createRange();
+    range.setStart(first.node,word.start-first.start);range.setEnd(last.node,word.end-last.start);
+    if(globalThis.Highlight && CSS.highlights)CSS.highlights.set('reading-word',new Highlight(range));
+    onWord({...word,block:current.block});
+  }
   function locate(index,jump=false) {
+    markWord(index);
     const {nodes,block}=current;
     const entry=nodes.find(n=>index<n.end);
     if(!entry) return;
@@ -84,6 +101,7 @@ export function createReadingLine(scroll) {
   function clear(resetFollow=true) {
     cancelAnimationFrame(frame);
     current=null;lastIndex=-1;line.hidden=true;frozen=false;
+    activeWord=null;CSS.highlights?.delete('reading-word');onWord(null);
     if(resetFollow) {autoFollow=true;automaticScrollTop=null;}
   }
   function freeze() {
@@ -137,7 +155,7 @@ export function createReadingLine(scroll) {
     }
     const total=energy.at(-1);
     for(let i=0;i<energy.length;i++) energy[i]=total?energy[i]/total:i/(energy.length-1);
-    current={nodes,block:part.block,base:part.offset,marks,energy,clock,start,duration:buffer.duration};
+    current={nodes,words:readingWords(part.block.textContent,part.lang),block:part.block,base:part.offset,marks,energy,clock,start,duration:buffer.duration};
     draw();
   }
   return {follow,clear,freeze,resume,jumpToCurrent};

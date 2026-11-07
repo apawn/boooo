@@ -34,3 +34,13 @@ test('does not move Chinese, whitespace, punctuation or an existing word boundar
   for(const offset of [0,1,2,4,5,12,13,18,19,20]) assert.equal(englishWordStart(text,offset),offset);
   assert.equal(englishWordStart(text,text.indexOf('glish')),5);
 });
+
+test('spoken word ranges preserve full English words and Chinese word boundaries',async()=>{
+  const {readingWords}=await import('./reading-text.js');
+  const en="We can't forget kindness.";
+  assert.deepEqual(readingWords(en,'en').map(w=>en.slice(w.start,w.end)),['We',"can't",'forget','kindness']);
+  const zh='这是中文句子，可以暂停。';
+  const words=readingWords(zh,'zh');
+  assert.ok(words.length>1);
+  assert.equal(words.map(w=>zh.slice(w.start,w.end)).join(''),'这是中文句子可以暂停');
+});

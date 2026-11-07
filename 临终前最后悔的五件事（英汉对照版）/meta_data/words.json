@@ -1,5 +1,18 @@
 {
   "version": 1,
   "book": "临终前最后悔的五件事（英汉对照版）",
-  "words": []
+  "words": [
+    {
+      "word": "grind",
+      "source": {
+        "url": "/?book=%E4%B8%B4%E7%BB%88%E5%89%8D%E6%9C%80%E5%90%8E%E6%82%94%E7%9A%84%E4%BA%94%E4%BB%B6%E4%BA%8B%EF%BC%88%E8%8B%B1%E6%B1%89%E5%AF%B9%E7%85%A7%E7%89%88%EF%BC%89&chapter=02-%E4%BB%8E%E7%83%AD%E5%B8%A6%E5%88%B0%E5%AF%92%E5%B8%A6.md",
+        "book": "临终前最后悔的五件事",
+        "chapter": "从热带到寒带",
+        "block": 20,
+        "text": "Island life was a fantastic experience though, not only releasing me from the Monday to Friday grind, but also effectively releasing me from even knowing what day of the week it was. I loved it. After a year of being what was not so affectionately known as a dish-pig, I worked my way into the bar.",
+        "offset": 95
+      },
+      "createdAt": "2026-11-07T04:17:49.963Z"
+    }
+  ]
 }

@@ -14,9 +14,10 @@ let closing=false;
 function getWorker(backend) {
   if(closing) throw new Error('朗读服务正在关闭');
   if(workers.has(backend)) return workers.get(backend);
-  if(backend!=='qwen') throw new Error('Unknown Mandarin backend');
+  if(!['qwen','qwen-en'].includes(backend)) throw new Error('Unknown speech backend');
   const python=path.join(runtime,'.venv/bin/python');
-  const child=spawn(python,['-u',path.join(here,'chinese_worker.py'),backend],{
+  const script=backend==='qwen-en'?'english_worker.py':'chinese_worker.py';
+  const child=spawn(python,['-u',path.join(here,script),backend],{
     cwd:here,stdio:['pipe','pipe','pipe'],
     env:{...process.env,BOOKSHELF_VOICE_HOME:runtime,HF_HUB_OFFLINE:'1'},
   });
@@ -35,7 +36,7 @@ function getWorker(backend) {
     child.kill();
   }
   ready.catch(()=>{});
-  child.on('error',error=>fail(new Error(`中文朗读启动失败，请运行 npm run setup:chinese：${error.message}`)));
+  child.on('error',error=>fail(new Error(`朗读启动失败，请运行 npm run setup:${backend==='qwen-en'?'english':'chinese'}：${error.message}`)));
   child.on('exit',(code,signal)=>fail(new Error(`${backend} 朗读进程退出 (${code ?? signal})`)));
   const logs=createInterface({input:child.stderr});
   logs.on('line',line=>{if(line.trim()) console.error(`[speech:${backend}] ${line.slice(0,2000)}`);});
@@ -70,6 +71,14 @@ function getWorker(backend) {
 
 export function warmMandarin() {
   return getWorker('qwen').ready;
+}
+
+export function warmEnglish() {
+  return getWorker('qwen-en').ready;
+}
+
+export function synthesizeEnglish(text) {
+  return getWorker('qwen-en').request({text});
 }
 
 export function synthesizeMandarin(text,voice) {

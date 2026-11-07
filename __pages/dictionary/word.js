@@ -5,7 +5,23 @@ export function normalizeWord(text) {
 }
 
 export function selectedWord(text, start, end) {
-  const raw=text.slice(start,end), word=normalizeWord(raw);
+  return selectedTerm(text,start,end,normalizeWord);
+}
+
+// Dictionary engines also accept English expressions; favorites remain single words.
+export function normalizeQuery(text) {
+  const query=String(text ?? '').trim().replace(/\s+/g,' ');
+  const words=query.split(' ');
+  if(query.length>160 || words.length>12 || words.some(word=>!normalizeWord(word)))return null;
+  return words.map(normalizeWord).join(' ');
+}
+
+export function selectedQuery(text,start,end) {
+  return selectedTerm(text,start,end,normalizeQuery);
+}
+
+function selectedTerm(text,start,end,normalize) {
+  const raw=text.slice(start,end), word=normalize(raw);
   if(!word) return null;
   start+=raw.length-raw.trimStart().length;
   end-=raw.length-raw.trimEnd().length;
