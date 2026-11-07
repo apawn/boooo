@@ -115,7 +115,24 @@
       local.set('size',String(size));smaller.disabled=size===15;larger.disabled=size===27;
     }
     smaller.onclick=()=>setSize(size-2); larger.onclick=()=>setSize(size+2);setSize(size);
-    document.querySelector('.chapter-item[aria-current]')?.scrollIntoView({block:'nearest'});
+    document.querySelectorAll('.chapter-toggle').forEach(button=>{
+      const sections=document.getElementById(button.getAttribute('aria-controls'));
+      button.addEventListener('click',()=>{
+        const expanded=button.getAttribute('aria-expanded')!=='true';
+        button.setAttribute('aria-expanded',String(expanded));
+        sections.hidden=!expanded;
+      });
+    });
+    const markSection=()=>{
+      document.querySelectorAll('.subchapter-item').forEach(link=>{
+        const active=location.hash && link.href===location.href;
+        if(active)link.setAttribute('aria-current','location');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    markSection();
+    window.addEventListener('hashchange',markSection);
+    document.querySelector('.subchapter-item[aria-current], .chapter-item[aria-current]')?.scrollIntoView({block:'nearest'});
     const scroller=document.querySelector('#scroll');
     const chapterLink=document.querySelector('.chapter-item[aria-current]');
     if(scroller && chapterLink) {

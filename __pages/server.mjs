@@ -7,6 +7,7 @@ import {createWordbookStore} from './dictionary/wordbook-store.mjs';
 import { defaultMandarin, mandarinVoices } from './speech/voices.mjs';
 import { serveSpeech, warmSpeech, closeSpeech } from './speech/engine.mjs';
 import { tocLabels, chapterLabel } from './labels.mjs';
+import { chapterOutline, headingLabels } from './chapter-outline.mjs';
 import { readdir, readFile, realpath, stat } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
 import path from 'node:path';
@@ -17,7 +18,7 @@ import sanitize from 'sanitize-html';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.dirname(here);
 const port = Number(process.env.PORT || 4317);
-const md = new MarkdownIt({html: true, linkify: false});
+const md = new MarkdownIt({html: true, linkify: false}).use(chapterOutline);
 const escape = md.utils.escapeHtml;
 const titles = {
   '国家为什么会失败（英汉短段对照版）': ['国家为什么会失败','英汉对照版','nations','terracotta'],
@@ -116,12 +117,23 @@ async function render(b,c) {
     const book=books.get(id);
     return '<a class="book-item" '+(id===b.id?'aria-current="true" ':'')+'href="'+escape(url(book,start(book)))+'">'+cover(book)+'<span><strong>'+escape(book.id==='Why Nations Fail (English)'?'国家为什么会失败':book.title)+'</strong>'+subtitle(englishTitles[book.motif])+'<small>'+escape(book.edition)+'</small></span></a>';
   }).join('');
+  const sources=await Promise.all(b.items.map(x=>readFile(path.join(b.dir,x.file),'utf8')));
   const chapters=b.items.map((x,j)=>{
     const [name,en]=chapterLabel(x,themeLabels.get(b.motif));
-    return '<a class="chapter-item" '+(j===i?'aria-current="page" ':'')+'href="'+escape(url(b,x))+'"><span class="num">'+(x.number||'·')+'</span><span>'+escape(name)+subtitle(en)+'</span></a>';
+    const env={};
+    md.parse(sources[j],env);
+    const headings=env.headings;
+    const listId='chapter-sections-'+j;
+    const links=headings.map(h=>{
+      const [title,english]=headingLabels(h.text);
+      return '<a class="subchapter-item" data-level="'+h.level+'" href="'+escape(url(b,x)+'#'+h.id)+'">'+escape(title)+subtitle(english)+'</a>';
+    }).join('');
+    return '<div class="chapter-group"><div class="chapter-row"><a class="chapter-item" '+(j===i?'aria-current="page" ':'')+'href="'+escape(url(b,x))+'"><span class="num">'+(x.number||'·')+'</span><span>'+escape(name)+subtitle(en)+'</span></a>'+
+      (headings.length?'<button class="chapter-toggle" type="button" aria-label="'+escape(name)+'的子标题" aria-controls="'+listId+'" aria-expanded="'+(j===i)+'" title="展开或收起子标题">'+icon('next')+'</button>':'')+'</div>'+
+      (headings.length?'<div class="chapter-sections" id="'+listId+'"'+(j===i?'':' hidden')+'>'+links+'</div>':'')+'</div>';
   }).join('');
   const paging=[[-1,'上一章','previous'],[1,'下一章','next']].map(([d,label,arrow])=>b.items[i+d]?'<a href="'+escape(url(b,b.items[i+d]))+'">'+(d<0?icon(arrow):'')+label+(d>0?icon(arrow):'')+'</a>':'<span></span>').join('');
-  const body=chapterBody(await readFile(path.join(b.dir,c.file),'utf8'),b,c);
+  const body=chapterBody(sources[i],b,c);
   const [chapterName]=chapterLabel(c,themeLabels.get(b.motif));
   const currentChapter=(c.number?'第'+Number(c.number)+'章 ':'')+chapterName;
   return '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(c.name+' · '+b.title)+'</title><link rel="stylesheet" href="/dictionary/saladict/bundle.css"><link rel="stylesheet" href="/reader.css"><script src="/reader.js"></script><script src="/git-sync.js" type="module"></script><script src="/read-aloud.js" type="module"></script><script src="/dictionary.js" type="module"></script></head><body><div class="frame">'+borderDecor()+'<aside id="shelf"><header class="side-head"><span class="brand">'+icon('book')+'<span>藏书架'+subtitle('Bookshelf')+'</span></span><button class="toggle" aria-controls="book-list" aria-expanded="true" title="收起书架">'+icon('panel')+'</button></header><nav id="book-list" aria-label="所有书籍">'+shelf+'</nav><footer class="sync-footer"><button id="sync-status-button" type="button" aria-label="刷新 Git 状态" aria-controls="sync-details" aria-expanded="false" title="刷新 Git 状态"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4v6h-6M20 10a8 8 0 1 0 0 5"/></svg></button><button id="sync-button" aria-label="Sync 同步" type="button" title="提交所有本地修改、rebase 并推送"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6 6a8 8 0 0 1 14 6M18 18a8 8 0 0 1-14-6"/></svg></button><div class="sync-info"><p id="sync-status" role="status" aria-live="polite">尚未同步</p><div id="sync-details" aria-label="Git 状态与同步详情" hidden></div></div></footer></aside><aside id="chapters"><header class="side-head"><span><strong>章节</strong>'+subtitle('Chapters')+'</span><span class="total">'+b.items.length+'</span></header><nav id="chapter-list" aria-label="章节目录">'+chapters+'</nav></aside><main id="reader"><header class="reader-bar"><span class="crumb">'+icon('book')+'<span class="crumb-book">'+escape(b.title)+'</span><span class="current-chapter" aria-label="当前章节">· '+escape(currentChapter)+'</span><span class="edition">'+escape(b.edition)+'</span></span>'+'<div class="reader-tools"><button id="voice-settings" type="button" aria-haspopup="dialog">中文音色</button>'+typeControls+'</div></header><div class="scroll" id="scroll" tabindex="-1"><article class="'+(b.edition==='英汉对照版'?'parallel':'')+'">'+body+'<nav class="paging" aria-label="翻章">'+paging+'</nav></article></div></main></div>'+voiceDialog+'</body></html>';

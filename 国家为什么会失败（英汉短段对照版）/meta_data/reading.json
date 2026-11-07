@@ -1,5 +1,13 @@
 {
   "version": 1,
   "book": "国家为什么会失败（英汉短段对照版）",
-  "position": null
+  "position": {
+    "chapter": "02-第01章-很靠近却很不一样.md",
+    "block": 41,
+    "text": "The expeditions of de Solís, de Mendoza, and de Ayolas came in the wake of more famous ones that followed Christopher Columbus’s sighting of one of the islands of the Bahamas on October 12, 1492. Spanish expansion and colonization of the Americas began in earnest with the invasion of Mexico by Hernán Cortés in 1519, the expedition of Francisco Pizarro to Peru a decade and a half later, and the expedition of Pedro de Mendoza to the Río de la Plata just two years after that. Over the next century, Spain conquered and colonized most of central, western, and southern South America, while Portugal claimed Brazil to the east.",
+    "offset": 0,
+    "sentence": "The expeditions of de Solís, de Mendoza, and de Ayolas came in the wake of more famous ones that followed Christopher Columbus’s sighting of one of the islands of the Bahamas on October 12, 1492.",
+    "lang": "en",
+    "updatedAt": "2026-11-07T07:14:58.995Z"
+  }
 }

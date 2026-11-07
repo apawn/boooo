@@ -54,6 +54,28 @@ aside { border-right:1px solid var(--line); }
 .chapter-item[aria-current] { color:var(--accent); background:#ede5d8; border-left-color:#9b5b43; font-weight:600;}
 .num { color:#8a8371; font:12px/1.6 var(--font-system); width:18px; flex:none; text-align:center; }
 .chapter-item[aria-current] .num {color:inherit;}
+.chapter-row {display:flex;align-items:stretch;}
+.chapter-row .chapter-item {flex:1;min-width:0;}
+.chapter-toggle {flex:none;align-self:flex-start;display:grid;place-items:center;width:26px;height:30px;margin-top:7px;padding:4px;border:0;border-radius:50%;background:transparent;color:#858775;}
+.chapter-toggle:hover {background:#e6e5d7;color:#505c45;}
+.chapter-toggle .icon {width:13px;height:13px;transition:transform .18s ease;}
+.chapter-toggle[aria-expanded="true"] .icon {transform:rotate(90deg);}
+.chapter-sections {margin:2px 9px 12px 19px;padding-left:10px;border-left:1px solid #cbc8b6;}
+.chapter-sections[hidden] {display:none;}
+.subchapter-item {display:block;padding:7px 7px;text-decoration:none;font-size:12px;line-height:1.55;color:#646757;border-radius:3px;overflow-wrap:anywhere;}
+.subchapter-item .nav-english {font-size:10.5px;line-height:1.4;color:#868779;}
+.subchapter-item:hover {background:#edeade;color:#424b39;}
+.subchapter-item[aria-current] {background:#ede5d8;color:var(--accent);}
+.subchapter-item[data-level="3"] {padding-left:17px;}
+.subchapter-item[data-level="4"],.subchapter-item[data-level="5"],.subchapter-item[data-level="6"] {padding-left:27px;}
+article :is(h2,h3,h4,h5,h6)[id] {scroll-margin-top:24px;}
+@media(max-width:620px) {
+  .chapter-toggle {width:18px;height:26px;padding:2px;}
+  .chapter-sections {margin-left:5px;margin-right:2px;padding-left:3px;}
+  .subchapter-item {font-size:10.5px;padding:6px 3px;}
+  .subchapter-item .nav-english {font-size:9px;}
+}
+@media(prefers-reduced-motion:reduce) {.chapter-toggle .icon {transition:none;}}
 .reader-bar { padding:10px clamp(16px,3vw,46px); flex-wrap:wrap; }
 .crumb {display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;font-size:14px;font-weight:550;min-width:0;max-width:100%;white-space:normal;}
 .current-chapter {font-size:12px;font-weight:400;color:#626653;overflow-wrap:anywhere;}
