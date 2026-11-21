@@ -1,0 +1,189 @@
+{
+  "format": "existing-markdown",
+  "source": "/Users/bytedance/Library/Mobile Documents/com~apple~CloudDocs/nine/nine-zh",
+  "method": "Preserved supplied Markdown; removed YAML front matter and remapped navigation/image paths only. Existing source conversion was not retranslated. Escaped one chart-reference expression that Markdown otherwise misread as a hyperlink.",
+  "chapters": 29,
+  "images": 376,
+  "documents": [
+    {
+      "source": "00-contents.md",
+      "output": "00-目录.md",
+      "source_sha256": "5fd1f98176af413ed228d713c1d345750365f95caf582b95554449d171401e2e",
+      "output_sha256": "4a59070bac1a21e8040c32f69bbfd7920948e9599b53397b8ef4004cc8868071"
+    },
+    {
+      "source": "00-前置页.md",
+      "output": "01-前置页.md",
+      "source_sha256": "bdb14204576241bda3bb5748f246508a6fe77507786bcd701e61c241fbc3402e",
+      "output_sha256": "3a504eef4c2b7fd62ff2e6edd9a859a702a5ed8d988b7151510c68ca3a7ca8e5"
+    },
+    {
+      "source": "01-术语表.md",
+      "output": "02-术语表.md",
+      "source_sha256": "ce422cc1d31daaffd16385d53536e9a6aa9be6341feb2a124600ae931c2bbed2",
+      "output_sha256": "47e722dd8c63cb9f99841ecc81186b237dbecc4d8d40965fe3214a75203e381b"
+    },
+    {
+      "source": "02-价格行为交易.md",
+      "output": "03-价格行为交易.md",
+      "source_sha256": "6e32854c7bd0a5bc73523cb7dcc8e4d411f76e0b358ac48b8801bbf2a4adb6f5",
+      "output_sha256": "57c3005f51103e82a2f7d4c9f9a162babc2ae9ab9e15e83fdcd90dd4349282f9"
+    },
+    {
+      "source": "03-建仓形态图.md",
+      "output": "04-建仓形态图.md",
+      "source_sha256": "bd2008a2787f4f7233863dcea07967336dcb08cf11fa47b07bf7fd223c83f027",
+      "output_sha256": "9a72ec3d77d502d1c247c8da2644f12b5749263987be5237535f2e6880c4a647"
+    },
+    {
+      "source": "04-交易指南.md",
+      "output": "05-交易指南.md",
+      "source_sha256": "9386eaea8fdaa55092edb37fd1d0e8970284c773d72dc1f32e9414c184acaee9",
+      "output_sha256": "65bb165aad5d73fd8e27170f8a65d5e5a5ab921e3d52ffdce9bf5897abfff7fd"
+    },
+    {
+      "source": "05-价格行为基础.md",
+      "output": "06-价格行为基础.md",
+      "source_sha256": "79cc476fe083f57d5b71fa71166894069bd50d3f37115b73a4e5ba73e67d6126",
+      "output_sha256": "d42fc55c9cc45a18dd62400a27fede1c06456660fcd747493b56d3caa4d433ad"
+    },
+    {
+      "source": "06-交易心理学.md",
+      "output": "07-交易心理学.md",
+      "source_sha256": "0e6f148ac699f265bdc26ae64f2db9d029676f44420238f7364ae7ebbe8200f0",
+      "output_sha256": "61372aae42b363ac3cb60c0c53fdd54bb0e5c297a2a644dff779eb4c7c6d4047"
+    },
+    {
+      "source": "2010-12-2010年12月.md",
+      "output": "08-2010年12月.md",
+      "source_sha256": "47cdee817b21807e8047b5278d275b7ed9753c2584ff4375c58b20857f0d96ce",
+      "output_sha256": "de4d6367aaa46bb4e199ce7354f89cd0bec8a5ec056afb970324536c3bf8d517"
+    },
+    {
+      "source": "2011-01-2011年1月.md",
+      "output": "09-2011年1月.md",
+      "source_sha256": "7c14edcd9e75cc7d796a88b16d3d48ccd826f605761eef2a9222376623cd88c4",
+      "output_sha256": "31e0eb36d3c3ca1669abf05b0c0bec45bead2655e20527d9a4a9cd2ca03396b3"
+    },
+    {
+      "source": "2011-02-2011年2月.md",
+      "output": "10-2011年2月.md",
+      "source_sha256": "8f5b9815a2316732b21305ff82bcbc9ccd56e6c53cfabb9d3bc2c0b20854d590",
+      "output_sha256": "ae28fde7f503f4eb6a8388c1979b9aa323a83f4d82e4b64951d8bdc7e06c23a3"
+    },
+    {
+      "source": "2011-03-2011年3月.md",
+      "output": "11-2011年3月.md",
+      "source_sha256": "6ca760ebacae58f69cee2156980abc38505f4818344be15d5cf27fb116bcecc7",
+      "output_sha256": "8cec0a711991a38f04ee24334cd708aedceb8204bbd1d76ab0d3fb1fe24c8fdd"
+    },
+    {
+      "source": "2011-04-2011年4月.md",
+      "output": "12-2011年4月.md",
+      "source_sha256": "fc706e82b448eb0312eb9e57068958641b4153b0be410e848c65ecdce3d39514",
+      "output_sha256": "768676ac3c8431754dda8f84cc37907663b325a2b3549bbba34cbfd8fce85044"
+    },
+    {
+      "source": "2011-05-2011年5月.md",
+      "output": "13-2011年5月.md",
+      "source_sha256": "d8bca00200fdbd48793c7100bedef0440529dfd18fc24e403ed6c172d647607d",
+      "output_sha256": "3b917cb98d43d032355a0f343fb9044dee2213266fde9d6efc0c9b0ae53df6ce"
+    },
+    {
+      "source": "2011-06-2011年6月.md",
+      "output": "14-2011年6月.md",
+      "source_sha256": "b08a3e49c2312f35ebde001e31f4e1d7546b49bdfe21f9677d2f8c18f09def39",
+      "output_sha256": "bb108bc74f272575b48fd5bfc4b739960d6793dffa2043e99d765ae0ddd4dffc"
+    },
+    {
+      "source": "2011-07-2011年7月.md",
+      "output": "15-2011年7月.md",
+      "source_sha256": "5250441a6112b10fdfefd764c8425d22c874775361b4865304d27f18e956e3be",
+      "output_sha256": "56f545a91b585a5c5290b06087aed509f5bebf2fdf8bcaa2a38afc2ac8926f64"
+    },
+    {
+      "source": "2011-08-2011年8月.md",
+      "output": "16-2011年8月.md",
+      "source_sha256": "ff80124c0dfc2d89b2c9f9c47bd98d6ba8c398414202a4fa635eea4cf7ebf4a3",
+      "output_sha256": "45091f21dbb6207a9a4c62678dfeb358745828a56ce8bb48ed002df43077ef9b"
+    },
+    {
+      "source": "2011-09-2011年9月.md",
+      "output": "17-2011年9月.md",
+      "source_sha256": "bf4ee4c7d5d05f07dacd581ee5e4a9a2ec486f50290d2b8086f7fae337700d6e",
+      "output_sha256": "61fd07838c9785125de046e3c1ecd7295dd23031bcfeaee9af99bf48a2524dab"
+    },
+    {
+      "source": "2011-10-2011年10月.md",
+      "output": "18-2011年10月.md",
+      "source_sha256": "22dbb6ad79c5680e298dd43f03946c33c833708e55feb47b63c96c147d839501",
+      "output_sha256": "060e40da65c31d0737e13bfec8f4bb4353a880a7fb7c584eba0ac19e41995559"
+    },
+    {
+      "source": "2011-11-2011年11月.md",
+      "output": "19-2011年11月.md",
+      "source_sha256": "87bfa92c33b7d6d2f7b70e9fcb3488fd0196c54370eecba1f2f8e1f60ea28c80",
+      "output_sha256": "aebc8bbd23f95db9f1815166cdf7263680129a0fdba0d9f3dd81b6d0255309f2"
+    },
+    {
+      "source": "2011-12-2011年12月.md",
+      "output": "20-2011年12月.md",
+      "source_sha256": "719080ad1d160c761793a7b83f218b08be7d6c4c85a23ec92f24b73f7fee1218",
+      "output_sha256": "38914ba08941e601d5742a3c6821d7043d91b61c35e78b9213611387f100c2f2"
+    },
+    {
+      "source": "2012-01-2012年1月.md",
+      "output": "21-2012年1月.md",
+      "source_sha256": "4a5995f329ac80efd5e156a9c8b95e07611163ecfb43b76a1ec10dfa89d21167",
+      "output_sha256": "29fef0375851c9906cfef3831833b3cb93b0de6b001d6d08d5dc5d748fe78f50"
+    },
+    {
+      "source": "2012-02-2012年2月.md",
+      "output": "22-2012年2月.md",
+      "source_sha256": "09b6476853324a34b6951b96c14584a6a33877a60d896267915b6060fff8605b",
+      "output_sha256": "00ffb7259e86b016ed569f63c60c66ce16f9278b83876e93ce7e167e910d6620"
+    },
+    {
+      "source": "2012-03-2012年3月.md",
+      "output": "23-2012年3月.md",
+      "source_sha256": "2c74396f1d9e9a8da3562affbbd50e8ea0d6bca200eaa0d54fd86b2055041319",
+      "output_sha256": "d7c0b7808fcf5afe1d911ab4a83c42c7ac76e53b34fce4d712f82632d1b253fa"
+    },
+    {
+      "source": "2012-04-2012年4月.md",
+      "output": "24-2012年4月.md",
+      "source_sha256": "58d3fdd40d3bf25cb541d2dfc0b9f752ac32868a6ea23e6edbb4a3ee63697334",
+      "output_sha256": "ac0c6c8aa7c0385e0f3aa9f15ff1339aa44f7ee5c54d35b3626f81bca9226d41"
+    },
+    {
+      "source": "2012-05-2012年5月.md",
+      "output": "25-2012年5月.md",
+      "source_sha256": "f76462811d545b09bec91f09d4f20e40e8a294fafb750c54d2af961a3f1b010a",
+      "output_sha256": "fcdc2070557dbadaae38a108fae9d3bc649819e437d92fa6f94be11cc6cdb710"
+    },
+    {
+      "source": "2012-06-2012年6月.md",
+      "output": "26-2012年6月.md",
+      "source_sha256": "dc03d12d06a8b0eec9b526b348b6057db9b3acbeff8e63e1c142ce12970b2aaf",
+      "output_sha256": "f15cf862980d76ed1d0c647edb1784d5aa5dea9c6b55fc2d47d6c77787032542"
+    },
+    {
+      "source": "2012-07-2012年7月.md",
+      "output": "27-2012年7月.md",
+      "source_sha256": "c07a9d8419603d0e06ceedc89a23adb478e742bd4b41dc47885b993c744b2022",
+      "output_sha256": "b665426d06ba362121d5532a5a55a30e22a77d98cf616e62fde94f325aab2a81"
+    },
+    {
+      "source": "2012-09-2012年9月.md",
+      "output": "28-2012年9月.md",
+      "source_sha256": "1578ced06e77b9f17ab02cd971af350b445d6aac6b92f656f999cf241d61c133",
+      "output_sha256": "33f05d2021922ac4a45d25ec51ea1b263777c2141a93837066eb6d757c3c253d"
+    },
+    {
+      "source": "2012-10-2012年10月.md",
+      "output": "29-2012年10月.md",
+      "source_sha256": "4dc706fbad79aa8bbcfd24809953a5bb9c6a571b591efd68d0abf996a03893fb",
+      "output_sha256": "2ba1f6be0eb4ec11f65eb04e8bef1478677e4f34cf3d1015421cbae50d1f42f4"
+    }
+  ]
+}

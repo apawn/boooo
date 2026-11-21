@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "id": "Nine Transitions（英文版）",
+  "title": "Nine Transitions",
+  "edition": "英文版 · 价格行为交易",
+  "chapters": [
+    {
+      "file": "01-front-matter.md",
+      "title": "front matter"
+    },
+    {
+      "file": "02-glossary.md",
+      "title": "glossary"
+    },
+    {
+      "file": "03-price-action-trading.md",
+      "title": "price action trading"
+    },
+    {
+      "file": "04-setup-chart.md",
+      "title": "setup chart"
+    },
+    {
+      "file": "05-trading-guide.md",
+      "title": "trading guide"
+    },
+    {
+      "file": "06-price-action-basics.md",
+      "title": "price action basics"
+    },
+    {
+      "file": "07-trading-psychology.md",
+      "title": "trading psychology"
+    },
+    {
+      "file": "08-12.md",
+      "title": "12"
+    },
+    {
+      "file": "09-01.md",
+      "title": "01"
+    },
+    {
+      "file": "10-02.md",
+      "title": "02"
+    },
+    {
+      "file": "11-03.md",
+      "title": "03"
+    },
+    {
+      "file": "12-04.md",
+      "title": "04"
+    },
+    {
+      "file": "13-05.md",
+      "title": "05"
+    },
+    {
+      "file": "14-06.md",
+      "title": "06"
+    },
+    {
+      "file": "15-07.md",
+      "title": "07"
+    },
+    {
+      "file": "16-08.md",
+      "title": "08"
+    },
+    {
+      "file": "17-09.md",
+      "title": "09"
+    },
+    {
+      "file": "18-10.md",
+      "title": "10"
+    },
+    {
+      "file": "19-11.md",
+      "title": "11"
+    },
+    {
+      "file": "20-12.md",
+      "title": "12"
+    },
+    {
+      "file": "21-01.md",
+      "title": "01"
+    },
+    {
+      "file": "22-02.md",
+      "title": "02"
+    },
+    {
+      "file": "23-03.md",
+      "title": "03"
+    },
+    {
+      "file": "24-04.md",
+      "title": "04"
+    },
+    {
+      "file": "25-05.md",
+      "title": "05"
+    },
+    {
+      "file": "26-06.md",
+      "title": "06"
+    },
+    {
+      "file": "27-07.md",
+      "title": "07"
+    },
+    {
+      "file": "28-09.md",
+      "title": "09"
+    },
+    {
+      "file": "29-10.md",
+      "title": "10"
+    }
+  ]
+}

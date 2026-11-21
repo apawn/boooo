@@ -1,0 +1,231 @@
+{
+  "format": "epub",
+  "source": "/Users/bytedance/Library/Mobile Documents/com~apple~CloudDocs/studio-books/健康医学/免疫功能90天复原方案 (【美】苏珊·布卢姆,米歇尔·本德) (Z-Library).epub",
+  "source_sha256": "793e4e7bb89da1a518104ea4bfc02fb5ee1c1ef82f0e6519f266780007c91a22",
+  "method": "Original XHTML text and paragraph/table/footnote structure; no paraphrasing or OCR",
+  "spine_documents": 31,
+  "documents_imported": 31,
+  "chapters": 31,
+  "images": 58,
+  "all_text_equal": true,
+  "unresolved_links": [],
+  "documents": [
+    {
+      "source": "OEBPS/Text/cover.xhtml",
+      "output": "01-封面.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/copyright.xhtml",
+      "output": "02-版权信息.md",
+      "characters_without_whitespace": 150,
+      "text_sha256": "a202bc00c319ea4cd075cbce174c530b1bf3efab245c48856f7345ae63c80346",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0001.xhtml",
+      "output": "03-献词.md",
+      "characters_without_whitespace": 61,
+      "text_sha256": "5f62569038ab1328c62dd2cf3b803df0355cf5381c5005ec32c1edbf17629431",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0002.xhtml",
+      "output": "04-从痛苦与折磨中解脱（代序）.md",
+      "characters_without_whitespace": 2256,
+      "text_sha256": "b31a01390544830d4c08f340c7ee8dc6f825324ebc7bde87251d5b0460898648",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0003.xhtml",
+      "output": "05-前言.md",
+      "characters_without_whitespace": 7161,
+      "text_sha256": "79db919fed7b5bd471f7184fa3566a1952a4e6cad68a1586571ef83a4ca7023a",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0004.xhtml",
+      "output": "06-第一章 自身免疫性疾病.md",
+      "characters_without_whitespace": 10697,
+      "text_sha256": "2ac89033c2d550aa1e685f057cb549f192f6eaa22866e171b46a3e9c61c7151d",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0005.xhtml",
+      "output": "07-第一部分 以食代药.md",
+      "characters_without_whitespace": 29,
+      "text_sha256": "2eabfe921c42757ed3fc878e7b4ca74bcfd178d43fd922111217eb1afab11448",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0006.xhtml",
+      "output": "08-第二章 食物与自身免疫性疾病.md",
+      "characters_without_whitespace": 15939,
+      "text_sha256": "c0d1405ce98700395820365c90bb40a2bad21c2fb331f54a9c251a72382e6f84",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0007.xhtml",
+      "output": "09-第三章 饮食自我评估手册.md",
+      "characters_without_whitespace": 17646,
+      "text_sha256": "e1b43bbd3242699ea581d26d20a67ab1eb92b9cecc6d8688b19ca134c2591730",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0008.xhtml",
+      "output": "10-第四章 免疫系统修复食谱.md",
+      "characters_without_whitespace": 5521,
+      "text_sha256": "5ea322c3221e34fdbfacc30a470f2376715f29135dda6c5f5c9c4a1d91e1d7bc",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0009.xhtml",
+      "output": "11-第二部分 调控压力.md",
+      "characters_without_whitespace": 37,
+      "text_sha256": "e2b3f2c33827a189fe9eff2838b6d2d204ce1eed58397eb9cf9e9ed6f86eda81",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0010.xhtml",
+      "output": "12-第五章 压力与自身免疫性疾病.md",
+      "characters_without_whitespace": 14815,
+      "text_sha256": "f2874b7899bdb6f2bdeeb1e7a461076983236164dad9e15916f2a3557b3e3cdf",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0011.xhtml",
+      "output": "13-第六章 压力自我评估手册.md",
+      "characters_without_whitespace": 15673,
+      "text_sha256": "a6584a9dc0b433405b7eed922a557d665b67c47306295ef7a98549062b648363",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0012.xhtml",
+      "output": "14-第七章 减压食谱.md",
+      "characters_without_whitespace": 6249,
+      "text_sha256": "8e14565da4536901cac43ff4ed771eb5e90d932ccb01ecb984f78801ddfa2b38",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0013.xhtml",
+      "output": "15-第三部分 修复消化道.md",
+      "characters_without_whitespace": 45,
+      "text_sha256": "4ba63c1b2379e4768fb2bcd1b4dedcde483b5c8a5d529be507749b12cce6f9f4",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0014.xhtml",
+      "output": "16-第八章 消化道与自身免疫性疾病.md",
+      "characters_without_whitespace": 10587,
+      "text_sha256": "a17a8847e8ef1fc0a47b8d4baa5bfcbbbbb5786730c81a8d33df0b56347e2f38",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0015.xhtml",
+      "output": "17-第九章 消化道自我评估手册.md",
+      "characters_without_whitespace": 14241,
+      "text_sha256": "582599cd923818d66de55873075d9ac98a495246d5d20ea7d805699e7011aa4f",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0016.xhtml",
+      "output": "18-第十章 消化道修复食谱.md",
+      "characters_without_whitespace": 4617,
+      "text_sha256": "29c490a34cf311a7e323e8baa063904d3582443948f41e7839099b33a90dccba",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0017.xhtml",
+      "output": "19-第四部分 维护肝脏.md",
+      "characters_without_whitespace": 55,
+      "text_sha256": "6375e660f570e2ad6459ec30e2d3b65fa66c7a6639afeaea7720700b31339e3f",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0018.xhtml",
+      "output": "20-第十一章 肝脏与环境毒素.md",
+      "characters_without_whitespace": 20239,
+      "text_sha256": "b52229679f63c7777989dc9eca929c7368c55c612baedc91de12abb0760b6f3f",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0019.xhtml",
+      "output": "21-第十二章 肝脏自我评估手册.md",
+      "characters_without_whitespace": 10751,
+      "text_sha256": "be0fec76a6b7239050f64795a9436d57a828929e65034989cb5a47bf263dc064",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0020.xhtml",
+      "output": "22-第十三章 肝脏维护食谱.md",
+      "characters_without_whitespace": 4469,
+      "text_sha256": "3763d315631b7cea24c0d6d35d74ce8f730f518edee4e82369d6d4810cac9732",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0021.xhtml",
+      "output": "23-第五部分 自身免疫性疾病补充说明.md",
+      "characters_without_whitespace": 37,
+      "text_sha256": "906b0aeac16b5833180b5718feb5dd3c7004b531bd331d8fb8a97e440211c2b4",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0022.xhtml",
+      "output": "24-第十四章 感染与自身免疫性疾病.md",
+      "characters_without_whitespace": 17580,
+      "text_sha256": "931586fcf6f5944f66ea2e983d561d2d5d54077b6db7bdbc7185bfd8527f7ba3",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0023.xhtml",
+      "output": "25-结语.md",
+      "characters_without_whitespace": 939,
+      "text_sha256": "9005c1b761d96a7a5f19588df5d99f8904fa929518ef12df5c75c066184cacc2",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0024.xhtml",
+      "output": "26-致谢.md",
+      "characters_without_whitespace": 1851,
+      "text_sha256": "d8ee626b307cae0d63d9a26f92d6480da6090fb2e51479633442989a550c66dc",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0025.xhtml",
+      "output": "27-参考文献.md",
+      "characters_without_whitespace": 11006,
+      "text_sha256": "d7335f671996d1b52bc67815965533303e75eaad0b78024751c9c3979edf8efd",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0026.xhtml",
+      "output": "28-附录Ⅰ 有用的书籍.md",
+      "characters_without_whitespace": 877,
+      "text_sha256": "59146e6700fd4686403cf3861deca57562e3614c6be0329974b667f95b04ca0e",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0027.xhtml",
+      "output": "29-附录Ⅱ 营养补充剂和草本制剂.md",
+      "characters_without_whitespace": 205,
+      "text_sha256": "11c5587500d167409ce8be5fca0ce3bf2893e46b5db3fbc8e2582f7ab7985915",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0028.xhtml",
+      "output": "30-附录Ⅲ 健康饮食和购物清单.md",
+      "characters_without_whitespace": 497,
+      "text_sha256": "25e96816e30e8452158410dd169f1d3bfe5678407037dd531e376198eab59e61",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/Text/Section0029.xhtml",
+      "output": "31-附录Ⅳ 具排毒疗效的抗炎小食.md",
+      "characters_without_whitespace": 268,
+      "text_sha256": "7efb4fdb90926dc0b63a4440629a47a1365d7c862522a6e47d333ed55a69e1c9",
+      "text_equal": true
+    }
+  ]
+}

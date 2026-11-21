@@ -27,6 +27,15 @@ const titles = {
   '爱这个世界': ['爱这个世界','阿伦特与布鲁希尔书信集','letters','plum'],
   'Why Nations Fail (English)': ['Why Nations Fail','英文版','nations','slate'],
   '国家为什么会失败（中文版）': ['国家为什么会失败','中文版','nations','ochre'],
+  '九种转换（中文版）': ['九种转换','中文版 · 价格行为交易','corridor','olive'],
+  'Nine Transitions（英文版）': ['Nine Transitions','英文版 · 价格行为交易','corridor','slate'],
+  '法兰西第一女杰：罗兰夫人传': ['法兰西第一女杰：罗兰夫人传','郭继兰译 · 扫描版文字识别','letters','terracotta'],
+  '日瓦戈医生（上下册）': ['日瓦戈医生','上下册 · 白春仁、顾亚铃译','letters','plum'],
+  '介绍我自己的思想': ['介绍我自己的思想','胡适','letters','ochre'],
+  '免疫功能90天复原方案': ['免疫功能90天复原方案','苏珊·布卢姆、米歇尔·本德','regrets','olive'],
+  '免疫革命': ['免疫革命','汤姆·奥布赖恩','regrets','slate'],
+  '命运：文在寅自传': ['命运：文在寅自传','文在寅 · 中文版','letters','slate'],
+  '富兰克林自传': ['富兰克林自传','本杰明·富兰克林 · 唐长孺译','letters','ochre'],
 };
 const files = await readdir(root,{withFileTypes:true});
 const books = new Map();
@@ -43,10 +52,30 @@ for (const entry of files.filter(d=>d.isDirectory() && !d.name.startsWith('.') &
   if (items.length) books.set(entry.name, {id:entry.name,dir,title,edition,motif,color,items,contents:chapters.find(c=>c.startsWith('00-'))});
 }
 const order=[...new Set([...Object.keys(titles),...books.keys()])].filter(k=>books.has(k));
+const shelfCategories = [
+  {id:'history', title:'历史与社会', books:['国家为什么会失败（英汉短段对照版）','自由的窄廊（英汉对照版）','Why Nations Fail (English)','国家为什么会失败（中文版）']},
+  {id:'literature', title:'文学与传记', books:['爱这个世界','法兰西第一女杰：罗兰夫人传','日瓦戈医生（上下册）','命运：文在寅自传','富兰克林自传']},
+  {id:'thought', title:'思想与人生', books:['临终前最后悔的五件事（英汉对照版）','介绍我自己的思想']},
+  {id:'trading', title:'交易与投资', books:['九种转换（中文版）','Nine Transitions（英文版）']},
+  {id:'health', title:'健康与医学', books:['免疫功能90天复原方案','免疫革命']},
+];
+const categorizedBooks = new Set(shelfCategories.flatMap(category=>category.books));
+shelfCategories.push({id:'other',title:'其他',books:order.filter(id=>!categorizedBooks.has(id))});
 const wordbookStore=createWordbookStore(books,{isLocked:()=>gitSync.running});
 await wordbookStore.initialize();
 const gitSync=createGitSync(root,{beforeSync:()=>wordbookStore.drain()});
 const englishTitles = {nations:'Why Nations Fail', corridor:'The Narrow Corridor', regrets:'The Top Five Regrets of the Dying', letters:'Within Four Walls'};
+const importedEnglishTitles = {
+  '九种转换（中文版）':'Nine Transitions',
+  'Nine Transitions（英文版）':'Nine Transitions',
+  '法兰西第一女杰：罗兰夫人传':'',
+  '日瓦戈医生（上下册）':'Doctor Zhivago',
+  '介绍我自己的思想':'',
+  '免疫功能90天复原方案':'',
+  '免疫革命':'',
+  '命运：文在寅自传':'',
+  '富兰克林自传':'The Autobiography of Benjamin Franklin',
+};
 const themeLabels = new Map();
 for (const b of books.values()) {
   if (b.edition === '英汉对照版' && b.contents) {
@@ -97,7 +126,7 @@ function chapterBody(source,b,c) {
     if(tag==='img') attrs.loading='lazy';
     return {tagName:tag,attribs:attrs};
   }
-  return sanitize(md.render(cleaned),{allowedTags:[...sanitize.defaults.allowedTags,'img','header','h1','sup','sub','figure','figcaption'],allowedAttributes:{'*':['id','lang'],a:['href','name','title'],img:['src','alt','title','loading'],header:['class'],p:['class']},transformTags:{a:transform,img:transform}});
+  return sanitize(md.render(cleaned),{allowedTags:[...sanitize.defaults.allowedTags,'img','header','h1','sup','sub','figure','figcaption','details','summary'],allowedAttributes:{'*':['id','lang'],a:['href','name','title'],img:['src','alt','title','loading'],header:['class'],p:['class'],td:['colspan','rowspan'],th:['colspan','rowspan','scope']},transformTags:{a:transform,img:transform}});
 }
 function twig(){return '<svg viewBox="0 0 62 62" class="twig" aria-hidden="true"><path d="M3 49C3 22 7 7 43 4M7 24C11 15 14 13 23 10M8 17C12 19 16 18 19 14 15 14 11 15 8 17ZM15 10C15 6 17 3 22 2 21 6 19 8 15 10ZM6 27C1 23 1 19 2 16 5 18 7 22 6 27ZM24 7C29 12 33 11 36 8 31 7 29 6 24 7Z"/><circle cx="42" cy="4" r="1.2"/></svg>';}
 function borderDecor() {
@@ -113,9 +142,15 @@ const voiceDialog = '<dialog id="voice-dialog" aria-labelledby="voice-title"><h2
   '<p id="voice-description"></p><p id="voice-preview-text"></p><audio id="voice-preview" controls preload="none" aria-label="中文音色试听"></audio>'+
   '<form method="dialog"><button value="cancel">取消</button><button value="apply">使用此声音</button></form></dialog>';
 async function render(b,c) {
-  const i=b.items.indexOf(c), shelf=order.map(id=>{
+  const i=b.items.indexOf(c), shelf=shelfCategories.map(category=>{
+    const ids=order.filter(id=>category.books.includes(id));
+    if(!ids.length) return '';
+    const active=ids.includes(b.id);
+    const items=ids.map(id=>{
     const book=books.get(id);
-    return '<a class="book-item" '+(id===b.id?'aria-current="true" ':'')+'href="'+escape(url(book,start(book)))+'">'+cover(book)+'<span><strong>'+escape(book.id==='Why Nations Fail (English)'?'国家为什么会失败':book.title)+'</strong>'+subtitle(englishTitles[book.motif])+'<small>'+escape(book.edition)+'</small></span></a>';
+    return '<a class="book-item" '+(id===b.id?'aria-current="true" ':'')+'href="'+escape(url(book,start(book)))+'">'+cover(book)+'<span><strong>'+escape(book.id==='Why Nations Fail (English)'?'国家为什么会失败':book.title)+'</strong>'+subtitle(importedEnglishTitles[book.id] ?? englishTitles[book.motif])+'<small>'+escape(book.edition)+'</small></span></a>';
+    }).join('');
+    return '<details class="shelf-category" data-category="'+category.id+'"'+(active?' data-current="true" open':'')+'><summary>'+icon('next')+'<span>'+escape(category.title)+'</span><span class="category-count" aria-label="'+ids.length+'本书">'+ids.length+'</span></summary><div class="category-books">'+items+'</div></details>';
   }).join('');
   const sources=await Promise.all(b.items.map(x=>readFile(path.join(b.dir,x.file),'utf8')));
   const chapters=b.items.map((x,j)=>{

@@ -1,0 +1,1396 @@
+{
+  "format": "scanned-pdf",
+  "source": "/Users/bytedance/Library/Mobile Documents/com~apple~CloudDocs/studio-books/文学小说/法兰西第一女杰 罗兰夫人传 (John S.C.Abbott郭继兰译) (Z-Library).pdf",
+  "source_sha256": "5fb766199a28d8112b7517f543bad36f8ed9473d18ddde8c5e38973513b8f12d",
+  "pages": 195,
+  "chapters": 15,
+  "method": "Apple Vision accurate zh-Hans/en-US; body OCR separated from vertical marginalia; footnotes separated; original scans preserved; selected OCR ambiguities checked visually",
+  "manual_corrections": 30,
+  "manually_verified_appendix_rows": 70,
+  "fully_manually_proofread": false,
+  "known_source_damage": [
+    71
+  ],
+  "marginalia": "Preserved in original-page images, not mixed into narrative text",
+  "page_coverage": [
+    {
+      "pdf_page": 1,
+      "mode": "original-image",
+      "original_image": "images/pages/001.png",
+      "sidebar_present": false,
+      "ocr_lines": 9
+    },
+    {
+      "pdf_page": 2,
+      "mode": "original-image",
+      "original_image": "images/pages/002.png",
+      "sidebar_present": false,
+      "ocr_lines": 18
+    },
+    {
+      "pdf_page": 3,
+      "mode": "original-image",
+      "original_image": "images/pages/003.png",
+      "sidebar_present": false,
+      "ocr_lines": 2
+    },
+    {
+      "pdf_page": 4,
+      "mode": "original-image",
+      "original_image": "images/pages/004.png",
+      "sidebar_present": false,
+      "ocr_lines": 24
+    },
+    {
+      "pdf_page": 5,
+      "mode": "ocr-body",
+      "original_image": "images/pages/005.png",
+      "sidebar_present": false,
+      "ocr_lines": 16
+    },
+    {
+      "pdf_page": 6,
+      "mode": "ocr-body",
+      "original_image": "images/pages/006.png",
+      "sidebar_present": false,
+      "ocr_lines": 15
+    },
+    {
+      "pdf_page": 7,
+      "mode": "ocr-body",
+      "original_image": "images/pages/007.png",
+      "sidebar_present": false,
+      "ocr_lines": 16
+    },
+    {
+      "pdf_page": 8,
+      "mode": "ocr-body",
+      "original_image": "images/pages/008.png",
+      "sidebar_present": false,
+      "ocr_lines": 15
+    },
+    {
+      "pdf_page": 9,
+      "mode": "ocr-body",
+      "original_image": "images/pages/009.png",
+      "sidebar_present": false,
+      "ocr_lines": 9
+    },
+    {
+      "pdf_page": 10,
+      "mode": "original-image",
+      "original_image": "images/pages/010.png",
+      "sidebar_present": false,
+      "ocr_lines": 28
+    },
+    {
+      "pdf_page": 11,
+      "mode": "original-image",
+      "original_image": "images/pages/011.png",
+      "sidebar_present": false,
+      "ocr_lines": 15
+    },
+    {
+      "pdf_page": 12,
+      "mode": "chapter-title",
+      "original_image": "images/pages/012.png",
+      "sidebar_present": false,
+      "ocr_lines": 3
+    },
+    {
+      "pdf_page": 13,
+      "mode": "ocr-body",
+      "original_image": "images/pages/013.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 14,
+      "mode": "ocr-body",
+      "original_image": "images/pages/014.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 15,
+      "mode": "ocr-body",
+      "original_image": "images/pages/015.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 16,
+      "mode": "ocr-body",
+      "original_image": "images/pages/016.png",
+      "sidebar_present": true,
+      "ocr_lines": 24
+    },
+    {
+      "pdf_page": 17,
+      "mode": "ocr-body",
+      "original_image": "images/pages/017.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 18,
+      "mode": "ocr-body",
+      "original_image": "images/pages/018.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 19,
+      "mode": "ocr-body",
+      "original_image": "images/pages/019.png",
+      "sidebar_present": true,
+      "ocr_lines": 23
+    },
+    {
+      "pdf_page": 20,
+      "mode": "ocr-body",
+      "original_image": "images/pages/020.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 21,
+      "mode": "ocr-body",
+      "original_image": "images/pages/021.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 22,
+      "mode": "ocr-body",
+      "original_image": "images/pages/022.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 23,
+      "mode": "ocr-body",
+      "original_image": "images/pages/023.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 24,
+      "mode": "ocr-body",
+      "original_image": "images/pages/024.png",
+      "sidebar_present": false,
+      "ocr_lines": 3
+    },
+    {
+      "pdf_page": 25,
+      "mode": "chapter-title",
+      "original_image": "images/pages/025.png",
+      "sidebar_present": false,
+      "ocr_lines": 3
+    },
+    {
+      "pdf_page": 26,
+      "mode": "ocr-body",
+      "original_image": "images/pages/026.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 27,
+      "mode": "ocr-body",
+      "original_image": "images/pages/027.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 28,
+      "mode": "ocr-body",
+      "original_image": "images/pages/028.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 29,
+      "mode": "ocr-body",
+      "original_image": "images/pages/029.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 30,
+      "mode": "ocr-body",
+      "original_image": "images/pages/030.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 31,
+      "mode": "original-image",
+      "original_image": "images/pages/031.png",
+      "sidebar_present": true,
+      "ocr_lines": 0
+    },
+    {
+      "pdf_page": 32,
+      "mode": "ocr-body",
+      "original_image": "images/pages/032.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 33,
+      "mode": "ocr-body",
+      "original_image": "images/pages/033.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 34,
+      "mode": "ocr-body",
+      "original_image": "images/pages/034.png",
+      "sidebar_present": true,
+      "ocr_lines": 23
+    },
+    {
+      "pdf_page": 35,
+      "mode": "ocr-body",
+      "original_image": "images/pages/035.png",
+      "sidebar_present": true,
+      "ocr_lines": 23
+    },
+    {
+      "pdf_page": 36,
+      "mode": "ocr-body",
+      "original_image": "images/pages/036.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 37,
+      "mode": "ocr-body",
+      "original_image": "images/pages/037.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 38,
+      "mode": "ocr-body",
+      "original_image": "images/pages/038.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 39,
+      "mode": "ocr-body",
+      "original_image": "images/pages/039.png",
+      "sidebar_present": true,
+      "ocr_lines": 13
+    },
+    {
+      "pdf_page": 40,
+      "mode": "chapter-title",
+      "original_image": "images/pages/040.png",
+      "sidebar_present": false,
+      "ocr_lines": 4
+    },
+    {
+      "pdf_page": 41,
+      "mode": "ocr-body",
+      "original_image": "images/pages/041.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 42,
+      "mode": "ocr-body",
+      "original_image": "images/pages/042.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 43,
+      "mode": "ocr-body",
+      "original_image": "images/pages/043.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 44,
+      "mode": "ocr-body",
+      "original_image": "images/pages/044.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 45,
+      "mode": "ocr-body",
+      "original_image": "images/pages/045.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 46,
+      "mode": "ocr-body",
+      "original_image": "images/pages/046.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 47,
+      "mode": "ocr-body",
+      "original_image": "images/pages/047.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 48,
+      "mode": "ocr-body",
+      "original_image": "images/pages/048.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 49,
+      "mode": "ocr-body",
+      "original_image": "images/pages/049.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 50,
+      "mode": "ocr-body",
+      "original_image": "images/pages/050.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 51,
+      "mode": "ocr-body",
+      "original_image": "images/pages/051.png",
+      "sidebar_present": true,
+      "ocr_lines": 26
+    },
+    {
+      "pdf_page": 52,
+      "mode": "ocr-body",
+      "original_image": "images/pages/052.png",
+      "sidebar_present": true,
+      "ocr_lines": 24
+    },
+    {
+      "pdf_page": 53,
+      "mode": "ocr-body",
+      "original_image": "images/pages/053.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 54,
+      "mode": "ocr-body",
+      "original_image": "images/pages/054.png",
+      "sidebar_present": true,
+      "ocr_lines": 18
+    },
+    {
+      "pdf_page": 55,
+      "mode": "chapter-title",
+      "original_image": "images/pages/055.png",
+      "sidebar_present": false,
+      "ocr_lines": 3
+    },
+    {
+      "pdf_page": 56,
+      "mode": "ocr-body",
+      "original_image": "images/pages/056.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 57,
+      "mode": "ocr-body",
+      "original_image": "images/pages/057.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 58,
+      "mode": "ocr-body",
+      "original_image": "images/pages/058.png",
+      "sidebar_present": true,
+      "ocr_lines": 23
+    },
+    {
+      "pdf_page": 59,
+      "mode": "ocr-body",
+      "original_image": "images/pages/059.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 60,
+      "mode": "ocr-body",
+      "original_image": "images/pages/060.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 61,
+      "mode": "ocr-body",
+      "original_image": "images/pages/061.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 62,
+      "mode": "ocr-body",
+      "original_image": "images/pages/062.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 63,
+      "mode": "ocr-body",
+      "original_image": "images/pages/063.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 64,
+      "mode": "ocr-body",
+      "original_image": "images/pages/064.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 65,
+      "mode": "ocr-body",
+      "original_image": "images/pages/065.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 66,
+      "mode": "original-image",
+      "original_image": "images/pages/066.png",
+      "sidebar_present": true,
+      "ocr_lines": 1
+    },
+    {
+      "pdf_page": 67,
+      "mode": "ocr-body",
+      "original_image": "images/pages/067.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 68,
+      "mode": "ocr-body",
+      "original_image": "images/pages/068.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 69,
+      "mode": "ocr-body",
+      "original_image": "images/pages/069.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 70,
+      "mode": "ocr-body",
+      "original_image": "images/pages/070.png",
+      "sidebar_present": false,
+      "ocr_lines": 6
+    },
+    {
+      "pdf_page": 71,
+      "mode": "damaged-source",
+      "original_image": "images/pages/071.png",
+      "sidebar_present": false,
+      "ocr_lines": 0
+    },
+    {
+      "pdf_page": 72,
+      "mode": "ocr-body",
+      "original_image": "images/pages/072.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 73,
+      "mode": "ocr-body",
+      "original_image": "images/pages/073.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 74,
+      "mode": "ocr-body",
+      "original_image": "images/pages/074.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 75,
+      "mode": "ocr-body",
+      "original_image": "images/pages/075.png",
+      "sidebar_present": true,
+      "ocr_lines": 24
+    },
+    {
+      "pdf_page": 76,
+      "mode": "ocr-body",
+      "original_image": "images/pages/076.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 77,
+      "mode": "ocr-body",
+      "original_image": "images/pages/077.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 78,
+      "mode": "ocr-body",
+      "original_image": "images/pages/078.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 79,
+      "mode": "original-image",
+      "original_image": "images/pages/079.png",
+      "sidebar_present": false,
+      "ocr_lines": 1
+    },
+    {
+      "pdf_page": 80,
+      "mode": "ocr-body",
+      "original_image": "images/pages/080.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 81,
+      "mode": "ocr-body",
+      "original_image": "images/pages/081.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 82,
+      "mode": "ocr-body",
+      "original_image": "images/pages/082.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 83,
+      "mode": "ocr-body",
+      "original_image": "images/pages/083.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 84,
+      "mode": "ocr-body",
+      "original_image": "images/pages/084.png",
+      "sidebar_present": true,
+      "ocr_lines": 24
+    },
+    {
+      "pdf_page": 85,
+      "mode": "ocr-body",
+      "original_image": "images/pages/085.png",
+      "sidebar_present": true,
+      "ocr_lines": 21
+    },
+    {
+      "pdf_page": 86,
+      "mode": "chapter-title",
+      "original_image": "images/pages/086.png",
+      "sidebar_present": false,
+      "ocr_lines": 3
+    },
+    {
+      "pdf_page": 87,
+      "mode": "ocr-body",
+      "original_image": "images/pages/087.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 88,
+      "mode": "ocr-body",
+      "original_image": "images/pages/088.png",
+      "sidebar_present": true,
+      "ocr_lines": 23
+    },
+    {
+      "pdf_page": 89,
+      "mode": "ocr-body",
+      "original_image": "images/pages/089.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 90,
+      "mode": "ocr-body",
+      "original_image": "images/pages/090.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 91,
+      "mode": "ocr-body",
+      "original_image": "images/pages/091.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 92,
+      "mode": "ocr-body",
+      "original_image": "images/pages/092.png",
+      "sidebar_present": true,
+      "ocr_lines": 24
+    },
+    {
+      "pdf_page": 93,
+      "mode": "ocr-body",
+      "original_image": "images/pages/093.png",
+      "sidebar_present": true,
+      "ocr_lines": 23
+    },
+    {
+      "pdf_page": 94,
+      "mode": "ocr-body",
+      "original_image": "images/pages/094.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 95,
+      "mode": "ocr-body",
+      "original_image": "images/pages/095.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 96,
+      "mode": "original-image",
+      "original_image": "images/pages/096.png",
+      "sidebar_present": true,
+      "ocr_lines": 0
+    },
+    {
+      "pdf_page": 97,
+      "mode": "ocr-body",
+      "original_image": "images/pages/097.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 98,
+      "mode": "ocr-body",
+      "original_image": "images/pages/098.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 99,
+      "mode": "ocr-body",
+      "original_image": "images/pages/099.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 100,
+      "mode": "ocr-body",
+      "original_image": "images/pages/100.png",
+      "sidebar_present": true,
+      "ocr_lines": 20
+    },
+    {
+      "pdf_page": 101,
+      "mode": "chapter-title",
+      "original_image": "images/pages/101.png",
+      "sidebar_present": false,
+      "ocr_lines": 3
+    },
+    {
+      "pdf_page": 102,
+      "mode": "ocr-body",
+      "original_image": "images/pages/102.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 103,
+      "mode": "ocr-body",
+      "original_image": "images/pages/103.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 104,
+      "mode": "ocr-body",
+      "original_image": "images/pages/104.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 105,
+      "mode": "ocr-body",
+      "original_image": "images/pages/105.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 106,
+      "mode": "ocr-body",
+      "original_image": "images/pages/106.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 107,
+      "mode": "ocr-body",
+      "original_image": "images/pages/107.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 108,
+      "mode": "ocr-body",
+      "original_image": "images/pages/108.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 109,
+      "mode": "ocr-body",
+      "original_image": "images/pages/109.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 110,
+      "mode": "ocr-body",
+      "original_image": "images/pages/110.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 111,
+      "mode": "ocr-body",
+      "original_image": "images/pages/111.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 112,
+      "mode": "ocr-body",
+      "original_image": "images/pages/112.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 113,
+      "mode": "ocr-body",
+      "original_image": "images/pages/113.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 114,
+      "mode": "ocr-body",
+      "original_image": "images/pages/114.png",
+      "sidebar_present": true,
+      "ocr_lines": 16
+    },
+    {
+      "pdf_page": 115,
+      "mode": "chapter-title",
+      "original_image": "images/pages/115.png",
+      "sidebar_present": false,
+      "ocr_lines": 4
+    },
+    {
+      "pdf_page": 116,
+      "mode": "ocr-body",
+      "original_image": "images/pages/116.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 117,
+      "mode": "ocr-body",
+      "original_image": "images/pages/117.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 118,
+      "mode": "ocr-body",
+      "original_image": "images/pages/118.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 119,
+      "mode": "ocr-body",
+      "original_image": "images/pages/119.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 120,
+      "mode": "ocr-body",
+      "original_image": "images/pages/120.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 121,
+      "mode": "ocr-body",
+      "original_image": "images/pages/121.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 122,
+      "mode": "ocr-body",
+      "original_image": "images/pages/122.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 123,
+      "mode": "ocr-body",
+      "original_image": "images/pages/123.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 124,
+      "mode": "ocr-body",
+      "original_image": "images/pages/124.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 125,
+      "mode": "ocr-body",
+      "original_image": "images/pages/125.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 126,
+      "mode": "ocr-body",
+      "original_image": "images/pages/126.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 127,
+      "mode": "ocr-body",
+      "original_image": "images/pages/127.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 128,
+      "mode": "ocr-body",
+      "original_image": "images/pages/128.png",
+      "sidebar_present": true,
+      "ocr_lines": 12
+    },
+    {
+      "pdf_page": 129,
+      "mode": "chapter-title",
+      "original_image": "images/pages/129.png",
+      "sidebar_present": false,
+      "ocr_lines": 3
+    },
+    {
+      "pdf_page": 130,
+      "mode": "ocr-body",
+      "original_image": "images/pages/130.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 131,
+      "mode": "ocr-body",
+      "original_image": "images/pages/131.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 132,
+      "mode": "ocr-body",
+      "original_image": "images/pages/132.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 133,
+      "mode": "ocr-body",
+      "original_image": "images/pages/133.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 134,
+      "mode": "ocr-body",
+      "original_image": "images/pages/134.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 135,
+      "mode": "ocr-body",
+      "original_image": "images/pages/135.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 136,
+      "mode": "ocr-body",
+      "original_image": "images/pages/136.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 137,
+      "mode": "ocr-body",
+      "original_image": "images/pages/137.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 138,
+      "mode": "ocr-body",
+      "original_image": "images/pages/138.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 139,
+      "mode": "ocr-body",
+      "original_image": "images/pages/139.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 140,
+      "mode": "ocr-body",
+      "original_image": "images/pages/140.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 141,
+      "mode": "ocr-body",
+      "original_image": "images/pages/141.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 142,
+      "mode": "ocr-body",
+      "original_image": "images/pages/142.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 143,
+      "mode": "chapter-title",
+      "original_image": "images/pages/143.png",
+      "sidebar_present": false,
+      "ocr_lines": 3
+    },
+    {
+      "pdf_page": 144,
+      "mode": "ocr-body",
+      "original_image": "images/pages/144.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 145,
+      "mode": "ocr-body",
+      "original_image": "images/pages/145.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 146,
+      "mode": "ocr-body",
+      "original_image": "images/pages/146.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 147,
+      "mode": "ocr-body",
+      "original_image": "images/pages/147.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 148,
+      "mode": "ocr-body",
+      "original_image": "images/pages/148.png",
+      "sidebar_present": true,
+      "ocr_lines": 22
+    },
+    {
+      "pdf_page": 149,
+      "mode": "ocr-body",
+      "original_image": "images/pages/149.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 150,
+      "mode": "ocr-body",
+      "original_image": "images/pages/150.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 151,
+      "mode": "ocr-body",
+      "original_image": "images/pages/151.png",
+      "sidebar_present": true,
+      "ocr_lines": 23
+    },
+    {
+      "pdf_page": 152,
+      "mode": "ocr-body",
+      "original_image": "images/pages/152.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 153,
+      "mode": "ocr-body",
+      "original_image": "images/pages/153.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 154,
+      "mode": "ocr-body",
+      "original_image": "images/pages/154.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 155,
+      "mode": "ocr-body",
+      "original_image": "images/pages/155.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 156,
+      "mode": "ocr-body",
+      "original_image": "images/pages/156.png",
+      "sidebar_present": true,
+      "ocr_lines": 23
+    },
+    {
+      "pdf_page": 157,
+      "mode": "ocr-body",
+      "original_image": "images/pages/157.png",
+      "sidebar_present": true,
+      "ocr_lines": 23
+    },
+    {
+      "pdf_page": 158,
+      "mode": "ocr-body",
+      "original_image": "images/pages/158.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 159,
+      "mode": "original-image",
+      "original_image": "images/pages/159.png",
+      "sidebar_present": true,
+      "ocr_lines": 1
+    },
+    {
+      "pdf_page": 160,
+      "mode": "ocr-body",
+      "original_image": "images/pages/160.png",
+      "sidebar_present": true,
+      "ocr_lines": 11
+    },
+    {
+      "pdf_page": 161,
+      "mode": "chapter-title",
+      "original_image": "images/pages/161.png",
+      "sidebar_present": false,
+      "ocr_lines": 3
+    },
+    {
+      "pdf_page": 162,
+      "mode": "ocr-body",
+      "original_image": "images/pages/162.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 163,
+      "mode": "ocr-body",
+      "original_image": "images/pages/163.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 164,
+      "mode": "ocr-body",
+      "original_image": "images/pages/164.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 165,
+      "mode": "ocr-body",
+      "original_image": "images/pages/165.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 166,
+      "mode": "ocr-body",
+      "original_image": "images/pages/166.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 167,
+      "mode": "original-image",
+      "original_image": "images/pages/167.png",
+      "sidebar_present": true,
+      "ocr_lines": 1
+    },
+    {
+      "pdf_page": 168,
+      "mode": "ocr-body",
+      "original_image": "images/pages/168.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 169,
+      "mode": "ocr-body",
+      "original_image": "images/pages/169.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 170,
+      "mode": "ocr-body",
+      "original_image": "images/pages/170.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 171,
+      "mode": "ocr-body",
+      "original_image": "images/pages/171.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 172,
+      "mode": "ocr-body",
+      "original_image": "images/pages/172.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 173,
+      "mode": "ocr-body",
+      "original_image": "images/pages/173.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 174,
+      "mode": "ocr-body",
+      "original_image": "images/pages/174.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 175,
+      "mode": "ocr-body",
+      "original_image": "images/pages/175.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 176,
+      "mode": "ocr-body",
+      "original_image": "images/pages/176.png",
+      "sidebar_present": true,
+      "ocr_lines": 11
+    },
+    {
+      "pdf_page": 177,
+      "mode": "ocr-body",
+      "original_image": "images/pages/177.png",
+      "sidebar_present": false,
+      "ocr_lines": 3
+    },
+    {
+      "pdf_page": 178,
+      "mode": "ocr-body",
+      "original_image": "images/pages/178.png",
+      "sidebar_present": true,
+      "ocr_lines": 19
+    },
+    {
+      "pdf_page": 179,
+      "mode": "ocr-body",
+      "original_image": "images/pages/179.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 180,
+      "mode": "ocr-body",
+      "original_image": "images/pages/180.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 181,
+      "mode": "ocr-body",
+      "original_image": "images/pages/181.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 182,
+      "mode": "ocr-body",
+      "original_image": "images/pages/182.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 183,
+      "mode": "ocr-body",
+      "original_image": "images/pages/183.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 184,
+      "mode": "ocr-body",
+      "original_image": "images/pages/184.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 185,
+      "mode": "ocr-body",
+      "original_image": "images/pages/185.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 186,
+      "mode": "ocr-body",
+      "original_image": "images/pages/186.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 187,
+      "mode": "ocr-body",
+      "original_image": "images/pages/187.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 188,
+      "mode": "ocr-body",
+      "original_image": "images/pages/188.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 189,
+      "mode": "ocr-body",
+      "original_image": "images/pages/189.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 190,
+      "mode": "ocr-body",
+      "original_image": "images/pages/190.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 191,
+      "mode": "ocr-body",
+      "original_image": "images/pages/191.png",
+      "sidebar_present": true,
+      "ocr_lines": 25
+    },
+    {
+      "pdf_page": 192,
+      "mode": "original-image",
+      "original_image": "images/pages/192.png",
+      "sidebar_present": true,
+      "ocr_lines": 0
+    },
+    {
+      "pdf_page": 193,
+      "mode": "ocr-body",
+      "original_image": "images/pages/193.png",
+      "sidebar_present": true,
+      "ocr_lines": 24
+    },
+    {
+      "pdf_page": 194,
+      "mode": "ocr-table",
+      "original_image": "images/pages/194.png",
+      "sidebar_present": false,
+      "ocr_lines": 81
+    },
+    {
+      "pdf_page": 195,
+      "mode": "ocr-table",
+      "original_image": "images/pages/195.png",
+      "sidebar_present": false,
+      "ocr_lines": 60
+    }
+  ],
+  "cross_page_paragraph_joins": {
+    "04-第一章-童年时代.md": 7,
+    "13-第十章-吉伦特派的命运.md": 10,
+    "11-第八章-吉伦特派的最后斗争.md": 10,
+    "05-第二章-少女时代.md": 9,
+    "08-第五章-国民议会.md": 6,
+    "02-译者序.md": 1,
+    "14-第十一章-狱中生活.md": 22,
+    "12-第九章-罗兰夫人的被捕.md": 8,
+    "06-第三章-青年时代.md": 11,
+    "07-第四章-婚姻生活.md": 9,
+    "10-第七章-罗兰夫人和雅各宾派.md": 9,
+    "09-第六章-罗兰内阁.md": 5
+  }
+}

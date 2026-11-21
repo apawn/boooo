@@ -1,0 +1,608 @@
+{
+  "format": "mobi",
+  "source": "/Users/bytedance/Library/Mobile Documents/com~apple~CloudDocs/studio-books/传记回忆录/命运：文在寅自传 (〔韩〕文在寅) (Z-Library).mobi",
+  "source_sha256": "57ee0db2681e1b72ba2391e6c96e7ccf27f4c90f0051804761143d8863dcf9d9",
+  "method": "MOBI decompression with mobi/KindleUnpack; split at original TOC anchors; exact text comparison; no OCR or paraphrasing",
+  "spine_documents": 84,
+  "documents_imported": 84,
+  "chapters": 84,
+  "images": 68,
+  "all_text_equal": true,
+  "unresolved_links": [],
+  "documents": [
+    {
+      "source": "cover.xhtml",
+      "output": "01-封面.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "part000.xhtml",
+      "output": "02-原书目录.md",
+      "characters_without_whitespace": 536,
+      "text_sha256": "784cb7e798e27e29ea29909f4d607d30c5e76e6439a131c07d21965af14cd7f7",
+      "text_equal": true
+    },
+    {
+      "source": "part001.xhtml",
+      "output": "03-致中国读者 （代序）.md",
+      "characters_without_whitespace": 1115,
+      "text_sha256": "b910716af096073659b2e613a22bf76bc4cd1544088c16dca50488634abec24d",
+      "text_equal": true
+    },
+    {
+      "source": "part002.xhtml",
+      "output": "04-相遇.md",
+      "characters_without_whitespace": 25,
+      "text_sha256": "b01f731ac8b867f180fede1e2ee3e5f03803f2187039bc399c5c84a471385123",
+      "text_equal": true
+    },
+    {
+      "source": "part003.xhtml",
+      "output": "05-那天清晨.md",
+      "characters_without_whitespace": 2912,
+      "text_sha256": "98d95d698fe90143e5bf586fb3ffe9ebbaae0223fa8db840dafe350ddb33f6b8",
+      "text_equal": true
+    },
+    {
+      "source": "part004.xhtml",
+      "output": "06-初遇.md",
+      "characters_without_whitespace": 2569,
+      "text_sha256": "6a1973ee1eb0b4307580e108f4d9fb6015f5ce62e7bf2d076be98536768aa178",
+      "text_equal": true
+    },
+    {
+      "source": "part005.xhtml",
+      "output": "07-合伙人.md",
+      "characters_without_whitespace": 986,
+      "text_sha256": "5fecca4a7f9fb1596a725173c9e9ed439f84cb44323dc11278fc4d1ff794589e",
+      "text_equal": true
+    },
+    {
+      "source": "part006.xhtml",
+      "output": "08-既像前辈，又像朋友.md",
+      "characters_without_whitespace": 2289,
+      "text_sha256": "ca2e7072ef015849941f1c48a69015dc0dbffda3ffd8e1f1316797a9995fc379",
+      "text_equal": true
+    },
+    {
+      "source": "part007.xhtml",
+      "output": "09-人权律师之路.md",
+      "characters_without_whitespace": 1247,
+      "text_sha256": "2d871871e34ee2710492788db88f7bc50fe780d09f58ea35028a52548e4c77c9",
+      "text_equal": true
+    },
+    {
+      "source": "part008.xhtml",
+      "output": "10-并肩前行.md",
+      "characters_without_whitespace": 4299,
+      "text_sha256": "ce1b871a13c269ae15683062f781fa4550ebef43124ecbc8961474821d31e225",
+      "text_equal": true
+    },
+    {
+      "source": "part009.xhtml",
+      "output": "11-热情与原则.md",
+      "characters_without_whitespace": 2944,
+      "text_sha256": "39518b2d46142af79794b72e8abb91a34f5c690027d8f6790e644ba362ba15e6",
+      "text_equal": true
+    },
+    {
+      "source": "part010.xhtml",
+      "output": "12-1987年六月抗争.md",
+      "characters_without_whitespace": 6195,
+      "text_sha256": "93e2ce883b6f62000433f78e04aa907cee782436fc080a75606f8bfaaf625b2d",
+      "text_equal": true
+    },
+    {
+      "source": "part011.xhtml",
+      "output": "13-劳动者大斗争与卢律师被拘禁.md",
+      "characters_without_whitespace": 1485,
+      "text_sha256": "66320cc6d98f7392ef0afc5360d0eb2716b13e3698554ea1c49239f18a2cc34a",
+      "text_equal": true
+    },
+    {
+      "source": "part012.xhtml",
+      "output": "14-送卢律师去国会.md",
+      "characters_without_whitespace": 2203,
+      "text_sha256": "290a662ef6b65dde45af67d6f70945a78ea29bc834b16a73c201ed40936ae76f",
+      "text_equal": true
+    },
+    {
+      "source": "part013.xhtml",
+      "output": "15-一个人留下.md",
+      "characters_without_whitespace": 1668,
+      "text_sha256": "d917d8efed64791cd3d5abcf287e05fbae63865ba4ef6fed9ec3d38d5d46d205",
+      "text_equal": true
+    },
+    {
+      "source": "part014.xhtml",
+      "output": "16-东义大学事件与龙山惨案.md",
+      "characters_without_whitespace": 3165,
+      "text_sha256": "ba48941c490a388f5e8fd68ef6d9149646cda40d104c64354c817317b806b97f",
+      "text_equal": true
+    },
+    {
+      "source": "part015.xhtml",
+      "output": "17-捏造间谍案.md",
+      "characters_without_whitespace": 1589,
+      "text_sha256": "fb94db6f7c392e9176adc47a4b4472fb4cd7323d026dd0bbed8d813aebedabb4",
+      "text_equal": true
+    },
+    {
+      "source": "part016.xhtml",
+      "output": "18-与地域主义做斗争.md",
+      "characters_without_whitespace": 1139,
+      "text_sha256": "777999fe2bc9f10382a19fbdf2367440208371c077a437ce543cbd3517fe88c6",
+      "text_equal": true
+    },
+    {
+      "source": "part017.xhtml",
+      "output": "19-2002年的感动.md",
+      "characters_without_whitespace": 3410,
+      "text_sha256": "43e2a65ec4da932b447cdea627497cad610ae5182800b2b708dfe951635c558c",
+      "text_equal": true
+    },
+    {
+      "source": "part018.xhtml",
+      "output": "20-人生.md",
+      "characters_without_whitespace": 21,
+      "text_sha256": "833d0f1dff9c81876c8eea4c22d47af878b2c00a9bedc9397143dd002ef60ac1",
+      "text_equal": true
+    },
+    {
+      "source": "part019.xhtml",
+      "output": "21-父亲与母亲.md",
+      "characters_without_whitespace": 1541,
+      "text_sha256": "df75dd78326637da1def6115c12f4341197b65ecf807473d67733a9436de68c2",
+      "text_equal": true
+    },
+    {
+      "source": "part020.xhtml",
+      "output": "22-贫穷.md",
+      "characters_without_whitespace": 4271,
+      "text_sha256": "bc700df3a74217e4e51b4c2276023d7aa5d0d7eae1f22b3498790f9cbed93938",
+      "text_equal": true
+    },
+    {
+      "source": "part021.xhtml",
+      "output": "23-问题少年.md",
+      "characters_without_whitespace": 4419,
+      "text_sha256": "16f02dd38d5ec516804c7375b8a359a36391915459e8b561351f8329f47fd382",
+      "text_equal": true
+    },
+    {
+      "source": "part022.xhtml",
+      "output": "24-大学，抵抗.md",
+      "characters_without_whitespace": 3321,
+      "text_sha256": "cd0a38b00f9868ec52cf6246dadaa8e26683d8809d7ed87692888c3344136f94",
+      "text_equal": true
+    },
+    {
+      "source": "part023.xhtml",
+      "output": "25-拘禁，母亲.md",
+      "characters_without_whitespace": 1972,
+      "text_sha256": "8387d5431e2ab0c76685f76972edf421f13d445ed566512f6f67cf63ae06f3fe",
+      "text_equal": true
+    },
+    {
+      "source": "part024.xhtml",
+      "output": "26-与妻子相遇.md",
+      "characters_without_whitespace": 1089,
+      "text_sha256": "e07689d42500cb81658be35b1a6ea1cd4b51f8a958a68787171d57b9225b8c8b",
+      "text_equal": true
+    },
+    {
+      "source": "part025.xhtml",
+      "output": "27-看守所的收监生活.md",
+      "characters_without_whitespace": 1757,
+      "text_sha256": "76fcf98be38f393f8180568e2439be761cfb51066254fbc3e983b1efa4f5b334",
+      "text_equal": true
+    },
+    {
+      "source": "part026.xhtml",
+      "output": "28-强征入伍.md",
+      "characters_without_whitespace": 2902,
+      "text_sha256": "94b2d8aabbf9f7d7e99b2c56b8ba34e59770c4062208f8494415bf596ba3e427",
+      "text_equal": true
+    },
+    {
+      "source": "part027.xhtml",
+      "output": "29-空降部队.md",
+      "characters_without_whitespace": 5108,
+      "text_sha256": "60dfea624b88d02ff2a24097e0e55291b257773ab232fcfc95746f68293e43ed",
+      "text_equal": true
+    },
+    {
+      "source": "part028.xhtml",
+      "output": "30-考试.md",
+      "characters_without_whitespace": 2813,
+      "text_sha256": "69fcc2abda72b4acb4b927c03bf6973453cf01fa47992b9a5720572efa427717",
+      "text_equal": true
+    },
+    {
+      "source": "part029.xhtml",
+      "output": "31-再次被拘.md",
+      "characters_without_whitespace": 4273,
+      "text_sha256": "d8e5d404be6e59dca3f5e81c39c7f39ca939933d06f6dca438c9681e29884b87",
+      "text_equal": true
+    },
+    {
+      "source": "part030.xhtml",
+      "output": "32-在拘留所迎来的考试喜讯.md",
+      "characters_without_whitespace": 1488,
+      "text_sha256": "f8a500713f0fff572ac1684693f47ef0f0de897f1389fb97ac8aa59889cbe2b5",
+      "text_equal": true
+    },
+    {
+      "source": "part031.xhtml",
+      "output": "33-律师之路.md",
+      "characters_without_whitespace": 3618,
+      "text_sha256": "e9ab26b39436d035a5df3477d52b51b34003860d88e727c862947476728bdabc",
+      "text_equal": true
+    },
+    {
+      "source": "part032.xhtml",
+      "output": "34-同行.md",
+      "characters_without_whitespace": 29,
+      "text_sha256": "b9ba8a64ae04ed5a64acc9c370075d397bc993e467cfe1489ddddee5b63e26ce",
+      "text_equal": true
+    },
+    {
+      "source": "part033.xhtml",
+      "output": "35-走向青瓦台.md",
+      "characters_without_whitespace": 5101,
+      "text_sha256": "e714734143d71c818ab4ba93d670b257ce1303fd5db0a16b5fd6494bf22e8f88",
+      "text_equal": true
+    },
+    {
+      "source": "part034.xhtml",
+      "output": "36-李沧东入阁：神来之笔.md",
+      "characters_without_whitespace": 7278,
+      "text_sha256": "84eb37635fc5634fac6277ec0836014d7e3c9ae1ad3ed2cfa1deddb7d9fd2eb1",
+      "text_equal": true
+    },
+    {
+      "source": "part035.xhtml",
+      "output": "37-首尔生活，青瓦台生活.md",
+      "characters_without_whitespace": 2985,
+      "text_sha256": "692e0e2c72497ff7c14aa9ed2af2c31fb3263cafbf2980c2e287f61d8f67613f",
+      "text_equal": true
+    },
+    {
+      "source": "part036.xhtml",
+      "output": "38-对朝汇款风波.md",
+      "characters_without_whitespace": 2967,
+      "text_sha256": "334cb4b91992ac6de0b5784ca273db177887c7375df0568232c84e256046ba62",
+      "text_equal": true
+    },
+    {
+      "source": "part037.xhtml",
+      "output": "39-“集团抗命”事件始末.md",
+      "characters_without_whitespace": 3332,
+      "text_sha256": "e65beae97ca2bb68cb10ea81ddd3e5d27ca945adb9a8bab3e2e2cecd9dca03f9",
+      "text_equal": true
+    },
+    {
+      "source": "part038.xhtml",
+      "output": "40-国情院改革.md",
+      "characters_without_whitespace": 1667,
+      "text_sha256": "d58c832d84c2958b7e1325b169ffbe849a07ff42f212167d172abfd6ffe09f8b",
+      "text_equal": true
+    },
+    {
+      "source": "part039.xhtml",
+      "output": "41-黑色秘密资金.md",
+      "characters_without_whitespace": 1489,
+      "text_sha256": "1df4db940cf4da9272b032dd04c2a66777bfe1e0ede1d3f2c9998ab547d6c99f",
+      "text_equal": true
+    },
+    {
+      "source": "part040.xhtml",
+      "output": "42-伴随一生的政治内疚.md",
+      "characters_without_whitespace": 4371,
+      "text_sha256": "65858c64ac68bcad6c83cd1d9fccae202086435b5e4026cfd01b5f5395227241",
+      "text_equal": true
+    },
+    {
+      "source": "part041.xhtml",
+      "output": "43-连环罢工事件.md",
+      "characters_without_whitespace": 2542,
+      "text_sha256": "3b69768e890d768dd2e66c26cbfe86c9cf63c352d776365b159822726b451c2b",
+      "text_equal": true
+    },
+    {
+      "source": "part042.xhtml",
+      "output": "44-韩美关系权衡.md",
+      "characters_without_whitespace": 2135,
+      "text_sha256": "283d7d45938fabd1f34e3687fd38c78b462865e361f7a8963ee439a3a94298bc",
+      "text_equal": true
+    },
+    {
+      "source": "part043.xhtml",
+      "output": "45-痛苦的决定：派兵.md",
+      "characters_without_whitespace": 1783,
+      "text_sha256": "a0193e4ad9fb3420d582019ccb064135609bbd973e8524345f16afd5438bf6ff",
+      "text_equal": true
+    },
+    {
+      "source": "part044.xhtml",
+      "output": "46-苦痛：大选资金调查事件.md",
+      "characters_without_whitespace": 2208,
+      "text_sha256": "2dab05d98af68a20df16e821e2858b4192952e4879c187bf9f3b24f425694f4b",
+      "text_equal": true
+    },
+    {
+      "source": "part045.xhtml",
+      "output": "47-崔道术事件：打翻内心的五味瓶.md",
+      "characters_without_whitespace": 1949,
+      "text_sha256": "16d16d67b6dafd05529c72a6c7ded08753afafe1a822a3f4caea33ed9e91eed5",
+      "text_equal": true
+    },
+    {
+      "source": "part046.xhtml",
+      "output": "48-第一次辞职.md",
+      "characters_without_whitespace": 1361,
+      "text_sha256": "111817b13921cb36c22200f6ea59b2e3f5753878e4589eedd91f42a99b6824de",
+      "text_equal": true
+    },
+    {
+      "source": "part047.xhtml",
+      "output": "49-徒步喜马拉雅.md",
+      "characters_without_whitespace": 3929,
+      "text_sha256": "e4be5499148b54a50eded0802a00a233eaa8656197460a329191af646c60c9e7",
+      "text_equal": true
+    },
+    {
+      "source": "part048.xhtml",
+      "output": "50-总统被弹劾.md",
+      "characters_without_whitespace": 970,
+      "text_sha256": "77ca1f74dac73d2273e11a1e1cec2ea136b139f4d6e2285ddeb88070e2e9dcdd",
+      "text_equal": true
+    },
+    {
+      "source": "part049.xhtml",
+      "output": "51-请你们重新让我做回总统.md",
+      "characters_without_whitespace": 3212,
+      "text_sha256": "3d433db08cb6f588b048410d01afcfe7268d1ffd5f9bee46156fadc5ee7f04a9",
+      "text_equal": true
+    },
+    {
+      "source": "part050.xhtml",
+      "output": "52-接任市民社会首席.md",
+      "characters_without_whitespace": 2348,
+      "text_sha256": "b1c48f643252883822f212f58031b7df6dab052ec4015572e82d497b3a6b7d07",
+      "text_equal": true
+    },
+    {
+      "source": "part051.xhtml",
+      "output": "53-“大联政”：总统的苦恼.md",
+      "characters_without_whitespace": 2716,
+      "text_sha256": "2ffbfb8319c6bd4b4b7a86f03c4700898a7de78c9ab55783fd95d17699fbf9ab",
+      "text_equal": true
+    },
+    {
+      "source": "part052.xhtml",
+      "output": "54-为调查指挥权付出代价.md",
+      "characters_without_whitespace": 1437,
+      "text_sha256": "249aebc96e47ca248c280ba4a2766a0927dafbbd700fb33a1216788d78b9b5b2",
+      "text_equal": true
+    },
+    {
+      "source": "part053.xhtml",
+      "output": "55-民政首席为司法改革破题.md",
+      "characters_without_whitespace": 1605,
+      "text_sha256": "50c21524ae356f09f039f5ee9790ca4ff7de580dc155fed6b006df0b5691b619",
+      "text_equal": true
+    },
+    {
+      "source": "part054.xhtml",
+      "output": "56-总统的道歉.md",
+      "characters_without_whitespace": 2241,
+      "text_sha256": "5050694990f48c07403c78f5e0c595f00f426efab2720d998dda9f340dcf671d",
+      "text_equal": true
+    },
+    {
+      "source": "part055.xhtml",
+      "output": "57-民政首席的遗憾.md",
+      "characters_without_whitespace": 1189,
+      "text_sha256": "1ea5bffb0d8d9618db637475d579edf29dbbb7fa203d5b944889bda8d61e0e9b",
+      "text_equal": true
+    },
+    {
+      "source": "part056.xhtml",
+      "output": "58-辞去民政首席.md",
+      "characters_without_whitespace": 3401,
+      "text_sha256": "8ebec1260c37301f99a39a13e3012ef7157d12e836a62f5e51bdd47e7d73ba3b",
+      "text_equal": true
+    },
+    {
+      "source": "part057.xhtml",
+      "output": "59-三进青瓦台.md",
+      "characters_without_whitespace": 3707,
+      "text_sha256": "7857a57474d754392b4988619c06392f34393b45355e65c2b5218cbe09781884",
+      "text_equal": true
+    },
+    {
+      "source": "part058.xhtml",
+      "output": "60-韩美FTA博弈.md",
+      "characters_without_whitespace": 1050,
+      "text_sha256": "42340096e3cd45e0dbe898a142129ff1b171e824468785e431d77371492928aa",
+      "text_equal": true
+    },
+    {
+      "source": "part059.xhtml",
+      "output": "61-韩朝首脑会谈.md",
+      "characters_without_whitespace": 1842,
+      "text_sha256": "18efa8abecec318226a598a24d50cfe002c1983cbf06d84b5169d2c2d00e0efc",
+      "text_equal": true
+    },
+    {
+      "source": "part060.xhtml",
+      "output": "62-越过黄线.md",
+      "characters_without_whitespace": 4096,
+      "text_sha256": "882345b20d66cac5e4a941cf0a718194016cfb33e3492df39f6d64594a59ff23",
+      "text_equal": true
+    },
+    {
+      "source": "part061.xhtml",
+      "output": "63-政治，政治.md",
+      "characters_without_whitespace": 2248,
+      "text_sha256": "8a170213752d190eeb41d06ff2ba2c6e422caf61d1a75173ccf8971096a060f1",
+      "text_equal": true
+    },
+    {
+      "source": "part062.xhtml",
+      "output": "64-美国牛肉风波.md",
+      "characters_without_whitespace": 2586,
+      "text_sha256": "6bae33c969edb7af776d5358462f669fc13859895246a36e0688121bbccb7008",
+      "text_equal": true
+    },
+    {
+      "source": "part063.xhtml",
+      "output": "65-龃龉.md",
+      "characters_without_whitespace": 1519,
+      "text_sha256": "8cec39e1fd102873b50ea65cf4a08894518ada6016f1c112796a7884af40e5c3",
+      "text_equal": true
+    },
+    {
+      "source": "part064.xhtml",
+      "output": "66-卸任.md",
+      "characters_without_whitespace": 1339,
+      "text_sha256": "1a72bc7bef0802bc583df0374a402d4817104144d4ddff7b8d9596ed976a2f1a",
+      "text_equal": true
+    },
+    {
+      "source": "part065.xhtml",
+      "output": "67-告别青瓦台.md",
+      "characters_without_whitespace": 1371,
+      "text_sha256": "d14cabf7877a4562561fc7cac80e5665b9e890019e7e488f02e0bd12e0e41368",
+      "text_equal": true
+    },
+    {
+      "source": "part066.xhtml",
+      "output": "68-乡村生活.md",
+      "characters_without_whitespace": 765,
+      "text_sha256": "6511cb330eccf5c00cd0e73f6930c4f465701f9b3fa9310f68a043711b7fe8a7",
+      "text_equal": true
+    },
+    {
+      "source": "part067.xhtml",
+      "output": "69-农夫卢武铉.md",
+      "characters_without_whitespace": 968,
+      "text_sha256": "e6790057f11f1d52ae487f60c56c6e1e75a204c469ab5b8131c6f0068704d6bd",
+      "text_equal": true
+    },
+    {
+      "source": "part068.xhtml",
+      "output": "70-政治报复.md",
+      "characters_without_whitespace": 1950,
+      "text_sha256": "56b60fd4ce71026988b6382d310392670fffa1e3dc84f0abf006c545fdf59c25",
+      "text_equal": true
+    },
+    {
+      "source": "part069.xhtml",
+      "output": "71-拘捕令.md",
+      "characters_without_whitespace": 2522,
+      "text_sha256": "024096c543f7931b2402e8bd6d332b2b23d2c51eb4be2cb31ade59a34015c3b5",
+      "text_equal": true
+    },
+    {
+      "source": "part070.xhtml",
+      "output": "72-耻辱的一天.md",
+      "characters_without_whitespace": 1962,
+      "text_sha256": "85f8e34807817373e55f667859d836573daee479a6e2a39ebe82eeb0a137c13c",
+      "text_equal": true
+    },
+    {
+      "source": "part071.xhtml",
+      "output": "73-命运.md",
+      "characters_without_whitespace": 26,
+      "text_sha256": "fddc8ca38301827d20580a25cbd2eb8ed8d18d9b8e1c3630dea691b2295ac7d1",
+      "text_equal": true
+    },
+    {
+      "source": "part072.xhtml",
+      "output": "74-丧主文在寅.md",
+      "characters_without_whitespace": 1649,
+      "text_sha256": "71166520919795aee92d40ea3f9b2f958b994ce481c44c4570426611dc5e3950",
+      "text_equal": true
+    },
+    {
+      "source": "part073.xhtml",
+      "output": "75-国民葬.md",
+      "characters_without_whitespace": 3607,
+      "text_sha256": "d6513b1aaed2af5bfaa626fa497e86065639e987d553b2e56395a9507ef3ab24",
+      "text_equal": true
+    },
+    {
+      "source": "part074.xhtml",
+      "output": "76-路祭：50万人的海洋.md",
+      "characters_without_whitespace": 2089,
+      "text_sha256": "dd1e2dfffb338d794f0e4506cff1313908f2253fabbdb3c1c73407d7f7c3a7a1",
+      "text_equal": true
+    },
+    {
+      "source": "part075.xhtml",
+      "output": "77-安葬在峰下村.md",
+      "characters_without_whitespace": 1718,
+      "text_sha256": "63e38b740d17c7d9f381dc3ea551bcc7934a6a97fe9a764bd5baf72dbb6671d0",
+      "text_equal": true
+    },
+    {
+      "source": "part076.xhtml",
+      "output": "78-缅怀石板，国民的心.md",
+      "characters_without_whitespace": 729,
+      "text_sha256": "e16bb9ce3e6f4d5d4c4aa9fed709898072ecbc523fd910ab73f2ef6e222a3d73",
+      "text_equal": true
+    },
+    {
+      "source": "part077.xhtml",
+      "output": "79-“峰下财团”监事.md",
+      "characters_without_whitespace": 1387,
+      "text_sha256": "d5ae4aec31e2ffcf53c9f4891657904f3fb7963946a27d0c802c9ecea035708b",
+      "text_equal": true
+    },
+    {
+      "source": "part078.xhtml",
+      "output": "80-回归律师行业.md",
+      "characters_without_whitespace": 1841,
+      "text_sha256": "b0a5363ac2c5a43f7bd8f16ef82baef843ff7978033c97fa3587a4c3aefc7326",
+      "text_equal": true
+    },
+    {
+      "source": "part079.xhtml",
+      "output": "81-回首来时路.md",
+      "characters_without_whitespace": 7908,
+      "text_sha256": "6d00cecb73a91700160ecdf7d386b504ae63de4f482d40cc99ec38762cef024e",
+      "text_equal": true
+    },
+    {
+      "source": "part080.xhtml",
+      "output": "82-一切都是命运.md",
+      "characters_without_whitespace": 2223,
+      "text_sha256": "d071e132ecba9ca7d91fa636ff8036a9709a33bb6b03fcd51f52e3bf72c9949e",
+      "text_equal": true
+    },
+    {
+      "source": "part081.xhtml",
+      "output": "83-后记 愿为江水，与君重逢.md",
+      "characters_without_whitespace": 2323,
+      "text_sha256": "ae7643b7f0a4cf7c750a763cab6b1c85a0973db266d5963291e0a74b1abac591",
+      "text_equal": true
+    },
+    {
+      "source": "part082.xhtml",
+      "output": "84-附录.md",
+      "characters_without_whitespace": 634,
+      "text_sha256": "7236177ff9055153d21c01344060dec845326d291453abbd0b3ed4fa3acb9100",
+      "text_equal": true
+    }
+  ],
+  "extracted_epub": "meta_data/extracted.epub",
+  "extracted_epub_sha256": "1c0a24cdb2c08728b60576838aa2536ee7c04bb19b7313e49184e3381a5fd638",
+  "extracted_html_sha256": "62ccde5efa03a03e9487c10509fdadebc18bafee96a74e0fe09939de706cb018",
+  "extracted_text_sha256": "47a765ee4342fe2e5bfc3d7028f0547fa49a87b061465d5af3b23e9a08eae73b",
+  "characters_without_whitespace": 196673,
+  "split_text_equal": true
+}

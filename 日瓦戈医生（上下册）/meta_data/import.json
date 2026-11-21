@@ -1,0 +1,308 @@
+{
+  "format": "epub",
+  "source": "/Users/bytedance/Library/Mobile Documents/com~apple~CloudDocs/studio-books/文学小说/日瓦戈医生（套装上下册） (帕斯捷尔纳克作品系列) (帕斯捷尔纳克(Boris Pasternak)) (Z-Library).epub",
+  "source_sha256": "7bc5dd698ac482a084f638b78f77f4f8cc71134015d25c4af3b0ced32e046f2e",
+  "method": "Original XHTML text and paragraph/table/footnote structure; no paraphrasing or OCR",
+  "spine_documents": 42,
+  "documents_imported": 42,
+  "chapters": 23,
+  "images": 21,
+  "all_text_equal": true,
+  "unresolved_links": [],
+  "documents": [
+    {
+      "source": "OEBPS/cover1.html",
+      "output": "01-封面.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00000.html",
+      "output": "02-版权信息.md",
+      "characters_without_whitespace": 116,
+      "text_sha256": "491e13380c51a8133179e5567e65df286364282e5c85b228cbc9192f9b936843",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00001.html",
+      "output": "03-目录.md",
+      "characters_without_whitespace": 175,
+      "text_sha256": "35a223aaa0f959286e6879f032aacec288ea40419c6ca91c300b0a8258735dc5",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00002.html",
+      "output": "04-日瓦戈医生（上卷）.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00003.html",
+      "output": "04-日瓦戈医生（上卷）.md",
+      "characters_without_whitespace": 113,
+      "text_sha256": "056b245d37810f99329f155d2089aea76e012644e4491e1948d8f2a7a4370ded",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00004.html",
+      "output": "05-译者序.md",
+      "characters_without_whitespace": 8298,
+      "text_sha256": "e531c341f8225b07c53334837caf953c204ff0b60fa264a0310d61ecfa513beb",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00005.html",
+      "output": "06-第一章 五点钟的直达快车.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00006.html",
+      "output": "06-第一章 五点钟的直达快车.md",
+      "characters_without_whitespace": 11881,
+      "text_sha256": "71847c6b66c647815e31995b92cf9009573110292ea4fc8585d39313373b4f90",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00007.html",
+      "output": "07-第二章 另一个世界中的少女.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00008.html",
+      "output": "07-第二章 另一个世界中的少女.md",
+      "characters_without_whitespace": 28095,
+      "text_sha256": "5ef3b0e2309855598ec73578d9770fb2932090e90fcc3bffc33c81ad9d4bb7ae",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00009.html",
+      "output": "08-第三章 斯文季茨基家的圣诞舞会.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00010.html",
+      "output": "08-第三章 斯文季茨基家的圣诞舞会.md",
+      "characters_without_whitespace": 18972,
+      "text_sha256": "f41bc7be289f609e6145a7a6e9083c6c1159390518927bb507b6261300736892",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00011.html",
+      "output": "09-第四章 不可避免的命运.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00012.html",
+      "output": "09-第四章 不可避免的命运.md",
+      "characters_without_whitespace": 26144,
+      "text_sha256": "e92c05c1b364eb9f66585a7cd85f259791a1f9b0c451a804f88c883a17dfab99",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00013.html",
+      "output": "10-第五章 告别旧世界.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00014.html",
+      "output": "10-第五章 告别旧世界.md",
+      "characters_without_whitespace": 23455,
+      "text_sha256": "2222211bec3eb17ac80f65c4428a8b71b7977bd1b1ece9379ca8c48bbbab86f6",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00015.html",
+      "output": "11-第六章 在莫斯科的日子.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00016.html",
+      "output": "11-第六章 在莫斯科的日子.md",
+      "characters_without_whitespace": 28201,
+      "text_sha256": "a597b6d87160315d655173a2d99039a8f5092013c2be8daa322fd1c5930ff71c",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00017.html",
+      "output": "12-第七章 旅途.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00018.html",
+      "output": "12-第七章 旅途.md",
+      "characters_without_whitespace": 28902,
+      "text_sha256": "a0093a81c6f9d0f981a529b105386e18bda5184ee3edd5b515691cdaf4faaabc",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00019.html",
+      "output": "13-日瓦戈医生（下卷）.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00020.html",
+      "output": "13-日瓦戈医生（下卷）.md",
+      "characters_without_whitespace": 113,
+      "text_sha256": "6945b26cd56938ffdd78685446a1ded0f6ddf5a0facdfefad59df8a974057e15",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00021.html",
+      "output": "14-第八章 抵达.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00022.html",
+      "output": "14-第八章 抵达.md",
+      "characters_without_whitespace": 14140,
+      "text_sha256": "42d91bce4cb9d36b6595a829bff543d255b8111fc3765a8d3cb7f644e26c15e3",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00023.html",
+      "output": "15-第九章 瓦雷基诺.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00024.html",
+      "output": "15-第九章 瓦雷基诺.md",
+      "characters_without_whitespace": 18829,
+      "text_sha256": "138b73aaad74e32d530d63e24efdaa56b3820d7558960dff17bb93ed5b18e735",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00025.html",
+      "output": "16-第十章 大道.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00026.html",
+      "output": "16-第十章 大道.md",
+      "characters_without_whitespace": 14283,
+      "text_sha256": "7b5fa62890bb9beeed0aa844cb9f1c672e06a05ba018281769f0cc1202b466ba",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00027.html",
+      "output": "17-第十一章 绿林战士.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00028.html",
+      "output": "17-第十一章 绿林战士.md",
+      "characters_without_whitespace": 15221,
+      "text_sha256": "b4d661178ba34e45193ca29c85a6b1e183c311db1d3805a8787cbef109c33d7a",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00029.html",
+      "output": "18-第十二章 蜜甜的花楸.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00030.html",
+      "output": "18-第十二章 蜜甜的花楸.md",
+      "characters_without_whitespace": 14673,
+      "text_sha256": "4dc9f5790506ddb5aa12508dc8ca20322c05f6d4513c68c4923d866d5dbed85f",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00031.html",
+      "output": "19-第十三章 在雕像楼对面.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00032.html",
+      "output": "19-第十三章 在雕像楼对面.md",
+      "characters_without_whitespace": 28191,
+      "text_sha256": "29d2eac71d50c825896a680853c323efc6bb75268fc18c9b41b5713a22858280",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00033.html",
+      "output": "20-第十四章 重返瓦雷基诺.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00034.html",
+      "output": "20-第十四章 重返瓦雷基诺.md",
+      "characters_without_whitespace": 31228,
+      "text_sha256": "91e1ae398169fc07cb86100e33949b2aebf52e0208a724f41c2ef28801392ba3",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00035.html",
+      "output": "21-第十五章 完结.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00036.html",
+      "output": "21-第十五章 完结.md",
+      "characters_without_whitespace": 24414,
+      "text_sha256": "70fcf21ed7f9c3a2521d053a2a05bd3ffa823695ad30b29fbe611caf021abbca",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00037.html",
+      "output": "22-第十六章 尾声.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00038.html",
+      "output": "22-第十六章 尾声.md",
+      "characters_without_whitespace": 9901,
+      "text_sha256": "2f1baa9ae6ac58a94e629706061e767f52850c16f7827650ebcb7b57194bb305",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00039.html",
+      "output": "23-第十七章 日瓦戈的诗作.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00040.html",
+      "output": "23-第十七章 日瓦戈的诗作.md",
+      "characters_without_whitespace": 9186,
+      "text_sha256": "4f7657a523e43048f913ffd595afed1d0a9bf1768ef5dab7a813f80ef2983797",
+      "text_equal": true
+    }
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "format": "epub",
+  "source": "/Users/bytedance/Library/Mobile Documents/com~apple~CloudDocs/studio-books/中国思想文化/介绍我自己的思想 (胡适) (Z-Library).epub",
+  "source_sha256": "108980731bbe5c9f71eff7dc26b9319d6ab6971e4e014e1c7c18335bdb422b3d",
+  "method": "Original XHTML text and paragraph/table/footnote structure; no paraphrasing or OCR",
+  "spine_documents": 30,
+  "documents_imported": 30,
+  "chapters": 30,
+  "images": 6,
+  "all_text_equal": true,
+  "unresolved_links": [],
+  "documents": [
+    {
+      "source": "OEBPS/cover1.html",
+      "output": "01-封面.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00000.html",
+      "output": "02-目录.md",
+      "characters_without_whitespace": 250,
+      "text_sha256": "7a2473bbd0c6eb53a6f76032b27aedb935a6c7b20da0164f7e3347f5a4edba5f",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00001.html",
+      "output": "03-版权页.md",
+      "characters_without_whitespace": 110,
+      "text_sha256": "e502b61380ff6fefbd2d7aa5981ab49d064d8da05f0d263898e601ba5b5ba5e6",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00002.html",
+      "output": "04-介绍我自己的思想.md",
+      "characters_without_whitespace": 7716,
+      "text_sha256": "f8e2799c1d8b055ab73df6fe7e5ef260b3d76feeed9bacf958579a30b62a4b10",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00003.html",
+      "output": "05-《王小航先生文存》序.md",
+      "characters_without_whitespace": 1335,
+      "text_sha256": "f3fb358277ef6a8023f2957bc3a0da27525e7b50c733601cb63bd3a95ade50ab",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00004.html",
+      "output": "06-报纸文字应该完全用白话.md",
+      "characters_without_whitespace": 2271,
+      "text_sha256": "056a69eceac6b863cb41bef0111fe10b1b740d7e3577085d52c67790a22f7ea3",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00005.html",
+      "output": "07-“旧瓶不能装新酒”吗？.md",
+      "characters_without_whitespace": 1802,
+      "text_sha256": "42ef6d16c36ef5a26e8114c3f92a8b085536afeec2a55a10a15ff6c516f861a2",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00006.html",
+      "output": "08-赠与今年的大学毕业生.md",
+      "characters_without_whitespace": 2323,
+      "text_sha256": "1e11ecc90453d10cf90f8e5501fa7db0daabd205db6bb41156c01492a6dc74b7",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00007.html",
+      "output": "09-纪念“五四”.md",
+      "characters_without_whitespace": 5753,
+      "text_sha256": "ee9fa708bc1f947f86cce39afa0d76efb0814a68d6ccad673e55cf96ca201769",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00008.html",
+      "output": "10-个人自由与社会进步.md",
+      "characters_without_whitespace": 3215,
+      "text_sha256": "ba176fb3d24beda79e55682ece38b75ac297062e8c597e570e4230519a7e81c9",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00009.html",
+      "output": "11-《藏晖室札记》自序.md",
+      "characters_without_whitespace": 2496,
+      "text_sha256": "1b203b8207606e0b691e2b89158e446d0302ec89824fb42f197dbe5e0e4afff1",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00010.html",
+      "output": "12-《文史》的引子.md",
+      "characters_without_whitespace": 436,
+      "text_sha256": "a0e02becbde41dbef5bb4b3ddbdb38f1a4e025d27af21a8eb9d24b530d2bbd82",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00011.html",
+      "output": "13-“五四”的第二十八周年.md",
+      "characters_without_whitespace": 2370,
+      "text_sha256": "604bdf06b6dd080817379436e0ab213b7c8de9a4be26ba7e6321002e31de0f0f",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00012.html",
+      "output": "14-青年人的苦闷.md",
+      "characters_without_whitespace": 2657,
+      "text_sha256": "c7b1349076f1df84ca541296ef8e0a8fff83dcece4f8cb6fc8b1ca1abee49cb5",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00013.html",
+      "output": "15-《胡适留学日记》重印自序.md",
+      "characters_without_whitespace": 607,
+      "text_sha256": "8a6a54ccf385c60f54a6766f9c9e8fbad516def3f6f0bbf0d0e314af553990ec",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00014.html",
+      "output": "16-《师门五年记》序.md",
+      "characters_without_whitespace": 1053,
+      "text_sha256": "e44c63cf859cf08e784c7c8113d274cc4a5404a169e65534b8dc1965c4442517",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00015.html",
+      "output": "17-北京大学五十周年.md",
+      "characters_without_whitespace": 1905,
+      "text_sha256": "9a0a09dfcccb056b9d2e2ce6ad3d7b68a7d98e84accc78eace8d6fa992a75fa6",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00016.html",
+      "output": "18-《齐白石年谱》序.md",
+      "characters_without_whitespace": 2954,
+      "text_sha256": "a2477396b584c43ecc4dbdc960d689b091047c738b4de9eb00e4116ac0462034",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00017.html",
+      "output": "19-《明清名贤百家书札真迹》序.md",
+      "characters_without_whitespace": 831,
+      "text_sha256": "04914ccb2335bc531da827079fe876d960746dcbe58bceb2704c734ecb38b35f",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00018.html",
+      "output": "20-“宁鸣而死，不默而生”.md",
+      "characters_without_whitespace": 1664,
+      "text_sha256": "69adf293faf9b726b3a1e587c1f269e3ec8c1d096fd5388cde0be1fa88ea5b41",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00019.html",
+      "output": "21-《日本的幽默》序.md",
+      "characters_without_whitespace": 1824,
+      "text_sha256": "16696eff0b158bf613170e33f29d9e01e30a89d2a5d1adfd531489c1be6f696e",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00020.html",
+      "output": "22-大宇宙中谈博爱.md",
+      "characters_without_whitespace": 1205,
+      "text_sha256": "1620cf98788a60d18b5e950243374b7951eeecde180d26e84afcb254cac192f9",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00021.html",
+      "output": "23-《梁任公先生年谱长编初稿》序.md",
+      "characters_without_whitespace": 2739,
+      "text_sha256": "024cb4bcfeab77c600892d55caef91ebe396d8aae5bcc5366eb41e63fbce5d47",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00022.html",
+      "output": "24-《师门五年记》后记.md",
+      "characters_without_whitespace": 247,
+      "text_sha256": "50f263a6b8016b689d988e198b9cdbefecf4e43269ec7463bf47436fc09d68f3",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00023.html",
+      "output": "25-找书的快乐.md",
+      "characters_without_whitespace": 3085,
+      "text_sha256": "fb03d48e76bd2cd71b78a857206804eede15fca6527df702a9566e9b5c1f09c3",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00024.html",
+      "output": "26-一个防身药方的三味药.md",
+      "characters_without_whitespace": 2833,
+      "text_sha256": "831238db703dcf5a72d832ce68dc69a8cfe75cb0abaae7a9612e37a05ee5961b",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00025.html",
+      "output": "27-《四进士》戏本.md",
+      "characters_without_whitespace": 1214,
+      "text_sha256": "b5d9de952519d2936b2e23c34b66f49975a481e0071228f49fbf4a6a461c0dbe",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00026.html",
+      "output": "28-为陶冷月的画所写的跋语.md",
+      "characters_without_whitespace": 452,
+      "text_sha256": "97ce26722da4f27a1a9f5e20fa9acff321996d57d90c99861d1342c023b51c9a",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00027.html",
+      "output": "29-我的车和我的车夫.md",
+      "characters_without_whitespace": 1735,
+      "text_sha256": "8a8dea8ae5ef833d732be5223a2791f57be20983194157ff3e5a70331472905f",
+      "text_equal": true
+    },
+    {
+      "source": "OEBPS/text00028.html",
+      "output": "30-《茶花女》的小说与剧本.md",
+      "characters_without_whitespace": 738,
+      "text_sha256": "548f212f5d5a5233d2f9b026ae4e01d38d0a772cb85194153618ad50cf9bdf5c",
+      "text_equal": true
+    }
+  ]
+}

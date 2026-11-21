@@ -94,6 +94,12 @@
     }
     const toggle = document.querySelector('.toggle');
     const shelf = document.querySelector('#shelf');
+    for (const category of shelf.querySelectorAll('.shelf-category')) {
+      const key='category.'+category.dataset.category;
+      const saved=local.get(key);
+      if(saved==='open' || saved==='closed') category.open=saved==='open';
+      category.addEventListener('toggle',()=>local.set(key,category.open?'open':'closed'));
+    }
     function updateToggle() {
       const collapsed = root.dataset.folded === 'yes';
       toggle.title = collapsed ? '展开书架' : '收起书架';

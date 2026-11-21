@@ -1,0 +1,189 @@
+{
+  "format": "existing-markdown",
+  "source": "/Users/bytedance/Library/Mobile Documents/com~apple~CloudDocs/nine/nine-en",
+  "method": "Preserved supplied Markdown; removed YAML front matter and remapped navigation/image paths only. Existing source conversion was not retranslated.",
+  "chapters": 29,
+  "images": 376,
+  "documents": [
+    {
+      "source": "00-contents.md",
+      "output": "00-目录.md",
+      "source_sha256": "d7f5388281967606254d8605e287b3e601d4504fb7351a7b4627cc5b7bb1879b",
+      "output_sha256": "9f99e8ae097cd86bb3947b61a0e38b3960a33df626a7e063453bf339e59cc14b"
+    },
+    {
+      "source": "00-front-matter.md",
+      "output": "01-front-matter.md",
+      "source_sha256": "3e701bb17db5d23208c0451076c46da6f9e90d782cb256e780623ea0f105d2f0",
+      "output_sha256": "e6caa197e034205625ef81637da3c166e8c39ba703c8c1b2946ca28ac2d7435e"
+    },
+    {
+      "source": "01-glossary.md",
+      "output": "02-glossary.md",
+      "source_sha256": "4b5f908e17068c09d42d6c38b724f215bc52e21463437b7e1c732165615d45b1",
+      "output_sha256": "9a8c8520d77753b7ad457bfc30c593b35fef0e1dd573b2a6489d108a81909ee6"
+    },
+    {
+      "source": "02-price-action-trading.md",
+      "output": "03-price-action-trading.md",
+      "source_sha256": "600db05118d67428e0632b512a67c52b7ce672c1093d632c55cf6b31bdcc4a60",
+      "output_sha256": "b4722e588b778e60c616263f8508aa2a9bd6102c815b8a0848df620f5a607f9c"
+    },
+    {
+      "source": "03-setup-chart.md",
+      "output": "04-setup-chart.md",
+      "source_sha256": "6a6e02e254591ab89f64622a2da09622c281772fbdb7d0363b1dbbc8190ca50c",
+      "output_sha256": "f5d0c9f7e90a2a2e4d9b1fbd32d954c3504f9bfc25b5bb9d3aaa184084973c0c"
+    },
+    {
+      "source": "04-trading-guide.md",
+      "output": "05-trading-guide.md",
+      "source_sha256": "1892a6698ed8a155c9d300f51643fcad2d176f4bed1daadf923a751b7341fb0e",
+      "output_sha256": "4dc256d66e48ea69a3317be2987b82846c3fb8976f01245fd61396b65f4a33ba"
+    },
+    {
+      "source": "05-price-action-basics.md",
+      "output": "06-price-action-basics.md",
+      "source_sha256": "bc8964577bc0c2ab814983063656fecfc592afca0deb7f5e1d30f17b4aef62fe",
+      "output_sha256": "db3d78d6ed56e61165ef03169e5dbf41e7e0de87733e6aa882553717b5c8f770"
+    },
+    {
+      "source": "06-trading-psychology.md",
+      "output": "07-trading-psychology.md",
+      "source_sha256": "f7343f3db395f9bda68f093e7fd18df20a8f5f1bfa6645b1445e54a0d4239f1c",
+      "output_sha256": "034ea896b74be1ce47410291d9b71ef5432bffbb84b643bef826594209bedcc5"
+    },
+    {
+      "source": "2010-12.md",
+      "output": "08-2010-12.md",
+      "source_sha256": "6492a1c9eafc3d7bac0a3f23a33df82281575bc3682a5780d72192a50448cad3",
+      "output_sha256": "4386e21bc0192c57edb52591db8f0333d3645b960506d3b6df12642355247bb3"
+    },
+    {
+      "source": "2011-01.md",
+      "output": "09-2011-01.md",
+      "source_sha256": "f4a9c829ed1f4b7a786d5d9a19562903948c1333db8eaaa06a609b0cefba74b2",
+      "output_sha256": "36d7f14290d70cfbe4bb897d18b21abd62a37326a8615a70e38dbc9557ab6c9e"
+    },
+    {
+      "source": "2011-02.md",
+      "output": "10-2011-02.md",
+      "source_sha256": "879d9f74268a110cf9fd5391d30b82a88babb7653987219695c374b29cc31cd8",
+      "output_sha256": "787d75ad7f99fac557c084eb56d4c2ee32007bdc16e3d1c8d28df823ccfe82cd"
+    },
+    {
+      "source": "2011-03.md",
+      "output": "11-2011-03.md",
+      "source_sha256": "90601e19e0b606aad3141c6a13d86c36d78881edb425e891f20e82d22c1a8838",
+      "output_sha256": "6da7c8312f7431f7d7b46f1f264c4769cc188ad819aeb44321a3399a1c8c03cc"
+    },
+    {
+      "source": "2011-04.md",
+      "output": "12-2011-04.md",
+      "source_sha256": "a4e41131a46efd337eedbb740bdea4f81c51941f8f9f464a58cba98b990bc707",
+      "output_sha256": "8a98496e8759a2f6b4c8e9967996852cc2be640489c9f4d3fac2c1a2bd5bd69c"
+    },
+    {
+      "source": "2011-05.md",
+      "output": "13-2011-05.md",
+      "source_sha256": "8791ed7609193b99d6fb341f199b96e70c8818598c4506711c9a82c0912a5c35",
+      "output_sha256": "d6f0726ad12aaaa277eebde2459f852630ea89537e261edc422f80730fdac84a"
+    },
+    {
+      "source": "2011-06.md",
+      "output": "14-2011-06.md",
+      "source_sha256": "2b34693337918a858f2145469347df0fe8cc668229eb0d37a15ac06be554f299",
+      "output_sha256": "a49c267cc71c732e0627a38305a2498ff98014f22a33855f0ac9ee4f758d772c"
+    },
+    {
+      "source": "2011-07.md",
+      "output": "15-2011-07.md",
+      "source_sha256": "fdee1d6b8f61656643cb6e271169236c7e9428ba0a78c7cf8d45a2e60482b045",
+      "output_sha256": "e7856f3a755b26ff0d3f0a314070ad356615cf1823f2c39efc00274517b8eda8"
+    },
+    {
+      "source": "2011-08.md",
+      "output": "16-2011-08.md",
+      "source_sha256": "33c2968bde07829d3970c42521d2ea5eea9a0e2ebbd6bdf80239ca16f96c4726",
+      "output_sha256": "5af61b9ed765b68f4abbc5a3b9451598dc34d1602158b47fb8fbdc0b2ef9b9d1"
+    },
+    {
+      "source": "2011-09.md",
+      "output": "17-2011-09.md",
+      "source_sha256": "98ef791933ceb382551c2a3a632c991ce0549566fd0a888d380b9f138ff84a5d",
+      "output_sha256": "39e2ffdfa339e5b29373c4da1a075287984e4dc12d00560a479c182c3e654118"
+    },
+    {
+      "source": "2011-10.md",
+      "output": "18-2011-10.md",
+      "source_sha256": "49313eafe89983243a078bd6145edb2731c9a754505a58cd2418c5c290b1c4ca",
+      "output_sha256": "8a55e33098af92d91327df45dcbe4f7a0f14a323c99fdd11764b9b1ab48f16a5"
+    },
+    {
+      "source": "2011-11.md",
+      "output": "19-2011-11.md",
+      "source_sha256": "b7a2d1b1fecd1f67e0d4c369f57936af5e5a4d6e5f7e323affad6b8aacaba8a2",
+      "output_sha256": "fd7b2f4704b104161ea9e0429cd5c00a7bc66390df84110c99388813c145ad7a"
+    },
+    {
+      "source": "2011-12.md",
+      "output": "20-2011-12.md",
+      "source_sha256": "916aaa9ae9fe3a1c31e34e1fc75b130c2c547004cacad9adb2b805279b8a57b0",
+      "output_sha256": "26fac1d1ef32590e4d7a0dfbd2ffebfecbf45172b629e9eaa6ccd4893a680373"
+    },
+    {
+      "source": "2012-01.md",
+      "output": "21-2012-01.md",
+      "source_sha256": "4de3c61eaebe5b4cc5a77c4f0864046b7d24064d16df1d6b79a5ae646b4b966c",
+      "output_sha256": "aeaaf5fa03af23450eb3a1bbe416671c5818e7cf194185234b38647f4e52e884"
+    },
+    {
+      "source": "2012-02.md",
+      "output": "22-2012-02.md",
+      "source_sha256": "524d44358096e781016683218f22940cd583ba9c8b4297da8a7322d4d380453c",
+      "output_sha256": "0b2b68258ea8fad231c5df790d7bf607869d81c4a70ca680387b629e005d8693"
+    },
+    {
+      "source": "2012-03.md",
+      "output": "23-2012-03.md",
+      "source_sha256": "1b142c788cd448605c359811e0b87a3af34a11ab6286d5e154648c023421c92a",
+      "output_sha256": "359c2bb0f1ea25ea4ab0a045af1906da17929dfac306e68ba5d607e9a8a58202"
+    },
+    {
+      "source": "2012-04.md",
+      "output": "24-2012-04.md",
+      "source_sha256": "045b0c036884bbd122a2f2ccfe7ff5a01fa6b43c795f2ca8245eb161cbb452b3",
+      "output_sha256": "2f21c339018c890b2571bdeb62f68a218af04ee85c72f11fa92a947ad3041076"
+    },
+    {
+      "source": "2012-05.md",
+      "output": "25-2012-05.md",
+      "source_sha256": "6da91be6b55656b7600309b8d9057648c74b5057747f9e525479995621fbbd5b",
+      "output_sha256": "e9b13a8e76e4628cf2e936d0461f3a51cd5af820cbe6947587608af1f5b22632"
+    },
+    {
+      "source": "2012-06.md",
+      "output": "26-2012-06.md",
+      "source_sha256": "b3870d1c6660a06a22366ef19ccee041111411eb249019879e5f923bb2743030",
+      "output_sha256": "5c880ebba9a8a759086917e4e1cab0a16292423e60b081e479a3b187c45f409d"
+    },
+    {
+      "source": "2012-07.md",
+      "output": "27-2012-07.md",
+      "source_sha256": "3ccf8742c32e7aed7b5be779b675db0141bbc014dbd175d86c726eef22edd45b",
+      "output_sha256": "a54cd6dbd346b3e22fd5ab7198182ac00be2a0f7ec3822feec0eac69a83db90a"
+    },
+    {
+      "source": "2012-09.md",
+      "output": "28-2012-09.md",
+      "source_sha256": "a9861748bfb014d23dbdbfd01c698b570f4ad017d2e0b18effdbeb7d4ecfb2e0",
+      "output_sha256": "0a8a7c03a1827a5074228493c7f4dd0124f19459c1a18c980c1cf09c40bbf72d"
+    },
+    {
+      "source": "2012-10.md",
+      "output": "29-2012-10.md",
+      "source_sha256": "a88ca6db3a104251da39de14b6437025b5d6ad56359421c10fa4839ceb219222",
+      "output_sha256": "f15f0f2ff82c88ccaf80b2e890e6ef7d9e57a78cf025ae138b4c52efbf79e678"
+    }
+  ]
+}

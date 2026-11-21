@@ -1,0 +1,154 @@
+{
+  "format": "epub",
+  "source": "/Users/bytedance/Library/Mobile Documents/com~apple~CloudDocs/studio-books/健康医学/免疫革命：如何从根本上抵御并逆转自身免疫性疾病 (【美】汤姆·奥布赖恩) (Z-Library).epub",
+  "source_sha256": "40e48531dc1046b2ca45919a9ea89bec6741a4b26560eb475b7c377806a27d97",
+  "method": "Original XHTML text and paragraph/table/footnote structure; no paraphrasing or OCR",
+  "spine_documents": 19,
+  "documents_imported": 20,
+  "chapters": 20,
+  "images": 51,
+  "all_text_equal": true,
+  "unresolved_links": [],
+  "documents": [
+    {
+      "source": "EPUB/xhtml/cover.xhtml",
+      "output": "01-封面.md",
+      "characters_without_whitespace": 0,
+      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/Copyright.xhtml",
+      "output": "02-版权信息.md",
+      "characters_without_whitespace": 149,
+      "text_sha256": "02292220984ee29827dbd2823924656166b27ed46fd4c174920343966d25f71b",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter001.xhtml",
+      "output": "03-献词.md",
+      "characters_without_whitespace": 26,
+      "text_sha256": "b148cbd56ecdcd3b38f10952ab415f5027da3647daf4e2fd46132b9a0b241504",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter002.xhtml",
+      "output": "04-序言.md",
+      "characters_without_whitespace": 1662,
+      "text_sha256": "6f73a80404ea4466b015c6efe331d093def052e7d236c17ad45f302d44e54c7c",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter003.xhtml",
+      "output": "05-致谢.md",
+      "characters_without_whitespace": 1089,
+      "text_sha256": "74b7d3c127037467f2c02b230e9305f7b59dc0ad4d16db91e04bfa9c1f2aa254",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter004.xhtml",
+      "output": "06-简介.md",
+      "characters_without_whitespace": 10568,
+      "text_sha256": "dcfd2b720fcfe9b5c700bb4b853483f15a1128109248d0fe91da02fdcbe3403f",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter005.xhtml",
+      "output": "07-第一部分 问题.md",
+      "characters_without_whitespace": 6,
+      "text_sha256": "5be6a532446b2f37d11fecce615d59e38387cc593dbf3c486164ad56c9162260",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter006.xhtml",
+      "output": "08-第一章 自身免疫性疾病发展谱.md",
+      "characters_without_whitespace": 20172,
+      "text_sha256": "5f598a21b8e6e1b4a6cfb8beb7dac6e0fa42c4f845c3b8d4af4cb06d307ad727",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter007.xhtml",
+      "output": "09-第二章 疾病之源 遗传易感性、环境暴露及肠道通透性增加.md",
+      "characters_without_whitespace": 24293,
+      "text_sha256": "64b0414b45351314b94ee086f0e76ea210a13628f32428576845d3b60d1527c9",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter008.xhtml",
+      "output": "10-第三章 健康的微生物群落是绝对必要的.md",
+      "characters_without_whitespace": 19068,
+      "text_sha256": "1072de086f4b24aa40c824509605166ad849dbb2da4ca19772db875d33968cca",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter009.xhtml",
+      "output": "11-第四章 明确你在自身免疫性疾病发展谱中所处的位置.md",
+      "characters_without_whitespace": 12382,
+      "text_sha256": "f1722e798746a9416934adc1b1f5ccde0eba2af70d5c1329faa2e6703e2ab3b6",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter010.xhtml",
+      "output": "12-第五章 预测性自身免疫领域.md",
+      "characters_without_whitespace": 19608,
+      "text_sha256": "7a7c9c062dfbe92a3cc0a96752b7fdb2270aac47bf145c72340852becf05ee2d",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter011.xhtml",
+      "output": "13-第二部分 修复.md",
+      "characters_without_whitespace": 6,
+      "text_sha256": "d62d4c0248f4aa3ee8186a1c5c9d7428c23fa5cea1f5836f07233a6f9f66c9b0",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter012.xhtml",
+      "output": "14-第六章 转变方案 你能达到的目标.md",
+      "characters_without_whitespace": 9165,
+      "text_sha256": "83b1f86bf31dfb29409bdf9bd443b1b83cb1290f8f307cd6e1b325167dc5f201",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter013.xhtml",
+      "output": "15-第七章 转变方案第1阶段 第1～3周.md",
+      "characters_without_whitespace": 22963,
+      "text_sha256": "19c16db539e355a7e858089451b9fafd3f130c0c981e7343116c90ba3dbbfe30",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter014.xhtml",
+      "output": "16-第八章 支持你的转变.md",
+      "characters_without_whitespace": 21169,
+      "text_sha256": "1a24e3a11889681ea5d65a3b759dafc98edc9ecfaff8a793623374917807f33a",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter015.xhtml",
+      "output": "17-第九章 转变方案第2阶段 第4～6周.md",
+      "characters_without_whitespace": 7040,
+      "text_sha256": "26265cd5c5dc28cce7330ac59ab6c792c43eb1865cf197d5bcfa4a2aa4e4da28",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter016.xhtml",
+      "output": "18-第十章 转变方案食谱.md",
+      "characters_without_whitespace": 17898,
+      "text_sha256": "14afddf0e41f46dfcdc218c5c64fbddef70bf16a3fd488004dcaf62381832929",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/xhtml/chapter017.xhtml",
+      "output": "19-第十一章 第7周及以后 一生健康.md",
+      "characters_without_whitespace": 7425,
+      "text_sha256": "554b29c8fef6c18f53848ec935c0d33edb14822f2e66311dfb884911a7802fc8",
+      "text_equal": true
+    },
+    {
+      "source": "EPUB/nav.xhtml",
+      "output": "20-141572_免疫革命：如何从根本上抵御并逆转自身免疫性疾病_【美】汤姆·奥布赖恩.md",
+      "characters_without_whitespace": 205,
+      "text_sha256": "ecacb8b03c06fc44a16d84c93f7df584774803b1ea6cafb20575ce417674f35b",
+      "text_equal": true
+    }
+  ]
+}
