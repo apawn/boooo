@@ -121,6 +121,42 @@
         "offset": 338
       },
       "createdAt": "2026-11-08T12:46:21.787Z"
+    },
+    {
+      "word": "stark",
+      "source": {
+        "url": "/?book=%E5%9B%BD%E5%AE%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%A4%B1%E8%B4%A5%EF%BC%88%E8%8B%B1%E6%B1%89%E7%9F%AD%E6%AE%B5%E5%AF%B9%E7%85%A7%E7%89%88%EF%BC%89&chapter=02-%E7%AC%AC01%E7%AB%A0-%E5%BE%88%E9%9D%A0%E8%BF%91%E5%8D%B4%E5%BE%88%E4%B8%8D%E4%B8%80%E6%A0%B7.md",
+        "book": "国家为什么会失败",
+        "chapter": "很靠近却很不一样",
+        "block": 169,
+        "text": "It should now be apparent that it is not a coincidence that the United States, and not Mexico, adopted and enforced a constitution that espoused democratic principles, created limitations on the use of political power, and distributed that power broadly in society. The document that the delegates sat down to write in Philadelphia in May 1787 was the outcome of a long process initiated by the formation of the General Assembly in Jamestown in 1619. The contrast between the constitutional process that took place at the time of the independence of the United States and the one that took place a little afterward in Mexico is stark.",
+        "offset": 628
+      },
+      "createdAt": "2026-11-15T17:24:42.704Z"
+    },
+    {
+      "word": "torch",
+      "source": {
+        "url": "/?book=%E5%9B%BD%E5%AE%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%A4%B1%E8%B4%A5%EF%BC%88%E8%8B%B1%E6%B1%89%E7%9F%AD%E6%AE%B5%E5%AF%B9%E7%85%A7%E7%89%88%EF%BC%89&chapter=02-%E7%AC%AC01%E7%AB%A0-%E5%BE%88%E9%9D%A0%E8%BF%91%E5%8D%B4%E5%BE%88%E4%B8%8D%E4%B8%80%E6%A0%B7.md",
+        "book": "国家为什么会失败",
+        "chapter": "很靠近却很不一样",
+        "block": 171,
+        "text": "In February 1808, Napoleon Bonaparte’s French armies invaded Spain. By May they had taken Madrid, the Spanish capital. By September the Spanish king Ferdinand had been captured and had abdicated. A national junta, the Junta Central, took his place, taking the torch in the fight against the French. The Junta met first at Aranjuez, but retreated south in the face of the French armies. Finally it reached the port of Cádiz, which, though besieged by Napoleonic forces, held out.",
+        "offset": 260
+      },
+      "createdAt": "2026-11-15T17:26:07.618Z"
+    },
+    {
+      "word": "besieged",
+      "source": {
+        "url": "/?book=%E5%9B%BD%E5%AE%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%A4%B1%E8%B4%A5%EF%BC%88%E8%8B%B1%E6%B1%89%E7%9F%AD%E6%AE%B5%E5%AF%B9%E7%85%A7%E7%89%88%EF%BC%89&chapter=02-%E7%AC%AC01%E7%AB%A0-%E5%BE%88%E9%9D%A0%E8%BF%91%E5%8D%B4%E5%BE%88%E4%B8%8D%E4%B8%80%E6%A0%B7.md",
+        "book": "国家为什么会失败",
+        "chapter": "很靠近却很不一样",
+        "block": 171,
+        "text": "In February 1808, Napoleon Bonaparte’s French armies invaded Spain. By May they had taken Madrid, the Spanish capital. By September the Spanish king Ferdinand had been captured and had abdicated. A national junta, the Junta Central, took his place, taking the torch in the fight against the French. The Junta met first at Aranjuez, but retreated south in the face of the French armies. Finally it reached the port of Cádiz, which, though besieged by Napoleonic forces, held out.",
+        "offset": 438
+      },
+      "createdAt": "2026-11-15T17:27:34.364Z"
     }
   ]
 }
